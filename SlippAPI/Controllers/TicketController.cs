@@ -42,7 +42,7 @@ namespace SlippAPI.Controllers
         }
 
         //TODO: Implement. Plan is to find something that belongs to the same auction or something like that.
-        [HttpGet]
+        /*[HttpGet]
         public async Task<ActionResult<List<CreateTicketOutput>>> GetTicketsWithIdRange(int minId, int maxId)
         {
             throw new NotImplementedException();
@@ -58,6 +58,6 @@ namespace SlippAPI.Controllers
         public async Task<ActionResult<List<CreateTicketOutput>>> GetTicketsFromAuctionId(int auctionId)
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }
