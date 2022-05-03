@@ -16,6 +16,11 @@ public class UserService
         _ctx = ctx;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public async Task<DatabaseUser> CreateAppUser(CreateAppUserInput input)
     {
         AppUser appUser = new AppUser
@@ -33,6 +38,7 @@ public class UserService
 
         if (!result.Succeeded) return null; //TODO: Throw maybe?
 
+        var roleResult = await _userManager.AddToRoleAsync(dbUser, StaticConfig.AppUserRole);
         var emailResult = await _userManager.SetEmailAsync(dbUser, input.Email);
 
         if (!emailResult.Succeeded) return null; //TODO: Throw maybe?
@@ -40,6 +46,11 @@ public class UserService
         return await _userManager.FindByEmailAsync(input.Email);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
     public async Task<DatabaseUser> GetAppUser(string email)
     {
         var user = await _ctx.Users.Include(u => u.AppUser).FirstOrDefaultAsync(u => u.Email == email);

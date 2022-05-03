@@ -15,6 +15,7 @@ public class AppUserController : ControllerBase
     }
 
     [HttpGet]
+    [Route("{email}")]
     public async Task<ActionResult> GetAppUser(string email)
     {
         var user = await _userService.GetAppUser(email);
@@ -47,6 +48,6 @@ public class AppUserController : ControllerBase
             Id = createdUser.Id
         };
 
-        return CreatedAtAction(nameof(GetAppUser), new {id = returnUser.Id}, returnUser);
+        return CreatedAtAction(nameof(GetAppUser), new {email = returnUser.Email}, returnUser);
     }
 }
