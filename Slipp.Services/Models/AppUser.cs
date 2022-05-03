@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
 namespace Slipp.Services.Models;
 
@@ -11,5 +10,5 @@ public class AppUser
     public List<Sale> Sales { get; set; }
     public List<Bid> Bids { get; set; }
     public string Id { get; set; }
-    [Key] [ForeignKey("Id")] public DatabaseUser DatabaseUser { get; set; }
+    [Key][ForeignKey("Id")] public DatabaseUser DatabaseUser { get; set; }
 }
