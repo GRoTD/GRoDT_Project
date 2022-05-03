@@ -1,0 +1,31 @@
+﻿h1 {
+    text-align: center;
+    padding: 20px 0;
+    font-weight: lighter;
+    font-size: 3rem;
+    font-family: fantasy;
+}
+
+.loginContainer {
+    margin: auto;
+    width: 250px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+input {
+    margin: 5px;
+    height: 30px;
+    border-radius: 10px;
+
+}
+
+button {
+    background-color: blueviolet;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 2px solid black;
+}
