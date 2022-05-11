@@ -8,13 +8,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippAPI", "SlippAPI\SlippA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slipp.Services", "Slipp.Services\Slipp.Services.csproj", "{2831AFBC-036A-4D49-8A91-F1E9296A57AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippShared", "SlippShared\SlippShared.csproj", "{34730940-A8C6-48FC-B07C-FF748DBF9AB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippShared", "SlippShared\SlippShared.csproj", "{34730940-A8C6-48FC-B07C-FF748DBF9AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippWeb.Server", "SlippWeb\Server\SlippWeb.Server.csproj", "{D6E0F7C2-9C79-4E3D-81A3-E670039B9B00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippWeb.Server", "SlippWeb\Server\SlippWeb.Server.csproj", "{D6E0F7C2-9C79-4E3D-81A3-E670039B9B00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippWeb.Client", "SlippWeb\Client\SlippWeb.Client.csproj", "{67211E4F-A71E-4D72-84E0-1882E5E3CB34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippWeb.Client", "SlippWeb\Client\SlippWeb.Client.csproj", "{67211E4F-A71E-4D72-84E0-1882E5E3CB34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippWeb.Shared", "SlippWeb\Shared\SlippWeb.Shared.csproj", "{11A1A8E1-D4CA-4F82-8BBC-2C6B80FF282E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippWeb.Shared", "SlippWeb\Shared\SlippWeb.Shared.csproj", "{11A1A8E1-D4CA-4F82-8BBC-2C6B80FF282E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

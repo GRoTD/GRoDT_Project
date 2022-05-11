@@ -1,11 +1,48 @@
 ﻿@page "/"
+@using System.ComponentModel.DataAnnotations
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>SLIPP.se</h1>
 
-Welcome to your new app.
+<EditForm Model="testUser" OnValidSubmit="isValidSubmit">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="loginContainer">
+        <label >
+            EmailAddress:
+            <input @bind="testUser.EmailAddress" />
+        </label>
+        <label >
+            Password:
+            <input @bind="testUser.Password"/>
+        </label>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+    </div>
+</EditForm>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
 
-<Counter increment="10"/>
+
+@code{
+
+    private TestUser testUser = new();
+
+    public class TestUser
+    {
+        [Required]
+        [EmailAddress]
+        public string EmailAddress { get; set; }
+        
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
+
+    private void isValidSubmit()
+    {
+
+    }
+
+}
