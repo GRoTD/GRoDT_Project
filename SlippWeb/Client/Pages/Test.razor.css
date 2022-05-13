@@ -1,0 +1,17 @@
+﻿.header{
+    background-color: black;
+    color: white;
+}
+.location-info{
+    text-align:center;
+    padding: 20px;
+}
+.header-menu{
+   display:flex;
+   justify-content: space-between;
+   padding: 0 20px;
+}
+.card{
+    margin: 10px 0px;
+    text-align: center;
+}

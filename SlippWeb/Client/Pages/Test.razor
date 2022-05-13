@@ -1,0 +1,97 @@
+﻿@page "/test"
+@using System.Text.Json
+@using System.Text.Json.Serialization;
+@*@inject IHttpClientFactory ClientFactory*@
+
+
+
+@*¨/test Består av olika komponenter + html-kod*@
+
+<div class="header">   
+    <div class="location-info">
+        <h3>Plats</h3>
+        <p>Adress XX, Göteborg</p>
+    </div>
+    <div class="header-menu">
+        <h3>Auktion</h3>
+        <h3>Standard</h3>
+    </div>
+</div>
+
+<div class="main-content">
+    @if (getAuctionsError)
+{
+    <p>Unable to load auctions. Please try again later.</p>
+}
+else
+{
+        @foreach (var auction in auctions)
+        {
+            <div class="card">
+                    <div class="card-header">
+                        <h1>@auction.Title </h1>
+                    </div>
+                    <div class="card-info">
+                        <h3>Max antal biljetter</h3>
+                        <p>8</p>
+                        <p>190 kr/person</p>
+                        <p>32 min 28 sek</p>
+                    </div>
+                    <div class="card-footer">
+                        <p>AUKTION</p>
+                    </div>
+            </div>
+        }
+}
+</div>
+
+
+
+
+
+@code {
+    //Flytta fetchanrop till komponenter eller till egen fil (motsvarande som vi gjorde i poke-uppgiften?) Förmodligen komponenter...
+    private List<Auction> auctions;
+    private bool getAuctionsError;
+    private bool shouldRender;  
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+           var request = new HttpRequestMessage(HttpMethod.Get,
+            "https://api.github.com/repos/dotnet/AspNetCore.Docs/branches"); //byt ut till vår url + headers
+        request.Headers.Add("Accept", "application/vnd.github.v3+json");
+        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+        //var client = ClientFactory.CreateClient();
+        var client=new HttpClient();
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            auctions = await JsonSerializer.DeserializeAsync
+                <List<Auction>>(responseStream);
+        }
+        else
+        {
+            getAuctionsError = true;
+        }
+
+        shouldRender = true;
+    }
+
+    public class Auction  //KÄnner inte av mina modellklasser...
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public DateTime IssueDateTime { get; set; }
+    public DateTime ExpiryDateTime { get; set; }
+    //public List<Bid> Bids { get; set; }
+    //public List<Ticket> Tickets { get; set; }
+    //public Club Club { get; set; }
+}
+}
+

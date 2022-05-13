@@ -18,6 +18,11 @@ builder.Services.AddScoped<TicketService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Blazor Server apps call web APIs using HttpClient instances, typically created using
+//IHttpClientFactory. For guidance that applies to Blazor Server,
+//see Make HTTP requests using IHttpClientFactory in ASP.NET Core.
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
