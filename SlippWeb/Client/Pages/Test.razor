@@ -1,6 +1,7 @@
 ﻿@page "/test"
 @using System.Text.Json
 @using System.Text.Json.Serialization;
+@using Slipp.Services.Models
 @*@inject IHttpClientFactory ClientFactory*@
 
 
@@ -9,35 +10,38 @@
 
 <div class="header">   
     <div class="location-info">
-        <h3>Plats</h3>
+        <h3>Plats <span id="dropdown-arrow">&#129171;</span></h3>
         <p>Adress XX, Göteborg</p>
     </div>
     <div class="header-menu">
         <h3>Auktion</h3>
         <h3>Standard</h3>
+        <div class="active-line"></div>
     </div>
 </div>
 
-<div class="main-content">
+<div class="main-container">
     @if (getAuctionsError)
 {
     <p>Unable to load auctions. Please try again later.</p>
 }
 else
 {
+    //TODO Byt ut hårkodad data
+    //Flytta kort till komponent?
         @foreach (var auction in auctions)
         {
-            <div class="card">
-                    <div class="card-header">
-                        <h1>@auction.Title </h1>
+            <div class="my-card">
+                    <div class="my-card-header">
+                        <h1>PARK LANE</h1>
                     </div>
-                    <div class="card-info">
-                        <h3>Max antal biljetter</h3>
-                        <p>8</p>
-                        <p>190 kr/person</p>
-                        <p>32 min 28 sek</p>
+                    <div class="my-card-info">
+                        <p>Max antal biljetter:</p>
+                        <h2><b>8</b></h2>
+                        <h4>190 kr/biljett</h4>
+                        <p id="auction-deadline">32 min 28 sek</p>
                     </div>
-                    <div class="card-footer">
+                    <div class="my-card-footer">
                         <p>AUKTION</p>
                     </div>
             </div>
@@ -83,15 +87,6 @@ else
         shouldRender = true;
     }
 
-    public class Auction  //KÄnner inte av mina modellklasser...
-{
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public DateTime IssueDateTime { get; set; }
-    public DateTime ExpiryDateTime { get; set; }
-    //public List<Bid> Bids { get; set; }
-    //public List<Ticket> Tickets { get; set; }
-    //public Club Club { get; set; }
-}
+
 }
 

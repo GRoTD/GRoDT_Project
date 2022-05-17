@@ -1,13 +1,59 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffe5e5;
 }
 
-h1:focus {
+.main-content{
+   
+}
+h1 {
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 58px;
+    color: #000000;
+    margin: 0px;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 33px;
+    line-height: 40px;
+    color: #000000;
+    margin: 0px;
+}
+h3 {
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 30px;
+    color: #FFFFFF;
+    margin: 0px;
+}
+
+h4 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    color: #FFFFFF;
+    margin: 0px;
+}
+
+
+h1: focus {
     outline: none;
 }
 
+p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+    margin: 0px;
+}
 a, .btn-link {
     color: #0071c1;
 }

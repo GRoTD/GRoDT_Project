@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Slipp.Services\Slipp.Services.csproj" />
     <ProjectReference Include="..\Shared\SlippWeb.Shared.csproj" />
   </ItemGroup>
 

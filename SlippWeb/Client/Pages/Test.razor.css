@@ -1,17 +1,75 @@
-﻿.header{
-    background-color: black;
+﻿/*header*/
+.header {
+    position:relative;
+    min-height: 200px;
+    background: #000000;
     color: white;
+    margin: 0;
 }
 .location-info{
     text-align:center;
-    padding: 20px;
+    padding-top: 40px;
 }
-.header-menu{
-   display:flex;
-   justify-content: space-between;
-   padding: 0 20px;
+.location-info p{
+color: white;
+padding: 10px 0 45px 0;
 }
-.card{
-    margin: 10px 0px;
+
+#dropdown-arrow {
+   position:absolute;
+   top: 50px;
+   padding-left: 5px;
+}
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+.active-line {
+    position: absolute;
+    width: 135px;
+    height: 4px;
+    left: 10px;
+    bottom: 3px;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+/*container form main content*/
+.main-container {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+/*my-card*/
+.my-card{
+    margin: 10px 30px;
+    width: 75%;
     text-align: center;
+    border: 1px solid black;
+    padding: 0px; 
+}
+.my-card > *,
+.my-card-info > *{
+    margin: 5px 0;
+}
+.my-card h4{
+color: black;
+}
+
+#auction-deadline{
+    font-weight: bold;
+    margin-top: 25px;
+}
+.my-card-footer{
+    background-color:black;
+    margin: 0;
+   
+}
+.my-card-footer p {
+    color: white;
+    padding: 3px 0;
 }
