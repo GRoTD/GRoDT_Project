@@ -2,7 +2,7 @@
 
 public class Sale
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public bool IsPayed { get; set; }
     public DateTime PaymentDeadline { get; set; }
     public DateTime BoughtDateTime { get; set; }

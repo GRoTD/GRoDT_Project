@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Slipp.Services.DTO;
 using Slipp.Services.Models;
-using SlippAPI.DTOs;
 
 namespace Slipp.Services;
 

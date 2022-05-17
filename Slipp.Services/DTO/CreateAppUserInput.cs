@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SlippAPI.DTOs;
+namespace Slipp.Services.DTO;
 
 public class CreateAppUserInput
 {

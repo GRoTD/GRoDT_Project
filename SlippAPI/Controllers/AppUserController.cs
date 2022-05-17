@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SlippAPI.DTOs;
+using Slipp.Services.DTO;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/user")]
 [ApiController]
 public class AppUserController : ControllerBase
 {

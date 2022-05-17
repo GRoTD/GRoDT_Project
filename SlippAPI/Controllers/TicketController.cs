@@ -1,62 +1,68 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SlippAPI.DTOs;
 using SlippAPI.Services;
 
-namespace SlippAPI.Controllers
+namespace SlippAPI.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class TicketController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TicketController : ControllerBase
+    private readonly TicketService _ticketService;
+
+    public TicketController(TicketService ticketService)
     {
-        private readonly TicketService _ticketService;
+        _ticketService = ticketService;
+    }
 
-        public TicketController(TicketService ticketService)
-        {
-            _ticketService = ticketService;
-        }
+    /* [HttpPost]
+     public async Task<ActionResult<List<CreateTicketOutput>>> CreateTickets(int amount,
+         CreateTicketInput ticketInput)
+     {
+         var tickets = await _ticketService.CreateTickets(amount, ticketInput);
+ 
+         var createdTickets = new List<CreateTicketOutput>();
+ 
+         foreach (var ticket in tickets)
+         {
+             var createdTicket = new CreateTicketOutput
+             {
+                 Id = ticket.Id,
+                 Title = ticket.Title,
+                 Price = ticket.Price,
+                 StartValidTime = ticket.StartValidTime,
+                 EndValidTime = ticket.EndValidTime
+             };
+ 
+             createdTickets.Add(createdTicket);
+         }
+ 
+         return Ok(createdTickets);
+     }*/
 
-        [HttpPost]
-        public async Task<ActionResult<List<CreateTicketOutput>>> CreateTickets(int amount,
-            CreateTicketInput ticketInput)
-        {
-            var tickets = await _ticketService.CreateTickets(amount, ticketInput);
+    [HttpGet]
+    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets()
+    {
+        //TODO: Catch errors
+        var tickets = await _ticketService.GetTicketsWithoutAuctions();
 
-            var createdTickets = new List<CreateTicketOutput>();
+        var returnTickets =
+            tickets.Select(ticket =>
+                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
+                .ToList();
 
-            foreach (var ticket in tickets)
-            {
-                var createdTicket = new CreateTicketOutput
-                {
-                    Id = ticket.Id,
-                    Title = ticket.Title,
-                    Price = ticket.Price,
-                    StartValidTime = ticket.StartValidTime,
-                    EndValidTime = ticket.EndValidTime
-                };
+        return Ok(returnTickets);
+    }
 
-                createdTickets.Add(createdTicket);
-            }
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult<List<CreateTicketOutput>>> GetTicket(Guid id)
+    {
+        //TODO: Catch errors
+        var ticket = await _ticketService.GetTicket(id);
 
-            return Ok(createdTickets);
-        }
+        var returnTicket =
+            CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}), ticket);
 
-        //TODO: Implement. Plan is to find something that belongs to the same auction or something like that.
-        /*[HttpGet]
-        public async Task<ActionResult<List<CreateTicketOutput>>> GetTicketsWithIdRange(int minId, int maxId)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<List<CreateTicketOutput>>> GetTicketsFromClub(int clubId)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<List<CreateTicketOutput>>> GetTicketsFromAuctionId(int auctionId)
-        {
-            throw new NotImplementedException();
-        }*/
+        return Ok(returnTicket);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SlippAPI.DTOs;
+﻿namespace Slipp.Services.DTO;
 
 public class CreatedAppUserReturn
 {
