@@ -1,6 +1,7 @@
 ﻿@page "/biljetter"
 @using System.Text.Json
 @using System.Text.Json.Serialization;
+@using Slipp.Services.DTO
 @using Slipp.Services.Models
 @*@inject IHttpClientFactory ClientFactory*@
 
@@ -29,11 +30,11 @@ else
 {
     //TODO Byt ut hårkodad data
     //Flytta kort till komponent?
-        @foreach (var auction in auctions)
+        @foreach (var ticket in tickets)
         {
             <div class="my-card">
                     <div class="my-card-header">
-                        <h1>GRETAS</h1>
+                        <h1>@ticket.Title</h1>
                     </div>
                     <div class="my-card-info">
                         <p>Max antal biljetter:</p>
@@ -55,7 +56,7 @@ else
 
 @code {
     //Flytta fetchanrop till komponenter eller till egen fil (motsvarande som vi gjorde i poke-uppgiften?) Förmodligen komponenter...
-    private List<Auction> auctions;
+    private List<CreateTicketOutput> tickets;
     private bool getAuctionsError;
     private bool shouldRender;  
 
@@ -64,9 +65,9 @@ else
     protected override async Task OnInitializedAsync()
     {
            var request = new HttpRequestMessage(HttpMethod.Get,
-            "https://api.github.com/repos/dotnet/AspNetCore.Docs/branches"); //byt ut till vår url + headers
-        request.Headers.Add("Accept", "application/vnd.github.v3+json");
-        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+            "https://localhost:7197/api/Ticket"); //byt ut till vår url + headers
+        request.Headers.Add("Accept", "application/json");
+        //request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
 
         //var client = ClientFactory.CreateClient();
         var client=new HttpClient();
@@ -76,8 +77,8 @@ else
         if (response.IsSuccessStatusCode)
         {
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            auctions = await JsonSerializer.DeserializeAsync
-                <List<Auction>>(responseStream);
+            tickets = await JsonSerializer.DeserializeAsync
+                <List<CreateTicketOutput>>(responseStream);
         }
         else
         {

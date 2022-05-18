@@ -13,6 +13,7 @@
 .location-info p{
 color: white;
 padding: 10px 0 45px 0;
+margin-bottom: 0;
 }
 
 .location-info h3{
@@ -80,4 +81,5 @@ color: black;
 .my-card-footer p {
     color: white;
     padding: 3px 0;
+    margin: 0px;
 }
