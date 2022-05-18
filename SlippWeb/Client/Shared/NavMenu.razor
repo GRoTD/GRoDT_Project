@@ -1,34 +1,27 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">SlippWeb</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿
+<nav class="navbar navbar-light">
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/home.svg" class="d-block svg-size" alt="home-icon">
+        HOME
+    </NavLink>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-    </nav>
-</div>
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/magnifying-glass.svg" class="d-block svg-size" alt="home-">
+        CLUBS
+    </NavLink>
 
-@code {
-    private bool collapseNavMenu = true;
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/heart.svg" class="d-block svg-size" alt="">
+        LIKE
+    </NavLink>
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/list.svg" class="d-block svg-size" alt="">
+        LIST
+    </NavLink>
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/person.svg" class="d-block svg-size" alt="">
+        USER
+    </NavLink>
+</nav>
