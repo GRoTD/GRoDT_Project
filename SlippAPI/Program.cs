@@ -10,9 +10,12 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SlippDbCtx>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SlippDb")));
-builder.Services.AddIdentity<DatabaseUser, IdentityRole>()
+builder.Services.AddIdentityCore<DatabaseUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SlippDbCtx>();
 builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<Database>();
+builder.Services.AddScoped<UserService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,9 +30,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
-    var ctx = services.GetRequiredService<SlippDbCtx>();
+    var db = services.GetRequiredService<Database>();
 
-    await ctx.Database.EnsureCreatedAsync();
+    await db.RecreateAndSeed();
 }
 
 app.UseHttpsRedirection();

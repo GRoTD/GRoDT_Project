@@ -3,6 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKPApp", "MKPApp\MKPApp.csproj", "{4FE9B697-768A-4414-BE92-5534B4254CDF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{67211E4F-A71E-4D72-84E0-1882E5E3CB34} = {67211E4F-A71E-4D72-84E0-1882E5E3CB34}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippAPI", "SlippAPI\SlippAPI.csproj", "{9263C311-501B-49E2-9F84-89B267C9C213}"
 EndProject

@@ -1,4 +1,5 @@
-﻿using SlippAPI.DTOs;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace SlippAPI.Services;
 
@@ -16,11 +17,10 @@ public class TicketService
     /// </summary>
     /// <param name="amount">Amount of tickets being createx'd</param>
     /// <param name="ticketInput">Ticket input</param>
-    /// <param name="club">Club that issued the ticket</param>
     /// <returns>A list of Tickets that have been added to the database</returns>
-    public async Task<List<Ticket>> CreateTickets(int amount, CreateTicketInput ticketInput)
+    public async Task<List<Ticket>> CreateTickets(Guid clubId, int amount, CreateTicketInput ticketInput)
     {
-        var dbClub = await _slippDbCtx.Clubs.FindAsync(ticketInput.ClubId);
+        var dbClub = await _slippDbCtx.Clubs.FindAsync(clubId);
 
         //TODO: Instead Throw exception to show what actually went wrong.
         if (dbClub is null) return null;
@@ -29,14 +29,7 @@ public class TicketService
 
         for (int i = 0; i < amount; i++)
         {
-            var ticket = new Ticket
-            {
-                Club = dbClub,
-                Title = ticketInput.Title,
-                Price = ticketInput.Price,
-                StartValidTime = ticketInput.StartValidTime,
-                EndValidTime = ticketInput.EndValidTime
-            };
+            var ticket = ticketInput.CreateTicket(dbClub);
 
             tickets.Add(ticket);
         }
@@ -47,5 +40,48 @@ public class TicketService
         //TODO: Check if some goes in to the db, or all goes in. Instead Throw exception to show what actually went wrong.
         if (result != amount) return null;
         return tickets;
+    }
+
+    public async Task<List<Ticket>> GetTicketsWithoutAuctions(Guid? clubId) //Add lon, lat, radius
+    {
+        var query = _slippDbCtx.Tickets
+            .Include(t => t.Club)
+            .Include(t => t.Sale)
+            .Where(t => t.Auction == null)
+            .AsQueryable();
+
+        //TODO: Can add filtering here. Ex clubId below. 
+        if (clubId != null) query = query.Where(t => t.Club.Id == clubId);
+
+        var tickets = await query.ToListAsync();
+
+        return tickets;
+    }
+
+    public async Task<List<Ticket>> GetTicketsWithoutAuctions()
+    {
+        return await GetTicketsWithoutAuctions(null);
+    }
+
+
+    public async Task<Ticket> GetTicket(Guid id)
+    {
+        var query = _slippDbCtx.Tickets
+            .Include(t => t.Club)
+            .Include(t => t.Sale)
+            .Include(t => t.Auction);
+
+        var ticket = await query.FirstOrDefaultAsync(t => t.Id == id);
+
+        if (ticket is null) throw new TicketNotFoundException("There is no ticket with that id");
+
+        return ticket;
+    }
+}
+
+public class TicketNotFoundException : Exception
+{
+    public TicketNotFoundException(string message) : base(message)
+    {
     }
 }
