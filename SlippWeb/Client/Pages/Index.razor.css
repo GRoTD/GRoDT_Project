@@ -6,9 +6,14 @@
     font-family: fantasy;
 }
 
+.title {
+    background-image: linear-gradient(180deg, hotpink 0%, pink 70%);
+}
+
 .loginContainer {
     margin: auto;
     width: 250px;
+    padding: 150px 0;
     justify-content: center;
     display: flex;
     flex-direction: column;

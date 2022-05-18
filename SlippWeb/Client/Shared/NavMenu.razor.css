@@ -12,10 +12,10 @@
 }
 
 
-.nav-link {
+::deep .nav-link {
     font-size: 0.7rem;
     line-height: 2;
-    font-weight: bold;
+    font-weight: 600;
     padding: 0;
     justify-content: center;
     align-items: center;
@@ -24,25 +24,46 @@
 }
 
 
-.nav-link:hover {
-        color: blueviolet;
+::deep .nav-link:hover {
+        color: whitesmoke;
     }
 
 img {
-    display: inline-block;
+    display: block;
     margin: auto;
 }
 
 
 @media (min-width: 641px) {
 
+    .navbar {
+        border-left: 1px solid black;
+        flex-direction: column;
+        align-items: start;
+    }
+
     img {
         display: inline-block;
     }
 
-    .navbar-toggler {
-        display: none;
+    ::deep .nav-link {
+        font-size: 1rem;
+        line-height: 2;
+        font-weight: 600;
+        padding: 10px;
+        margin: 0;
+        color: black;
+        width: 100%;
+        border-bottom: 1px solid black;
     }
+
+    ::deep .nav-link:hover {
+        color: blueviolet;
+    }
+
+        .navbar-toggler {
+            display: none;
+        }
 
     .collapse {
         /* Never collapse the sidebar for wide screens */
