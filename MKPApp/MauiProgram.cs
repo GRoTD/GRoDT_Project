@@ -19,6 +19,6 @@ public static class MauiProgram
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddSingleton<WeatherForecastService>();
 
-        return builder.Build();
-    }
+		return builder.Build();
+	}
 }
