@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Auctions.razor.css" />
     <None Remove="Pages\Index.razor.css" />
-    <None Remove="Pages\test.razor.css" />
+    <None Remove="Pages\Tickets.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Pages\Tickets.razor.css" />
     <Content Include="Pages\Index.razor.css" />
-    <Content Include="Pages\Test.razor.css" />
+    <Content Include="Pages\Auctions.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

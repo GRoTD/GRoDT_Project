@@ -15,21 +15,29 @@ color: white;
 padding: 10px 0 45px 0;
 }
 
+.location-info h3{
+    color: white;
+}
+
 #dropdown-arrow {
-   position:absolute;
-   top: 50px;
-   padding-left: 5px;
+    color: white;
+    position: absolute;
+    top: 50px;
+    padding-left: 5px;
 }
 .header-menu {
     display: flex;
     justify-content: space-between;
     padding: 10px 30px;
 }
+.header-menu > * {
+    color: white;
+}
 .active-line {
     position: absolute;
     width: 135px;
     height: 4px;
-    left: 10px;
+    right: 10px;
     bottom: 3px;
     background: #FFFFFF;
     border-radius: 10px;
