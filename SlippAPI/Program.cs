@@ -26,6 +26,18 @@ builder.Services.AddSwaggerGen();
 //see Make HTTP requests using IHttpClientFactory in ASP.NET Core.
 builder.Services.AddHttpClient();
 
+/*var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7292");
+        });
+});*/
+builder.Services.AddCors();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,7 +53,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+/*app.UseStaticFiles();*/
 
+/*app.UseCors(MyAllowSpecificOrigins);*/
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
 app.UseAuthorization();
 
 app.MapControllers();
