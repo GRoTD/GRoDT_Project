@@ -9,6 +9,7 @@
 .svg-size {
     width: 30px;
     height: 30px;
+    filter: invert(95%) sepia(87%) saturate(2928%) hue-rotate(304deg) brightness(106%) contrast(90%);
 }
 
 
@@ -20,7 +21,7 @@
     justify-content: center;
     align-items: center;
     margin: 0;
-    color: white;
+    color: #F2C080;
 }
 
 

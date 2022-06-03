@@ -10,16 +10,20 @@
     <ValidationSummary/>
     <div class="loginContainer">
         <label >
-            EmailAddress:
-            <input @bind="testUser.EmailAddress" />
+            <input @bind="testUser.EmailAddress" placeholder="Email"/>
         </label>
         <label >
-            Password:
-            <input @bind="testUser.Password"/>
+            <input @bind="testUser.Password" placeholder="Password"/>
         </label>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
+        <div class="btnContainer">
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <div>
+                <button type="submit">Register</button>
+            </div>
+        </div>
+        
     </div>
 </EditForm>
 

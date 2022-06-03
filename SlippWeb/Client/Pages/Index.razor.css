@@ -11,32 +11,49 @@
     background-image: url("Loggo/SlippLogga.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 90%;
     height: 150px;
+    margin-top: 100px;
     /*linear-gradient(180deg, hotpink 0%, pink 70%);*/
 }
 
 .loginContainer {
     margin: auto;
     width: 250px;
-    padding: 150px 0;
+    padding: 100px 0;
     justify-content: center;
+    align-content: start;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
+.btnContainer{
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+}
+
 input {
-    margin: 5px;
-    height: 30px;
+    width: 100%;
+    margin: 5px 0;
+    height: 35px;
     border-radius: 10px;
+    border: 2px solid #F2C080;
+    background-color: #3A4553;
+    color: #F2C080;
 
 }
 
+::placeholder{
+    padding-left: 5px;
+    color: #F2C080;
+}
+
 button {
-    background-color: blueviolet;
-    color: white;
-    font-size: 1.2rem;
+    background-color: #3A4553;
+    color: #F2C080;
+    font-size: 1rem;
     border-radius: 10px;
-    border: 2px solid black;
+    border: 2px solid #F2C080;
 }
