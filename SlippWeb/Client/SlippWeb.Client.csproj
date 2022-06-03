@@ -31,4 +31,8 @@
     <ProjectReference Include="..\Shared\SlippWeb.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Loggo" />
+  </ItemGroup>
+
 </Project>
