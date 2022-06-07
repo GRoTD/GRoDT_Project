@@ -59,7 +59,8 @@ img {
     }
 
     ::deep .nav-link:hover {
-        color: blueviolet;
+        color: #F2C080;
+        font-size: 1.2rem;
     }
 
         .navbar-toggler {
