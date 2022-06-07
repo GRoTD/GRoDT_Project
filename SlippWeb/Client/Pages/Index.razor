@@ -7,14 +7,16 @@
 
 <EditForm Model="testUser" OnValidSubmit="isValidSubmit">
     <DataAnnotationsValidator/>
-    <ValidationSummary/>
+   
     <div class="loginContainer">
         <label >
             <input @bind="testUser.EmailAddress" placeholder="Email"/>
         </label>
+        <ValidationMessage For="() => testUser.EmailAddress"/>
         <label >
             <input @bind="testUser.Password" placeholder="Password"/>
         </label>
+        <ValidationMessage For="() => testUser.Password"/>
         <div class="btnContainer">
             <div>
                 <button type="submit">Login</button>
@@ -29,17 +31,17 @@
 
 
 
-@code{ //TODO - Tillfällig DTO byt ut senare.
+@code{ //TODO - Tillfällig DTO byt ut senare, plocka med ErrorMessages.
 
     private TestUser testUser = new();
 
     public class TestUser
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Du måste ange en e-postadress")]
+        [EmailAddress(ErrorMessage = "Angiven e-postadress inte giltig format")]
         public string EmailAddress { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Du måste ange ett lösenord")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

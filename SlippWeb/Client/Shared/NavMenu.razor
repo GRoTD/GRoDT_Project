@@ -1,5 +1,10 @@
-﻿
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+
+
 <nav class="navbar navbar-light">
+
     <NavLink class="nav-link" href="#">
         <img src="/css/open-iconic/svg/home.svg" class="svg-size" alt="home-icon">
         HOME
@@ -19,9 +24,25 @@
         <img src="/css/open-iconic/svg/clipboard.svg" class="svg-size" alt="">
         LISTS
     </NavLink>
+    
+    <AuthorizeView>
 
-    <NavLink class="nav-link" href="#svg">
-        <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
-        USER
-    </NavLink>
+        <Authorized>
+            <NavLink class="nav-link" href="/">
+                <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
+                USER
+            </NavLink>
+        </Authorized>
+
+        <NotAuthorized>
+            <NavLink class="nav-link" href="/">
+                <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
+                LOGIN
+            </NavLink>
+        </NotAuthorized>
+
+    </AuthorizeView>
+
+    
+
 </nav>
