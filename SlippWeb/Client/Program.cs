@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 using SlippWeb.Client;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -16,5 +17,7 @@ builder.Services.AddOidcAuthentication(options =>
 });
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore(); //STUDY https://docs.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-6.0#authorizeview-component
+
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

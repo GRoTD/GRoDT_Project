@@ -1,9 +1,12 @@
-﻿@inherits LayoutComponentBase
+﻿@using MudBlazor.Utilities
+@inherits LayoutComponentBase
 
+<MudThemeProvider Theme="_darkTheme"/>
 <div class="page">
 
     <main>
-       <article class="content">
+        
+        <article class="content">
             @Body
         </article>
     </main>
@@ -12,3 +15,42 @@
         <NavMenu />
     </div>
 </div>
+
+
+@code
+{
+    private MudTheme _darkTheme = new MudTheme()
+    {
+            Palette = new Palette()
+            {
+                Primary = (MudColor) "#776be7",
+                Black = (MudColor) "#27272f",
+                Background = (MudColor) "#3A4553",
+                BackgroundGrey = (MudColor) "#27272f",
+                Surface = (MudColor) "#373740",
+                DrawerBackground = (MudColor) "#27272f",
+                DrawerText = (MudColor) "rgba(255,255,255, 0.50)",
+                DrawerIcon = (MudColor) "rgba(255,255,255, 0.50)",
+                AppbarBackground = (MudColor) "#27272f",
+                AppbarText = (MudColor) "rgba(255,255,255, 0.70)",
+                TextPrimary = (MudColor) "#F2C080",
+                TextSecondary = (MudColor) "rgba(255,255,255, 0.50)",
+                ActionDefault = (MudColor) "#adadb1",
+                ActionDisabled = (MudColor) "rgba(255,255,255, 0.26)",
+                ActionDisabledBackground = (MudColor) "rgba(255,255,255, 0.12)",
+                Divider = (MudColor) "rgba(255,255,255, 0.12)",
+                DividerLight = (MudColor) "rgba(255,255,255, 0.06)",
+                TableLines = (MudColor) "rgba(255,255,255, 0.12)",
+                LinesDefault = (MudColor) "rgba(255,255,255, 0.12)",
+                LinesInputs = (MudColor) "rgba(255,255,255, 0.3)",
+                TextDisabled = (MudColor) "rgba(255,255,255, 0.2)",
+                Info = (MudColor) "#3299ff",
+                Success = (MudColor) "#0bba83",
+                Warning = (MudColor) "#ffa800",
+                Error = (MudColor) "#f64e62",
+                Dark = (MudColor) "#27272f",
+
+
+            }
+        };
+}
