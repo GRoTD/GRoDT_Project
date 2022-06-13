@@ -2,7 +2,33 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 
+<MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">        
+            <img src="/css/open-iconic/svg/home.svg" class="svg-size" alt="home-icon">
+            HOME
+        </MudNavLink>
+        <MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <img src="/css/open-iconic/svg/magnifying-glass.svg" class="svg-size" alt="home-">
+            CLUBS
+        </MudNavLink>
+        <MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <img src="/css/open-iconic/svg/heart.svg" class="svg-size" alt="">
+            LIKES
+        </MudNavLink>
+         <MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <img src="/css/open-iconic/svg/clipboard.svg" class="svg-size" alt="">
+            LISTS
+        </MudNavLink>
+      
 
+
+        <MudNavLink Href="/biljetter" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <span class="oi oi-home" aria-hidden="true"></span> Biljetter
+        </MudNavLink>  
+        <MudNavLink Href="auktioner" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <span class="oi oi-home" aria-hidden="true"></span> Auktioner
+        </MudNavLink>
+
+@*
 <nav class="navbar navbar-light">
 
     <NavLink class="nav-link" href="#">
@@ -24,7 +50,7 @@
         <img src="/css/open-iconic/svg/clipboard.svg" class="svg-size" alt="">
         LISTS
     </NavLink>
-    
+
     <AuthorizeView>
 
         <Authorized>
@@ -39,23 +65,21 @@
                 <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
                 LOGIN
             </NavLink>
-          </div>
-
-        <div class="nav-item px-3">
+          
+        
             <NavLink class="nav-link" href="auktioner">
                 <span class="oi oi-home" aria-hidden="true"></span> Auktioner
             </NavLink>
-        </div>
+        
 
-        <div class="nav-item px-3">
+        
             <NavLink class="nav-link" href="biljetter">
                 <span class="oi oi-home" aria-hidden="true"></span> Biljetter
             </NavLink>
-        </div>
-      
+       
+        </NotAuthorized>
+      </AuthorizeView>
     </nav>
-</div>
 
-    
-
-</nav>
+*@
+  

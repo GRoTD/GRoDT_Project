@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations
+@inject NavigationManager _nav
 
 <PageTitle>Index</PageTitle>
 
@@ -22,7 +23,7 @@
                 <button type="submit">Login</button>
             </div>
             <div>
-                <button type="submit">Register</button>
+                <button type="button" onclick="@(()=>_nav.NavigateTo("/register"))" >Register</button>
             </div>
         </div>
         
@@ -50,5 +51,5 @@
     {
 
     }
-
+    
 }

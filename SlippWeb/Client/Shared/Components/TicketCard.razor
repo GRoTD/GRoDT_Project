@@ -1,0 +1,27 @@
+﻿@using Slipp.Services.DTO
+
+
+
+
+ <div class="my-card">
+                    <div class="my-card-header">
+                        <h1>@Ticket.Title</h1>
+                    </div>
+                    <div class="my-card-info">
+                        <p>Max antal biljetter:</p>
+                        <h2><b>8</b></h2>
+                        <h4>@Ticket.Price</h4>
+                        <p id="auction-deadline">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString() </p>
+                    </div>
+                    <div class="my-card-footer">
+                        <p>BILJETT</p>
+                    </div>
+            </div>
+
+
+
+
+@code {
+    [Parameter] public CreateTicketOutput Ticket { get; set; }
+        
+}
