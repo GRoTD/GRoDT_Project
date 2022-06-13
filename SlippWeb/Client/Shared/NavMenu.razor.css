@@ -1,59 +1,71 @@
-.navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+.navbar {
+    justify-content: space-evenly;
 }
 
-.top-row {
-    height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+.svg-fill {
+    fill: white;
 }
 
-.navbar-brand {
-    font-size: 1.1rem;
+.svg-size {
+    width: 30px;
+    height: 30px;
+    filter: invert(95%) sepia(87%) saturate(2928%) hue-rotate(304deg) brightness(106%) contrast(90%);
 }
 
-.oi {
-    width: 2rem;
-    font-size: 1.1rem;
-    vertical-align: text-top;
-    top: -2px;
+
+::deep .nav-link {
+    font-size: 0.7rem;
+    line-height: 2;
+    font-weight: 600;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: #F2C080;
 }
 
-.nav-item {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
-}
 
-    .nav-item:first-of-type {
-        padding-top: 1rem;
+::deep .nav-link:hover {
+        color: whitesmoke;
     }
 
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
-    }
-
-    .nav-item ::deep a {
-        color: #d7d7d7;
-        border-radius: 4px;
-        height: 3rem;
-        display: flex;
-        align-items: center;
-        line-height: 3rem;
-    }
-
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
-    color: white;
+img {
+    display: block;
+    margin: auto;
 }
 
-.nav-item ::deep a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
 
 @media (min-width: 641px) {
-    .navbar-toggler {
-        display: none;
+
+    .navbar {
+        border-left: 1px solid black;
+        flex-direction: column;
+        align-items: start;
     }
+
+    img {
+        display: inline-block;
+    }
+
+    ::deep .nav-link {
+        font-size: 1rem;
+        line-height: 2;
+        font-weight: 600;
+        padding: 10px;
+        margin: 0;
+        color: white;
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+
+    ::deep .nav-link:hover {
+        color: #F2C080;
+        font-size: 1.2rem;
+    }
+
+        .navbar-toggler {
+            display: none;
+        }
 
     .collapse {
         /* Never collapse the sidebar for wide screens */
