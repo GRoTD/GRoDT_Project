@@ -1,12 +1,18 @@
-
+:root {
+    --background-color-dark: #3A4553;
+}
 .page {
     position: relative;
     display: flex;
     flex-direction: column;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-style: normal;
-    background-color: #ffe5e5;
+    background-color: blue;
 }
+
+    .page h1 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
 main {
     
@@ -14,6 +20,7 @@ main {
 
 
 h1 {
+    
     font-weight: 400;
     font-size: 35px;
     line-height: 58px;
