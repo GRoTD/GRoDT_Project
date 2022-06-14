@@ -1,0 +1,18 @@
+[
+  {
+    "title": "En kväll på Locatelli",
+    "price": "250",
+    "startValidTime": "2022-04-15T08:12:45 -02:00",
+    "endValidTime": "2022-04-15T08:12:45 -02:00",
+    "id": "1",
+    "images": [
+      {
+        "id": "1",
+        "url": "/locatelli.jpg"
+      }
+    ]
+  },
+  {
+
+  }
+]
