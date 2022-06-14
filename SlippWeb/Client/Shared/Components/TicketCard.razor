@@ -3,7 +3,7 @@
 
 
 
- <div class="my-card">
+ @*<div class="my-card">
                     <div class="my-card-header">
                         <h1>@Ticket.Title</h1>
                     </div>
@@ -16,10 +16,33 @@
                     <div class="my-card-footer">
                         <p>BILJETT</p>
                     </div>
-            </div>
+            </div>*@
 
 
-
+<MudCard Class="mb-4">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudAvatar Color="Color.Secondary">T</MudAvatar>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">@Ticket.Title</MudText>
+            @*<MudText Typo="Typo.body2">Peninsula in Europe</MudText>*@
+        </CardHeaderContent>
+        @*<CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+        </CardHeaderActions>*@
+    </MudCardHeader>
+    <MudCardMedia Image="images/pilars.jpg" Height="250"/>
+    <MudCardContent>
+        <MudText Typo="Typo.body2">Max antal biljetter:</MudText>
+        <MudText Typo="Typo.h2">8</MudText>
+        <MudText Typo="Typo.body1">@Ticket.Price SEK</MudText>
+        <MudText Typo="Typo.body1">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
+    </MudCardActions>
+</MudCard>
 
 @code {
     [Parameter] public CreateTicketOutput Ticket { get; set; }
