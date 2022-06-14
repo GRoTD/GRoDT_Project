@@ -11,6 +11,7 @@ public class CreateTicketOutput
     [JsonPropertyName("startValidTime")] public DateTime StartValidTime { get; set; }
     [JsonPropertyName("endValidTime")] public DateTime EndValidTime { get; set; }
     [JsonPropertyName("clubUrl")] public string ClubUrl { get; set; }
+    [JsonPropertyName("images")] public List<Image> Images { get; set; }
 
     public static CreateTicketOutput Create(string clubUrl, Ticket ticket)
     {
@@ -21,7 +22,8 @@ public class CreateTicketOutput
             Price = ticket.Price,
             Id = ticket.Id,
             StartValidTime = ticket.StartValidTime,
-            ClubUrl = clubUrl //TODO: Fix to use IUrlHelper.Action()
+            ClubUrl = clubUrl, //TODO: Fix to use IUrlHelper.Action()
+            Images = ticket.Images
         };
 
         return outputTicket;
