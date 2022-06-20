@@ -1,18 +1,74 @@
 [
   {
+    "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
     "title": "En kväll på Locatelli",
     "price": "250",
-    "startValidTime": "2022-04-15T08:12:45 -02:00",
-    "endValidTime": "2022-04-15T08:12:45 -02:00",
-    "id": "1",
+    "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
       {
         "id": "1",
-        "url": "/locatelli.jpg"
+        "url": "images/locatelli.jpg"
       }
     ]
   },
   {
-
-  }
+    "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
+    "title": "En kväll på Lounge",
+    "price": "350",
+    "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
+    "images": [
+      {
+        "id": "2",
+        "url": "images/lounge.jpg"
+      }
+    ]
+  },
+  {
+    "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
+    "title": "Port du Soleil",
+    "price": "300",
+    "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
+    "images": [
+      {
+        "id": "3",
+        "url": "images/portdusoleil.jpg"
+      }
+    ]
+  },
+  {
+    "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
+    "title": "En kväll på Push",
+    "price": "300",
+    "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
+    "images": [
+      {
+        "id": "4",
+        "url": "images/push.jpg"
+      }
+    ]
+  },
+  {
+    "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
+    "title": "Puta Madre",
+    "price": "300",
+    "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
+    "images": [
+      {
+        "id": "5",
+        "url": "images/putamadre.jpg"
+      }
+    ]
+  },
+  {
+    "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
+    "title": "Stranger",
+    "price": "300",
+    "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
+    "images": [
+      {
+        "id": "6",
+        "url": "images/stranger.jpg"
+      }
+    ]
+  } 
 ]
