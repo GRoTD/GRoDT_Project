@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Slipp.Services\Slipp.Services.csproj" />
-    <ProjectReference Include="..\Shared\SlippWeb.Shared.csproj" />
   </ItemGroup>
 
 </Project>

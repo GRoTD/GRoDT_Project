@@ -1,48 +1,58 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using MudBlazor.Utilities
+@using System.Dynamic
 
+<MudAppBar Class="py-1" DisableGutters="false" Fixed="true" Bottom="true">
+    <MudGrid Justify="Justify.SpaceAround">
+        <MudItem>
+            <MudLink Href="#" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Home" Title="HOME" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Color="Color.Primary">HOME</MudText>
+            </MudLink>
+        </MudItem>
+        
+        <MudItem>
+            <MudLink Href="#" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Search" Title="CLUBS" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Color="Color.Primary">CLUBS</MudText>
+            </MudLink>
+        </MudItem>
 
+        <MudItem>
+            <MudLink Href="#" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Favorite" Title="LIKES" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Color="Color.Primary">LIKES</MudText>
+            </MudLink>
+        </MudItem>
 
-<nav class="navbar navbar-light">
+        <MudItem>
+            <MudLink Href="#" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.ListAlt" Title="LISTS" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Color="Color.Primary">LISTS</MudText>
+            </MudLink>
+        </MudItem>
 
-    <NavLink class="nav-link" href="#">
-        <img src="/css/open-iconic/svg/home.svg" class="svg-size" alt="home-icon">
-        HOME
-    </NavLink>
+        <AuthorizeView>
 
-    <NavLink class="nav-link" href="#">
-        <img src="/css/open-iconic/svg/magnifying-glass.svg" class="svg-size" alt="home-">
-        CLUBS
-    </NavLink>
+            <Authorized>
+                <MudItem>
+                    <MudLink Href="#" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                        <MudIcon Icon="@Icons.Filled.Person" Title="USER" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                        <MudText Color="Color.Primary">USER</MudText>
+                    </MudLink>
+                </MudItem>
+            </Authorized>
 
-    <NavLink class="nav-link" href="#">
-        <img src="/css/open-iconic/svg/heart.svg" class="svg-size" alt="">
-        LIKES
-    </NavLink>
+            <NotAuthorized>
+                <MudItem>
+                    <MudLink Href="/Login" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                        <MudIcon Icon="@Icons.Filled.Login" Title="LOGIN" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                        <MudText Color="Color.Primary">LOGIN</MudText>
+                    </MudLink>
+                </MudItem>
+            </NotAuthorized>
 
-    <NavLink class="nav-link" href="#">
-        <img src="/css/open-iconic/svg/clipboard.svg" class="svg-size" alt="">
-        LISTS
-    </NavLink>
-
-    <AuthorizeView>
-
-        <Authorized>
-            <NavLink class="nav-link" href="/">
-                <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
-                USER
-            </NavLink>
-        </Authorized>
-
-        <NotAuthorized>
-            <NavLink class="nav-link" href="/login">
-                <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
-                LOGIN
-            </NavLink>
-        </NotAuthorized>
-
-    </AuthorizeView>
-
-    
-
-</nav>
+        </AuthorizeView>
+    </MudGrid>
+</MudAppBar>
