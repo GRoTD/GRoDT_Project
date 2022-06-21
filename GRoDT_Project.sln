@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slipp.Services", "Slipp.Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippWeb.Client", "SlippWeb\Client\SlippWeb.Client.csproj", "{67211E4F-A71E-4D72-84E0-1882E5E3CB34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlippWeb.Pages", "SlippWeb.Pages\SlippWeb.Pages.csproj", "{B5567730-77EE-4676-A1DF-CB5E165EE0C1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +37,6 @@ Global
 		{67211E4F-A71E-4D72-84E0-1882E5E3CB34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67211E4F-A71E-4D72-84E0-1882E5E3CB34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67211E4F-A71E-4D72-84E0-1882E5E3CB34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5567730-77EE-4676-A1DF-CB5E165EE0C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5567730-77EE-4676-A1DF-CB5E165EE0C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5567730-77EE-4676-A1DF-CB5E165EE0C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5567730-77EE-4676-A1DF-CB5E165EE0C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
