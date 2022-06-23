@@ -12,17 +12,7 @@
 
 @*¨/test Består av olika komponenter + html-kod*@
 
-<div class="header">   
-    <div class="location-info">
-        <h3>Plats <span id="dropdown-arrow">&#129171;</span></h3>
-        <p>Adress XX, Göteborg</p>
-    </div>
-    <div class="header-menu">
-        <h3>Auktioner</h3>
-        <h3>Biljetter</h3>
-        <div class="active-line"></div>
-    </div>
-</div>
+<Header></Header>
 
 <div class="main-container">
     @if (getAuctionsError)
@@ -30,14 +20,11 @@
     <p>Unable to load auctions. Please try again later.</p>
 }
 else
-{
-    //TODO Byt ut hårkodad data
-        @foreach (var ticket in tickets)
+    {
+    @foreach (var ticket in tickets)
         {
-            
-                <TicketCard Ticket=ticket></TicketCard> 
-            
-                }
+            <TicketCard Ticket=ticket></TicketCard>
+        }
 }
 </div>
 

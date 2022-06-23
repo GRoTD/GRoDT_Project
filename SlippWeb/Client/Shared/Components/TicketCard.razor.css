@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+   
     
 }
 ::deep .my-card {
@@ -49,7 +50,7 @@
 
 .ticket-circles p {
     position: absolute;
-    background: #ffffff;
+    background: #3a4553;
     width: 30px;
     height: 30px;
     border-radius: 50%;
