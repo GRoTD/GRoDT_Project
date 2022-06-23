@@ -1,0 +1,9 @@
+﻿/*Klipp ut till egen komponent (eftersom denna är delad mellan tre sidor?)*/
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #3a4553;
+    padding-top: 20px;
+}

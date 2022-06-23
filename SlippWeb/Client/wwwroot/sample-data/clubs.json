@@ -1,0 +1,90 @@
+[
+  {
+
+    "name": "Locatelli",
+    "address": "KUNGSPORTSAVENYN 36-38, GÖTEBORG",
+    "description": "Välkomna in till Locatelli! En social, atmosfärisk cocktailbar med livlig musik, frestande meny och ett spetsat fokus på stämning.",
+    "website": "https://elite.se/sv/hotell/goteborg/park-avenue-hotel/locatelli/",
+    "images": [
+      {
+        "id": "1",
+        "url": "images/locatelli.jpg"
+      }
+    ]
+  },
+  {
+
+    "name": "Push",
+    "address": "KUNGSPORTSAVENYN 11, GÖTEBORG,",
+    "description": "Välkommen till den djärva storsatsningen som förändrat Göteborgs nattliv i grunden och äntligen tillfört staden en högklassig nattklubb av internationellt snitt. Push erbjuder en intim och diskret festupplevelse med högsta standard och personlig service utan motstycke.",
+    "website": "https://www.push.se/",
+    "images": [
+      {
+        "id": "4",
+        "url": "images/push.jpg"
+      }
+    ]
+  },
+  {
+
+    "name": "Lounge",
+    "address": "KUNGSPORTSAVENYN 5, GÖTEBORG,",
+    "description": "Nattklubb i flera våningar med populär takterrass. En av Avenyns mest etablerade nattklubbar. På flera våningar finns allt som behövs för en lyckad utekväll som barer, dansgolv, roulette och en populär takterass.",
+    "website": "https://lounges.se/",
+    "images": [
+      {
+        "id": "2",
+        "url": "images/lounge.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Port du Soleil",
+    "address": "NYA ALLÉN 11, GÖTEBORG,",
+    "description": "Varje sommar öppnar Port Du Soleil upp en sommarlounge och internationell nattklubb. På den stora solterassen kan du uppleva en känsla av Rivieran mitt i Göteborg med dj:s, spännande mat och ändlösa sommarnätter.",
+    "website": "https://www.portdusoleil.se/",
+    "images": [
+      {
+        "id": "3",
+        "url": "images/portdusoleil.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Excet",
+    "address": "VASAGATAN 52, GÖTEBORG,",
+    "description": "Excet är en av Göteborgs största och populäraste nattklubbar, mitt på Avenyn. Med fyra dansgolv, nio barer och en stor takterrass får du massa olika upplevelser under samma tak. Go party!",
+    "website": "https://www.facebook.com/excetgbg/",
+    "images": [
+      {
+        "id": "7",
+        "url": "images/excet.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Puta Madre",
+    "address": "MAGASINSGATAN 3, GÖTEBORG,",
+    "description": "Puta Madre är en spansk svordom som ungefär betyder *”€%!!+##*§§. Förutom detta kan det även betyda att något är jävligt bra. I Göteborg står Puta Madre för jävligt bra mexikansk mat i en härlig miljö. Och om du, likt många andra, förknippar tequila med äckliga shotrace och citronslabb utmanar vi dig att göra ett nytt försök hos oss. Du kommer inte att bli besviken.",
+    "website": "https://www.putamadre.se/",
+    "images": [
+      {
+        "id": "5",
+        "url": "images/putamadre.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Stranger",
+    "address": "KUNGSTORGET 14, GÖTEBORG,",
+    "description": "Via en hemlig ingång till en källare under Tranquilo ligger cocktailbaren Stranger. Här kan du beställa några av Göteborgs bästa drinkar i en stämningsfull miljö. Med musik och ljussättning skapas känslan av att Stranger är en hemlig bar under den amerikanska förbudstiden.",
+    "website": "https://www.strangergbg.com/",
+    "images": [
+      {
+        "id": "6",
+        "url": "images/stranger.jpg"
+      }
+    ]
+  }
+
+]

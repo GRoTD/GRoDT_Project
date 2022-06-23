@@ -1,0 +1,36 @@
+﻿@using Slipp.Services.DTO
+@using Slipp.Services.Models
+
+<div>
+<div class="component-content">
+    <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
+        <div class="my-clubCard-content">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h4">@Club.Name</MudText>
+                    </CardHeaderContent>
+
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">@Club.Address</MudText>
+                    <MudText Typo="Typo.body2">@Club.Website</MudText>
+                    <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
+                </MudCardContent>
+                <MudCardActions>
+
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Biljetter</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Auktioner</MudButton>
+
+                </MudCardActions>
+            </MudCard>
+        </div>
+    </div>
+</div>
+</div>
+
+@code {
+    [Parameter] public ClubOutput Club { get; set; }
+     
+    
+}

@@ -1,0 +1,12 @@
+﻿::deep.component-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+::deep.my-club-card {
+    width: 90%;
+    margin-bottom: 20px;
+    background-position: center;
+    background-size: cover;
+}

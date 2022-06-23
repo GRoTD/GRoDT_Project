@@ -1,0 +1,64 @@
+﻿@page "/nattklubbar"
+@using Slipp.Services.DTO
+@using Slipp.Services.Models
+@inject HttpClient Client
+
+
+<Header></Header>
+
+<div class="main-container">
+    @if (getAuctionsError)
+    {
+        <p>Unable to load auctions. Please try again later.</p>
+    }
+    else
+    {
+        @foreach (var club in clubs)
+        {
+            <Club_smallCard Club=club></Club_smallCard>
+        }
+    }
+</div>
+
+
+
+
+
+@code {
+    //Flytta fetchanrop till komponenter eller till egen fil (motsvarande som vi gjorde i poke-uppgiften?) Förmodligen komponenter...
+    private ClubOutput[] clubs;
+    //private List<CreateTicketOutput> tickets;
+    private bool getAuctionsError;
+    private bool shouldRender;  
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
+    //var request = new HttpRequestMessage(HttpMethod.Get,
+    //   "https://localhost:7197/api/Ticket"); //byt ut till vår url + headers
+    //request.Headers.Add("Accept", "application/json");
+    ////request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+    ////var client = ClientFactory.CreateClient();
+    //var client=new HttpClient();
+
+    //var response = await client.SendAsync(request);
+
+    //if (response.IsSuccessStatusCode)
+    //{
+    //    using var responseStream = await response.Content.ReadAsStreamAsync();
+    //    tickets = await JsonSerializer.DeserializeAsync
+    //        <List<CreateTicketOutput>>(responseStream);
+    //}
+    //else
+    //{
+    //    getAuctionsError = true;
+    //}
+
+        shouldRender = true;
+    }
+
+
+}
