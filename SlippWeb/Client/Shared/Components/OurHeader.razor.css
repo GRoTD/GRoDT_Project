@@ -1,0 +1,48 @@
+﻿.location-info {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.location-info p {
+    color: #f2c080;
+    padding: 10px 0 45px 0;
+    margin-bottom: 0;
+}
+
+.location-info h3 {
+    color: white;
+}
+
+#dropdown-arrow {
+    color: white;
+    position: absolute;
+    top: 50px;
+    padding-left: 5px;
+}
+
+.header {
+    position: relative;
+    min-height: 200px;
+    background-color: #27272f; /*Byt till rätt färg*/
+    margin: 0;
+}
+
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+
+.header-menu > * {
+    color: white;
+}
+
+.active-line {
+    position: absolute;
+    width: 135px;
+    height: 4px;
+    right: 10px;
+    bottom: 3px;
+    background: #FFFFFF;
+    border-radius: 10px;
+}

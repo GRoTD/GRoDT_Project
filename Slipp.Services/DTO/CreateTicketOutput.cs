@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Slipp.Services.Models;
+using System.Text.Json.Serialization;
 
 namespace Slipp.Services.DTO;
 
@@ -13,6 +14,7 @@ public class CreateTicketOutput
     [JsonPropertyName("endValidTime")] public DateTime EndValidTime { get; set; }
     [JsonPropertyName("clubName")] public string ClubName { get; set; }
     [JsonPropertyName("clubUrl")] public string ClubUrl { get; set; }
+    [JsonPropertyName("images")] public List<Image> Images { get; set; }
 
     public static CreateTicketOutput Create(string clubUrl, Ticket ticket)
     {
@@ -24,9 +26,13 @@ public class CreateTicketOutput
             Id = ticket.Id,
             StartValidTime = ticket.StartValidTime,
             ClubName = ticket.Club.Name,
-            ClubUrl = clubUrl //TODO: Fix to use IUrlHelper.Action()
+            ClubUrl = clubUrl, //TODO: Fix to use IUrlHelper.Action()
+            Images = ticket.Images
         };
 
         return outputTicket;
     }
 }
+
+//"startValidTime": "2022-06-14T21:00:00",
+//"endValidTime": "2022-06-15T00:00:00",

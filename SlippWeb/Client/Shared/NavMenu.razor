@@ -1,34 +1,85 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">SlippWeb</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+
+<MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">        
+            <img src="/css/open-iconic/svg/home.svg" class="svg-size" alt="home-icon">
+            HOME
+        </MudNavLink>
+        <MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <img src="/css/open-iconic/svg/magnifying-glass.svg" class="svg-size" alt="home-">
+            CLUBS
+        </MudNavLink>
+        <MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <img src="/css/open-iconic/svg/heart.svg" class="svg-size" alt="">
+            LIKES
+        </MudNavLink>
+         <MudNavLink Href="#" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <img src="/css/open-iconic/svg/clipboard.svg" class="svg-size" alt="">
+            LISTS
+        </MudNavLink>
+      
+
+
+        <MudNavLink Href="/biljetter" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <span class="oi oi-home" aria-hidden="true"></span> Biljetter
+        </MudNavLink>  
+        <MudNavLink Href="auktioner" Class="nav-link" Match="NavLinkMatch.Prefix">
+            <span class="oi oi-home" aria-hidden="true"></span> Auktioner
+        </MudNavLink>
+
+@*
+<nav class="navbar navbar-light">
+
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/home.svg" class="svg-size" alt="home-icon">
+        HOME
+    </NavLink>
+
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/magnifying-glass.svg" class="svg-size" alt="home-">
+        CLUBS
+    </NavLink>
+
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/heart.svg" class="svg-size" alt="">
+        LIKES
+    </NavLink>
+
+    <NavLink class="nav-link" href="#">
+        <img src="/css/open-iconic/svg/clipboard.svg" class="svg-size" alt="">
+        LISTS
+    </NavLink>
+
+    <AuthorizeView>
+
+        <Authorized>
+            <NavLink class="nav-link" href="/">
+                <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
+                USER
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+        </Authorized>
+
+        <NotAuthorized>
+            <NavLink class="nav-link" href="/">
+                <img src="/css/open-iconic/svg/person.svg" class="svg-size" alt="">
+                LOGIN
             </NavLink>
-        </div>
+          
+        
+            <NavLink class="nav-link" href="auktioner">
+                <span class="oi oi-home" aria-hidden="true"></span> Auktioner
+            </NavLink>
+        
+
+        
+            <NavLink class="nav-link" href="biljetter">
+                <span class="oi oi-home" aria-hidden="true"></span> Biljetter
+            </NavLink>
+       
+        </NotAuthorized>
+      </AuthorizeView>
     </nav>
-</div>
 
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+*@
+  

@@ -1,0 +1,40 @@
+﻿@using Slipp.Services.DTO
+
+<div class="page-content">
+    <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');">
+       
+        <div class="my-card-content">
+            <div class="ticket-circles">
+                <p id="tl"></p>
+                <p id="bl"></p>
+                <p id="mu"></p>
+                <p id="ml"></p>
+                <p id="tr"></p>
+                <p id="br"></p>
+            </div>
+
+            <div id="content-left">
+                <MudAvatar Style="margin-bottom: 5px;" Color="Color.Secondary">C</MudAvatar>
+                <MudText Typo="Typo.h5">@Ticket.Title</MudText>
+                <MudContainer>
+                    <MudText Typo="Typo.body2">Tillgängliga förköpsbiljetter:</MudText>
+                    <MudText Typo="Typo.h4">8</MudText>
+                    <MudText Typo="Typo.body1">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
+                </MudContainer>
+
+                @*</MudCard>*@
+            </div>
+            <div id="content-right">
+                <MudText Typo="Typo.h5">@Ticket.Price SEK</MudText>
+                <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Secondary"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter] public CreateTicketOutput Ticket { get; set; }
+        
+}

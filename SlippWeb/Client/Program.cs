@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 using Slipp.Services.BlazorServices;
 using SlippWeb.Client;
 
@@ -15,6 +16,8 @@ builder.Services.AddHttpClient<IApiService, ApiService>(client =>
 builder.Services
     .AddScoped<IAuthenticationService, AuthenticationService>()
     .AddScoped<ILocalStorageService, LocalStorageService>();
+
+builder.Services.AddMudServices();
 
 var host = builder.Build();
 

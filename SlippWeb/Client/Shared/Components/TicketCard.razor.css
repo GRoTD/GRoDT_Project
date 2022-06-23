@@ -1,0 +1,167 @@
+﻿.page-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+   
+    
+}
+::deep .my-card {
+    width: 100%;
+    max-height: 200px;
+    max-width: 450px;
+    text-align: center;
+    margin: 10px 0;
+    background-position: center;
+    background-size: cover;
+    
+    position: relative;
+}
+
+    ::deep .my-card::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,0.6);
+    }
+
+::deep .my-card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    max-height: 200px;
+    position: relative;
+    color: white;
+    
+}
+#content-left {
+    flex: 1 1 70%;
+    border-right: 2px dotted #ffffff;
+    padding: 5%;
+    
+}
+
+#content-right {
+    flex: 1 1 30%;
+}
+
+.ticket-circles p {
+    position: absolute;
+    background: #3a4553;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+#tl {
+    top: -15px;
+    left: -15px;
+}
+
+#bl {
+    bottom: -30px;
+    left: -15px;
+}
+
+#tr {
+    top: -15px;
+    right: -15px;
+}
+
+#br {
+    bottom: -30px;
+    right: -15px;
+}
+
+#mu {
+    top: -15px;
+    right: 27.5%;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+}
+
+#ml {
+    bottom: -30px;
+    right: 27.5%;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+}
+
+
+
+/*
+
+#tic {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+}
+
+#tic div {
+    display: inline-block;
+    position: relative;
+}
+
+#tic div p {
+    position: absolute;
+    background: #62306d;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#l {
+    background: #f7ec7d;
+    width: 141px;
+    height: 100px;
+    margin-right: -5px;
+    margin-left: 10px;
+}
+
+#r {
+    width: 60px;
+    height: 100px;
+    background: #e38f66;
+}
+
+#tl {
+    top: -36px;
+    left: -20px;
+}
+
+#bl {
+    bottom: -36px;
+    left: -20px;
+}
+
+#tr {
+    top: -36px;
+    right: -20px;
+}
+
+#br {
+    bottom: -36px;
+    right: -20px;
+}
+
+#tic div p#mu {
+    top: -26px;
+    right: -8.5px;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+}
+
+#tic div p#ml {
+    bottom: -26px;
+    right: -8.5px;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+}*/

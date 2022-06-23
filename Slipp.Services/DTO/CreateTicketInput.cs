@@ -8,7 +8,7 @@ public class CreateTicketInput
     public decimal Price { get; set; }
     public DateTime StartValidTime { get; set; }
     public DateTime EndValidTime { get; set; }
-
+    public List<Image> Images { get; set; }
     public Ticket CreateTicket(Club club)
     {
         Ticket ticket = new Ticket
@@ -17,7 +17,8 @@ public class CreateTicketInput
             Title = Title,
             StartValidTime = StartValidTime,
             EndValidTime = EndValidTime,
-            Price = Price
+            Price = Price,
+            Images = Images
         };
         return ticket;
     }
