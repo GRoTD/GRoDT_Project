@@ -64,3 +64,61 @@
         }
     }
 }
+
+@*@page "/login"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager _nav
+
+@attribute [Authorize]
+
+<PageTitle>Index</PageTitle>
+
+<div class="Loggo"></div>
+
+<EditForm Model="testUser" OnValidSubmit="isValidSubmit">
+    <DataAnnotationsValidator/>
+   
+    <div class="loginContainer">
+        <label >
+            <input @bind="testUser.EmailAddress" placeholder="Email"/>
+        </label>
+        <ValidationMessage For="() => testUser.EmailAddress"/>
+        <label >
+            <input @bind="testUser.Password" placeholder="Password"/>
+        </label>
+        <ValidationMessage For="() => testUser.Password"/>
+        <div class="btnContainer">
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <div>
+                <button type="button" onclick="@(()=>_nav.NavigateTo("/register"))" >Register</button>
+            </div>
+        </div>
+        
+    </div>
+</EditForm>
+
+
+
+@code{ //TODO - Tillfällig DTO byt ut senare, plocka med ErrorMessages.
+
+    private TestUser testUser = new();
+
+    public class TestUser
+    {
+        [Required(ErrorMessage = "Du måste ange en e-postadress")]
+        [EmailAddress(ErrorMessage = "Angiven e-postadress inte giltig format")]
+        public string EmailAddress { get; set; }
+        
+        [Required(ErrorMessage = "Du måste ange ett lösenord")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
+
+    private void isValidSubmit()
+    {
+
+    }
+    
+}*@
