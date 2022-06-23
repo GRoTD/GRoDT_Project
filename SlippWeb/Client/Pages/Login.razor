@@ -1,0 +1,124 @@
+﻿@page "/login"
+@using System.ComponentModel.DataAnnotations
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="loginContainer">
+        <h4 class="card-header">Blazor WebAssembly JWT Login Example</h4>
+        <div class="card-body">
+            <EditForm Model="@_loginInput" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>Username</label>
+                    <InputText @bind-Value="_loginInput.Email" class="form-control" />
+                    <ValidationMessage For="@(() => _loginInput.Email)" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <InputText @bind-Value="_loginInput.Password" type="password" class="form-control" />
+                    <ValidationMessage For="@(() => _loginInput.Password)" />
+                </div>
+                <button class="btn btn-primary">
+                    @if (loading) {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Login
+                </button>
+                @if (!string.IsNullOrEmpty(error)) {
+                    <div class="alert alert-danger mt-3 mb-0">@error</div>
+                }
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginInput _loginInput = new LoginInput();
+    private bool loading;
+    private string error;
+
+    protected override void OnInitialized()
+    {
+        // redirect to home if already logged in
+        if (AuthenticationService.User != null)
+        {
+            NavigationManager.NavigateTo("");
+        }
+    }
+
+    private async void HandleValidSubmit()
+    {
+        loading = true;
+        try
+        {
+            await AuthenticationService.Login(_loginInput);
+            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
+            NavigationManager.NavigateTo(returnUrl);
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            loading = false;
+            StateHasChanged();
+        }
+    }
+}
+
+@*@page "/login"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager _nav
+
+@attribute [Authorize]
+
+<PageTitle>Index</PageTitle>
+
+<div class="Loggo"></div>
+
+<EditForm Model="testUser" OnValidSubmit="isValidSubmit">
+    <DataAnnotationsValidator/>
+   
+    <div class="loginContainer">
+        <label >
+            <input @bind="testUser.EmailAddress" placeholder="Email"/>
+        </label>
+        <ValidationMessage For="() => testUser.EmailAddress"/>
+        <label >
+            <input @bind="testUser.Password" placeholder="Password"/>
+        </label>
+        <ValidationMessage For="() => testUser.Password"/>
+        <div class="btnContainer">
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <div>
+                <button type="button" onclick="@(()=>_nav.NavigateTo("/register"))" >Register</button>
+            </div>
+        </div>
+        
+    </div>
+</EditForm>
+
+
+
+@code{ //TODO - Tillfällig DTO byt ut senare, plocka med ErrorMessages.
+
+    private TestUser testUser = new();
+
+    public class TestUser
+    {
+        [Required(ErrorMessage = "Du måste ange en e-postadress")]
+        [EmailAddress(ErrorMessage = "Angiven e-postadress inte giltig format")]
+        public string EmailAddress { get; set; }
+        
+        [Required(ErrorMessage = "Du måste ange ett lösenord")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
+
+    private void isValidSubmit()
+    {
+
+    }
+    
+}*@

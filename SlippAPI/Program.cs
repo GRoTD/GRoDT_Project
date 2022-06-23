@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SlippAPI.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,28 +17,14 @@ builder.Services.AddIdentityCore<DatabaseUser>()
 builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<Database>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<JwtService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Blazor Server apps call web APIs using HttpClient instances, typically created using
-//IHttpClientFactory. For guidance that applies to Blazor Server,
-//see Make HTTP requests using IHttpClientFactory in ASP.NET Core.
-builder.Services.AddHttpClient();
-
-/*var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy =>
-        {
-            policy.WithOrigins("https://localhost:7292");
-        });
-});*/
 builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,8 +42,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 /*app.UseStaticFiles();*/
 
-/*app.UseCors(MyAllowSpecificOrigins);*/
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
+
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

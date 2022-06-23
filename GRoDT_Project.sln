@@ -11,13 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippAPI", "SlippAPI\SlippA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slipp.Services", "Slipp.Services\Slipp.Services.csproj", "{2831AFBC-036A-4D49-8A91-F1E9296A57AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippShared", "SlippShared\SlippShared.csproj", "{34730940-A8C6-48FC-B07C-FF748DBF9AB8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippWeb.Server", "SlippWeb\Server\SlippWeb.Server.csproj", "{D6E0F7C2-9C79-4E3D-81A3-E670039B9B00}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippWeb.Client", "SlippWeb\Client\SlippWeb.Client.csproj", "{67211E4F-A71E-4D72-84E0-1882E5E3CB34}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlippWeb.Shared", "SlippWeb\Shared\SlippWeb.Shared.csproj", "{11A1A8E1-D4CA-4F82-8BBC-2C6B80FF282E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,22 +33,10 @@ Global
 		{2831AFBC-036A-4D49-8A91-F1E9296A57AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2831AFBC-036A-4D49-8A91-F1E9296A57AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2831AFBC-036A-4D49-8A91-F1E9296A57AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34730940-A8C6-48FC-B07C-FF748DBF9AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34730940-A8C6-48FC-B07C-FF748DBF9AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34730940-A8C6-48FC-B07C-FF748DBF9AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34730940-A8C6-48FC-B07C-FF748DBF9AB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6E0F7C2-9C79-4E3D-81A3-E670039B9B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6E0F7C2-9C79-4E3D-81A3-E670039B9B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6E0F7C2-9C79-4E3D-81A3-E670039B9B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6E0F7C2-9C79-4E3D-81A3-E670039B9B00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67211E4F-A71E-4D72-84E0-1882E5E3CB34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67211E4F-A71E-4D72-84E0-1882E5E3CB34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67211E4F-A71E-4D72-84E0-1882E5E3CB34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67211E4F-A71E-4D72-84E0-1882E5E3CB34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11A1A8E1-D4CA-4F82-8BBC-2C6B80FF282E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11A1A8E1-D4CA-4F82-8BBC-2C6B80FF282E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11A1A8E1-D4CA-4F82-8BBC-2C6B80FF282E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11A1A8E1-D4CA-4F82-8BBC-2C6B80FF282E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
