@@ -1,0 +1,84 @@
+﻿@page "/register"
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using Slipp.Services.DTO
+
+
+<MudContainer Class="py-5">
+    <MudText Align="Align.Center" Typo="Typo.h1">Register</MudText>
+    <EditForm Model="@createAppUser">
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12" sm="7">
+                <MudPaper Class="pa-4" Elevation="0" Style="@("background:#3A4553")" />
+                <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+                    <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.FirstName" Label="First name" Required="true" RequiredError="First name is required!"/>
+                    <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.LastName" Label="Last name" Required="true" RequiredError="Last name is required!"/>
+                    <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.Email" Label="Email" Required="true" RequiredError="Email is required!"
+                                  Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})"/>
+                    <MudTextField T="string" Variant="Variant.Outlined" Label="Password" HelperText="Choose a strong password" @ref="pwField1"
+                                  InputType="InputType.Password"
+                                  Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
+                                  RequiredError="Password is required!"/>
+                    <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.Password"
+                                  Label="Password" HelperText="Repeat the password" InputType="InputType.Password"
+                                  Validation="@(new Func<string, string>(PasswordMatch))"/>
+                    <div class="d-flex align-center justify-content-start gap-1 mt-2">
+                        <MudCheckBox T="bool" Required="true" RequiredError="You must agree" Class="ml-n2" Label="Agree with"/>
+                        <MudLink Href="#" Underline="Underline.Always">terms and conditions</MudLink>
+                        @*TODO - LÄnka/Modal till en "terms and conditions"*@
+                    </div>
+                    <div class=" float-end mt-6">
+                        <MudButton Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Register</MudButton>
+                    </div>
+                        
+                </MudForm>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+</MudContainer>
+
+<style>
+    .mud-input-label-outlined {
+        background-color: transparent;
+    }
+</style>
+
+@code {
+
+    private readonly CreateAppUserInput createAppUser = new();
+
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+    MudForm form;
+
+    private IEnumerable<string> PasswordStrength(string pw)
+    {
+
+        if (string.IsNullOrWhiteSpace(pw))
+        {
+            yield return "Password is required!";
+            yield break;
+        }
+        if (pw.Length < 8)
+            yield return "Password must be at least of length 8";
+        if (!Regex.IsMatch(pw, @"[A-Z]"))
+            yield return "Password must contain at least one capital letter";
+        if (!Regex.IsMatch(pw, @"[a-z]"))
+            yield return "Password must contain at least one lowercase letter";
+        if (!Regex.IsMatch(pw, @"[0-9]"))
+            yield return "Password must contain at least one digit";
+    }
+
+    private string PasswordMatch(string arg)
+    {
+        if (pwField1.Value != arg)
+            return "Passwords don't match";
+        return null;
+    }
+
+}
+
+
+

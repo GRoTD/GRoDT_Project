@@ -1,0 +1,92 @@
+﻿@page "/auktioner"
+@using System.Text.Json
+@using System.Text.Json.Serialization;
+@using Slipp.Services.Models
+@*@inject IHttpClientFactory ClientFactory*@
+
+
+
+@*¨/test Består av olika komponenter + html-kod*@
+
+<div class="header">   
+    <div class="location-info">
+        <h3>Plats <span id="dropdown-arrow">&#129171;</span></h3>
+        <p>Adress XX, Göteborg</p>
+    </div>
+    <div class="header-menu">
+        <h3>Auktioner</h3>
+        <h3>Biljetter</h3>
+        <div class="active-line"></div>
+    </div>
+</div>
+
+<div class="main-container">
+    @if (getAuctionsError)
+{
+    <p>Unable to load auctions. Please try again later.</p>
+}
+else
+{
+    //TODO Byt ut hårkodad data
+    //Flytta kort till komponent?
+        @foreach (var auction in auctions)
+        {
+            <div class="my-card">
+                    <div class="my-card-header">
+                        <h1>@auction</h1>
+                    </div>
+                    <div class="my-card-info">
+                        <p>Max antal biljetter:</p>
+                        <h2><b>8</b></h2>
+                        <h4>190 kr/biljett</h4>
+                        <p id="auction-deadline">32 min 28 sek</p>
+                    </div>
+                    <div class="my-card-footer">
+                        <p>AUKTION</p>
+                    </div>
+            </div>
+        }
+}
+</div>
+
+
+
+
+
+@code {
+    //Flytta fetchanrop till komponenter eller till egen fil (motsvarande som vi gjorde i poke-uppgiften?) Förmodligen komponenter...
+    private List<Auction> auctions;
+    private bool getAuctionsError;
+    private bool shouldRender;  
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+           var request = new HttpRequestMessage(HttpMethod.Get,
+            "https://api.github.com/repos/dotnet/AspNetCore.Docs/branches"); //byt ut till vår url + headers
+        request.Headers.Add("Accept", "application/vnd.github.v3+json");
+        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+        //var client = ClientFactory.CreateClient();
+        var client=new HttpClient();
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            auctions = await JsonSerializer.DeserializeAsync
+                <List<Auction>>(responseStream);
+        }
+        else
+        {
+            getAuctionsError = true;
+        }
+
+        shouldRender = true;
+    }
+
+
+}
+

@@ -1,0 +1,13 @@
+﻿
+
+/*container form main content*/
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #3a4553;
+    padding-top: 20px;
+}
+
+
+/*my-card*/
