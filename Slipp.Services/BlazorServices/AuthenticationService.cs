@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Slipp.Services.Constants;
 using Slipp.Services.DTO;
 
 namespace Slipp.Services.BlazorServices;
@@ -7,7 +8,7 @@ public interface IAuthenticationService
 {
     LoggedInUser User { get; }
     Task Initialize();
-    Task Login(string username, string password);
+    Task Login(LoginInput input);
     Task Logout();
 }
 
@@ -35,10 +36,9 @@ public class AuthenticationService : IAuthenticationService
         User = await _localStorageService.GetItem<LoggedInUser>("user");
     }
 
-    public async Task Login(string username, string password)
+    public async Task Login(LoginInput input)
     {
-        LoginInput input = new() {Email = username, Password = password};
-        User = await _apiService.Post<LoggedInUser>("/api/login",
+        User = await _apiService.Post<LoggedInUser>(ApiPaths.LOGINUSER,
             input); //TODO: Rätt uri här
         await _localStorageService.SetItem("user", User);
     }

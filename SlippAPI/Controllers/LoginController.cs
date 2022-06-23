@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Slipp.Services.Constants;
 using SlippAPI.Services;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/login")]
+[Route(ApiPaths.LOGINUSER)]
 [ApiController]
 public class LoginController : ControllerBase
 {
