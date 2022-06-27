@@ -42,12 +42,14 @@ public class TicketService
         return tickets;
     }
 
-    public async Task<List<Ticket>> GetTicketsWithoutAuctions(Guid? clubId) //Add lon, lat, radius
+    public async Task<List<Ticket>> GetUnsoldTicketsWithoutAuctions(Guid? clubId) //Add lon, lat, radius
     {
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
             .Include(t => t.Sale)
+            .Include(t => t.Images)
             .Where(t => t.Auction == null)
+            .Where(t => t.Sale != null)
             .AsQueryable();
 
         //TODO: Can add filtering here. Ex clubId below. 
@@ -58,9 +60,9 @@ public class TicketService
         return tickets;
     }
 
-    public async Task<List<Ticket>> GetTicketsWithoutAuctions()
+    public async Task<List<Ticket>> GetUnsoldTicketsWithoutAuctions()
     {
-        return await GetTicketsWithoutAuctions(null);
+        return await GetUnsoldTicketsWithoutAuctions(null);
     }
 
 
@@ -69,11 +71,12 @@ public class TicketService
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
             .Include(t => t.Sale)
-            .Include(t => t.Auction);
+            .Include(t => t.Auction)
+            .Include(t => t.Images);
 
         var ticket = await query.FirstOrDefaultAsync(t => t.Id == id);
 
-        if (ticket is null) throw new TicketNotFoundException("There is no ticket with that id");
+        if (ticket is null) throw new TicketNotFoundException();
 
         return ticket;
     }
@@ -81,7 +84,7 @@ public class TicketService
 
 public class TicketNotFoundException : Exception
 {
-    public TicketNotFoundException(string message) : base(message)
+    public TicketNotFoundException() : base("There is no ticket with that id")
     {
     }
 }

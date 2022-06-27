@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Slipp.Services.Constants;
 using SlippAPI.Services;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route(ApiPaths.TICKETCONTROLLER)]
 [ApiController]
 public class TicketController : ControllerBase
 {
@@ -14,36 +16,34 @@ public class TicketController : ControllerBase
         _ticketService = ticketService;
     }
 
-    /* [HttpPost]
-     public async Task<ActionResult<List<CreateTicketOutput>>> CreateTickets(int amount,
-         CreateTicketInput ticketInput)
-     {
-         var tickets = await _ticketService.CreateTickets(amount, ticketInput);
- 
-         var createdTickets = new List<CreateTicketOutput>();
- 
-         foreach (var ticket in tickets)
-         {
-             var createdTicket = new CreateTicketOutput
-             {
-                 Id = ticket.Id,
-                 Title = ticket.Title,
-                 Price = ticket.Price,
-                 StartValidTime = ticket.StartValidTime,
-                 EndValidTime = ticket.EndValidTime
-             };
- 
-             createdTickets.Add(createdTicket);
-         }
- 
-         return Ok(createdTickets);
-     }*/
+    [HttpPost]
+    [Authorize(Roles = $"{StaticConfig.ClubRole}")]
+    public async Task<ActionResult<List<CreateTicketOutput>>> CreateTickets(Guid clubId, int amount,
+        CreateTicketInput ticketInput)
+    {
+        var userClubId = User.Claims
+            .FirstOrDefault(c => c.Type == SlippClaimTypes.CLUBID
+                                 && c.Value == clubId.ToString());
+        if (userClubId == null) return Unauthorized();
+
+        var tickets = await _ticketService.CreateTickets(clubId, amount, ticketInput);
+
+        var createdTickets =
+            tickets.Select(ticket =>
+                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
+                .ToList();
+
+        return Ok(createdTickets);
+    }
 
     [HttpGet]
-    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets()
+    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets([FromQuery] Guid? hotelId)
     {
         //TODO: Catch errors
-        var tickets = await _ticketService.GetTicketsWithoutAuctions();
+
+        var tickets = new List<Ticket>();
+        if (hotelId == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions();
+        else tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions(hotelId);
 
         var returnTickets =
             tickets.Select(ticket =>
