@@ -4,7 +4,7 @@
     "name": "Locatelli",
     "address": "KUNGSPORTSAVENYN 36-38, GÖTEBORG",
     "description": "Välkomna in till Locatelli! En social, atmosfärisk cocktailbar med livlig musik, frestande meny och ett spetsat fokus på stämning.",
-    "website": "https://elite.se/sv/hotell/goteborg/park-avenue-hotel/locatelli/",
+    "website": "www.elite.se",
     "images": [
       {
         "id": "1",
@@ -17,7 +17,7 @@
     "name": "Push",
     "address": "KUNGSPORTSAVENYN 11, GÖTEBORG,",
     "description": "Välkommen till den djärva storsatsningen som förändrat Göteborgs nattliv i grunden och äntligen tillfört staden en högklassig nattklubb av internationellt snitt. Push erbjuder en intim och diskret festupplevelse med högsta standard och personlig service utan motstycke.",
-    "website": "https://www.push.se/",
+    "website": "www.push.se",
     "images": [
       {
         "id": "4",
@@ -30,7 +30,7 @@
     "name": "Lounge",
     "address": "KUNGSPORTSAVENYN 5, GÖTEBORG,",
     "description": "Nattklubb i flera våningar med populär takterrass. En av Avenyns mest etablerade nattklubbar. På flera våningar finns allt som behövs för en lyckad utekväll som barer, dansgolv, roulette och en populär takterass.",
-    "website": "https://lounges.se/",
+    "website": "www.lounges.se",
     "images": [
       {
         "id": "2",
@@ -42,7 +42,7 @@
     "name": "Port du Soleil",
     "address": "NYA ALLÉN 11, GÖTEBORG,",
     "description": "Varje sommar öppnar Port Du Soleil upp en sommarlounge och internationell nattklubb. På den stora solterassen kan du uppleva en känsla av Rivieran mitt i Göteborg med dj:s, spännande mat och ändlösa sommarnätter.",
-    "website": "https://www.portdusoleil.se/",
+    "website": "www.portdusoleil.se",
     "images": [
       {
         "id": "3",
@@ -54,7 +54,7 @@
     "name": "Excet",
     "address": "VASAGATAN 52, GÖTEBORG,",
     "description": "Excet är en av Göteborgs största och populäraste nattklubbar, mitt på Avenyn. Med fyra dansgolv, nio barer och en stor takterrass får du massa olika upplevelser under samma tak. Go party!",
-    "website": "https://www.facebook.com/excetgbg/",
+    "website": "www.facebook.com/excetgbg",
     "images": [
       {
         "id": "7",

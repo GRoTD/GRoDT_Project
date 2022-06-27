@@ -2,31 +2,47 @@
 @using Slipp.Services.Models
 
 <div>
-<div class="component-content">
-    <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
-        <div class="my-clubCard-content">
-            <MudCard>
+    
+    <div class="component-content">
+        <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
+            <div class="my-clubCard-content">
+           
                 <MudCardHeader>
                     <CardHeaderContent>
-                        <MudText Typo="Typo.h4">@Club.Name</MudText>
+                        <div class="club-info">
+                            <MudAvatar Style="margin-bottom: 5px;" Color="Color.Secondary">C</MudAvatar>
+                            <MudText Typo="Typo.h4">@Club.Name</MudText>
+                        </div>
                     </CardHeaderContent>
 
                 </MudCardHeader>
                 <MudCardContent>
-                    <MudText Typo="Typo.body2">@Club.Address</MudText>
-                    <MudText Typo="Typo.body2">@Club.Website</MudText>
+                    <div class="club-info">
+                        <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
+                        <MudText Typo="Typo.body2">@Club.Address</MudText>
+                    </div>
+                    @*<div class="club-info">
+                        <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
+                        <MudLink Href="@Club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@Club.Website</MudLink>
+                    </div>*@
+                    <div class="club-description">
                     <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
-                </MudCardContent>
-                <MudCardActions>
-
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">Biljetter</MudButton>
+                    </div>
+                    </MudCardContent>
+                <MudCardActions Class="d-flex justify-end">
+                    
+                    <MudLink Href="/nattklubbar">
+                        <MudButton Variant="Variant.Text" Color="Color.Primary">Biljetter</MudButton>
+                    </MudLink>
+                    <MudLink Href="/nattklubbar"> 
                     <MudButton Variant="Variant.Text" Color="Color.Primary">Auktioner</MudButton>
-
+                    </MudLink>
                 </MudCardActions>
-            </MudCard>
+            
+            </div>
         </div>
     </div>
-</div>
+  
 </div>
 
 @code {
