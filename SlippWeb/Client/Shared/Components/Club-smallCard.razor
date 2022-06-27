@@ -2,11 +2,11 @@
 @using Slipp.Services.Models
 
 <div>
-    
+    <a href="/klubb/@Club.Id"> @*OBS hur länkar jag till rätt sida med mudblazor? Kan jag skicka med hela objektet?*@
     <div class="component-content">
         <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
             <div class="my-clubCard-content">
-           
+
                 <MudCardHeader>
                     <CardHeaderContent>
                         <div class="club-info">
@@ -26,23 +26,23 @@
                         <MudLink Href="@Club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@Club.Website</MudLink>
                     </div>*@
                     <div class="club-description">
-                    <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
+                        <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
                     </div>
-                    </MudCardContent>
+                </MudCardContent>
                 <MudCardActions Class="d-flex justify-end">
-                    
+
                     <MudLink Href="/nattklubbar">
                         <MudButton Variant="Variant.Text" Color="Color.Primary">Biljetter</MudButton>
                     </MudLink>
-                    <MudLink Href="/nattklubbar"> 
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">Auktioner</MudButton>
+                    <MudLink Href="/nattklubbar">
+                        <MudButton Variant="Variant.Text" Color="Color.Primary">Auktioner</MudButton>
                     </MudLink>
                 </MudCardActions>
-            
+
             </div>
         </div>
     </div>
-  
+    </a>
 </div>
 
 @code {

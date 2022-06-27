@@ -1,0 +1,38 @@
+﻿@page "/klubb" 
+@*/{Id:guid}*@
+@using Slipp.Services.DTO
+@using Slipp.Services.Models
+
+@inject HttpClient Client
+
+
+
+
+
+<div class="main-container">
+    @if (getAuctionsError)
+    {
+        <p>Unable to load club. Please try again later.</p>
+    }
+    else
+    {
+       
+            <Club_Page Club=clubs[0]></Club_Page>
+    }
+</div>
+
+@code {
+    
+    private ClubOutput[] clubs;
+    private bool getAuctionsError;
+    private bool shouldRender;  
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
+
+        shouldRender = true;
+    }
+}
