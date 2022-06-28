@@ -25,6 +25,9 @@
                     }
                     Login
                 </button>
+                <div>
+                    <button type="button" onclick="@(()=>NavigationManager.NavigateTo("/register"))" >Register</button>
+                </div>
                 @if (!string.IsNullOrEmpty(error)) {
                     <div class="alert alert-danger mt-3 mb-0">@error</div>
                 }

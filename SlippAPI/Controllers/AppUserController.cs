@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Slipp.Services.DTO;
 
 namespace SlippAPI.Controllers;
 
@@ -48,6 +47,6 @@ public class AppUserController : ControllerBase
             Id = createdUser.Id
         };
 
-        return CreatedAtAction(nameof(GetAppUser), new {email = returnUser.Email}, returnUser);
+        return CreatedAtAction(nameof(GetAppUser), new { email = returnUser.Email }, returnUser);
     }
 }

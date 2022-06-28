@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Slipp.Services.Models;
+﻿using Slipp.Services.Models;
 using System.Text.Json.Serialization;
 
 namespace Slipp.Services.DTO;

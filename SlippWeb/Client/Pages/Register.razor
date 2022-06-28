@@ -28,6 +28,9 @@
                         <MudLink Href="#" Underline="Underline.Always">terms and conditions</MudLink>
                         @*TODO - LÄnka/Modal till en "terms and conditions"*@
                     </div>
+                    <div class="d-flex align-center justify-content-start">
+                    <MudCheckBox T="bool" Required="true" RequiredError="You must agree" Class="ml-n2" Label="I am 18 or above"/>
+                    </div>
                     <div class=" float-end mt-6">
                         <MudButton Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Register</MudButton>
                     </div>

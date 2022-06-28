@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace Slipp.Services.Models;
+﻿namespace Slipp.Services.Models;
 
 public class Auction
 {
