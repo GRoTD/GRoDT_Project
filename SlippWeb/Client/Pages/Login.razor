@@ -1,9 +1,67 @@
 ﻿@page "/login"
-@using System.ComponentModel.DataAnnotations
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
-<div class="col-md-6 offset-md-3 mt-5">
+@*TODO - lägg till visa/göm lösenord*@
+<MudContainer Class="py-5">
+    <MudText Align="Align.Center" Typo="Typo.h1">Logga in</MudText>
+    <EditForm Model="@_loginInput" OnValidSubmit="HandleValidSubmit">
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12" sm="7">
+                <MudPaper Class="pa-4" Elevation="0" Style="@("background:#3A4553")"/>
+                <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+
+                    <MudTextField
+                        T="string"
+                        Variant="Variant.Outlined"
+                        @bind-Value="@_loginInput.Email"
+                        Label="Email"
+                        Required="true"
+                        RequiredError="Email is required!"/>
+
+                    <MudTextField
+                        T="string"
+                        Variant="Variant.Outlined"
+                        @bind-Value="@_loginInput.Password"
+                        Label="Password"
+                        InputType="InputType.Password"
+                        Required="true"
+                        RequiredError="Password is required!"/>
+
+                    <div class=" float-end mt-6">
+                        <MudButton
+                            Variant="Variant.Filled"
+                            Size="Size.Large"
+                            Color="Color.Primary"
+                            Disabled="@(!success)"
+                            Class="ml-auto">
+                            @if (loading)
+                            {
+                                <span class="spinner-border spinner-border-sm mr-1"></span>
+                            }
+                            Logga in
+                        </MudButton>
+
+                        <MudButton
+                            Variant="Variant.Filled"
+                            Size="Size.Large"
+                            Color="Color.Primary"
+                            OnClick="@(() => NavigationManager.NavigateTo("/register"))">
+                            Register
+                        </MudButton>
+
+                    </div>
+
+                </MudForm>
+
+            </MudItem>
+        </MudGrid>
+
+    </EditForm>
+</MudContainer>
+
+
+@*<div class="col-md-6 offset-md-3 mt-5">
     <div class="loginContainer">
         <h4 class="card-header">Blazor WebAssembly JWT Login Example</h4>
         <div class="card-body">
@@ -34,16 +92,27 @@
             </EditForm>
         </div>
     </div>
-</div>
+</div>*@
+
+<style>
+    .mud-input-label-outlined { background-color: #3A4553; }
+</style>
+
 
 @code {
-    private LoginInput _loginInput = new LoginInput();
+    private readonly LoginInput _loginInput = new();
     private bool loading;
-    private string error;
+    //private string error; 
+
+
+    bool success;
+    string[] errors = {};
+    MudForm form;
+
 
     protected override void OnInitialized()
     {
-        // redirect to home if already logged in
+    // redirect to home if already logged in
         if (AuthenticationService.User != null)
         {
             NavigationManager.NavigateTo("");
@@ -61,11 +130,12 @@
         }
         catch (Exception ex)
         {
-            error = ex.Message;
+            //error = ex.Message;
             loading = false;
             StateHasChanged();
         }
     }
+
 }
 
 @*@page "/login"
