@@ -17,13 +17,23 @@
     else
     {
        
-            <Club_Page Club=clubs[0]></Club_Page>
+        <Club_Page Club=clubs[0]></Club_Page>
+
+        @*TODO Lägg till swipearea för auktioner och tickets*@
+        @*TODO Ändra till endast tickets för specifika klubben*@
+        
+        @foreach (var ticket in tickets)
+        {
+            <TicketCard Ticket=ticket></TicketCard>
+        }
     }
 </div>
 
 @code {
     
     private ClubOutput[] clubs;
+    private CreateTicketOutput[] tickets;
+
     private bool getAuctionsError;
     private bool shouldRender;  
 
@@ -32,6 +42,7 @@
     protected override async Task OnInitializedAsync()
     {
         clubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
+        tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
 
         shouldRender = true;
     }

@@ -1,16 +1,19 @@
-﻿.component-content {
+﻿::deep .component-content {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 ::deep .my-card {
-    width: 100%;
+    width: 90vw;
+    /*min-width: 90%;
     max-height: 250px;
-    max-width: 450px;
+    max-width: 90%;*/
     text-align: center;
     margin: 10px 0;
     background-position: center;
     background-size: cover;
+
     
     position: relative;
 }
@@ -30,7 +33,7 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    max-height: 250px;
+    /*max-height: 250px;*/
     position: relative;
     color: white;
     
