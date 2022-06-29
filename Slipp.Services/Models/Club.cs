@@ -5,6 +5,7 @@ public class Club
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Adress { get; set; }
+    public string City { get; set; }
     public double Longitude { get; set; }
     public double Latitude { get; set; }
     public string Description { get; set; }

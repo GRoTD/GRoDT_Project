@@ -37,13 +37,17 @@ public class TicketController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets([FromQuery] Guid? hotelId)
+    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets([FromQuery] Guid? clubId,
+        [FromQuery] string city)
     {
         //TODO: Catch errors
 
         var tickets = new List<Ticket>();
-        if (hotelId == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions();
-        else tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions(hotelId);
+
+        //Should be easy to refactor to be better/easier to read.
+        if (clubId == null && city == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions();
+        else if (clubId != null && city == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions(clubId);
+        else tickets = await _ticketService.GetUnsoldTicketsAtCity(city);
 
         var returnTickets =
             tickets.Select(ticket =>

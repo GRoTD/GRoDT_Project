@@ -39,6 +39,7 @@ public class Database
         var club = new Club
         {
             Adress = "Första Långgatan 1",
+            City = "Göteborg",
             Company = company,
             Description = "Coolaste klubben på Jorden",
             Name = "EC Klubb"
