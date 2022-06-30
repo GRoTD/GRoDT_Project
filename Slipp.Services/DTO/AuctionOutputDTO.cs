@@ -9,7 +9,8 @@ public class AuctionOutputDTO
     public List<BidOutputDTO> Bids { get; set; } //Make a link to it instead https://slipp.se/api/auctions/id/bids eg.
 
     public List<CreateTicketOutput>
-        Tickets { get; set; } //Make a link to it instead https://slipp.se/api/auctions/id/tickets eg.
+        Tickets
+    { get; set; } //Make a link to it instead https://slipp.se/api/auctions/id/tickets eg.
 
     public Guid ClubId { get; set; } //Make a link to it instead https://slipp.se/api/clubs/clubId eg.
 }

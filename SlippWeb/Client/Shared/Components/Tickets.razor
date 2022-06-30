@@ -1,5 +1,4 @@
-﻿@page "/biljetter"
-@using System.Text.Json
+﻿@using System.Text.Json
 @using System.Text.Json.Serialization;
 @using Slipp.Services.DTO
 @using Slipp.Services.Models
@@ -12,29 +11,40 @@
 
 @*¨/test Består av olika komponenter + html-kod*@
 
-<OurHeader></OurHeader>
 
 <div class="main-container">
-    @if (getAuctionsError)
-{
-    <p>Unable to load auctions. Please try again later.</p>
-}
-else
+    @if (tickets == null || tickets.Length == 0)
     {
-    @foreach (var ticket in tickets)
+        <MudProgressCircular Size="Size.Large" Color="Color.Primary" Indeterminate="true" />
+    }
+    @*<p>Unable to load auctions. Please try again later.</p>*@
+
+    else
+    {
+        @foreach (var ticket in tickets)
         {
             <TicketCard Ticket=ticket></TicketCard>
         }
-}
+    }
 </div>
 
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #3a4553;
+        padding-top: 20px;
+    }
+</style>
 
 
 
 
 @code {
     //Flytta fetchanrop till komponenter eller till egen fil (motsvarande som vi gjorde i poke-uppgiften?) Förmodligen komponenter...
-    private CreateTicketOutput[] tickets;
+    private CreateTicketOutput[] tickets; //TODO - Gör denna "cascading?", för att inte kontakta APIn inom en visst tidsspan(minska anrop till databasen). 
     //private List<CreateTicketOutput> tickets;
     private bool getAuctionsError;
     private bool shouldRender;  
@@ -43,6 +53,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(1000); //Just 4 fun :D
         tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
         //var request = new HttpRequestMessage(HttpMethod.Get,
         //   "https://localhost:7197/api/Ticket"); //byt ut till vår url + headers

@@ -36,8 +36,8 @@
     /*max-height: 250px;*/
     position: relative;
     color: white;
-    
 }
+
 #content-left {
     flex: 1 1 70%;
     border-right: 2px dotted #ffffff;
