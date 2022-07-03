@@ -12,7 +12,7 @@
             <MudItem xs="12" sm="7">
                 <MudPaper Class="pa-4" Elevation="0" Style="@("background:#3A4553")" />
                 <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
-                    <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.FirstName" Label="First name" Required="true" RequiredError="First name is required!"/>
+                    <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.FirstName" Label="First Name" Required="true" RequiredError="First name is required!"/>
                     <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.LastName" Label="Last name" Required="true" RequiredError="Last name is required!"/>
                     <MudTextField T="string" Variant="Variant.Outlined" @bind-Value="@createAppUser.Email" Label="Email" Required="true" RequiredError="Email is required!"
                                   Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})"/>

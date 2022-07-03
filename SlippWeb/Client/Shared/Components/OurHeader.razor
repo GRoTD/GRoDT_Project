@@ -31,7 +31,7 @@
                 Style="padding: 0 0 100px 0;"
                 ActivePanelIndex="@ActiveTabPanel">
 
-                <MudTabPanel Text="Biljetter">
+                <MudTabPanel Text="@FirstTabValue">
                     <Tickets></Tickets>
                 </MudTabPanel>
 
@@ -67,7 +67,10 @@
 
 @code {
 
-    private string location;
+    [Parameter]
+    public string FirstTabValue { get; set; }
+
+   private string location;
 
     private async Task<IEnumerable<string>> Search(string value)
     {
