@@ -57,7 +57,8 @@ public class Database
 
         var AppUser = new DatabaseUser
         {
-            UserName = "appUser@club.se", Email = "appUser@club.se"
+            UserName = "appUser@club.se",
+            Email = "appUser@club.se"
         };
 
         var CompanyUser = new DatabaseUser
