@@ -71,4 +71,15 @@ public class TicketController : ControllerBase
 
         return Ok(returnTicket);
     }
+
+    [HttpDelete]
+    [Route("{id")]
+    public async Task<ActionResult> DeleteTicket(Guid id)
+    {
+        bool deleted = await _ticketService.DeleteTicket(id);
+
+        if (deleted) return Ok();
+
+        return BadRequest();
+    }
 }

@@ -119,6 +119,16 @@ public class TicketService
                   Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
          return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
      }*/
+    public async Task<bool> DeleteTicket(Guid id)
+    {
+        var ticket = new Ticket() {Id = id};
+
+        _slippDbCtx.Tickets.Remove(ticket);
+
+        await _slippDbCtx.SaveChangesAsync();
+
+        return true;
+    }
 }
 
 public class TicketNotFoundException : Exception
