@@ -13,4 +13,6 @@ public class Ticket
     public Sale? Sale { get; set; }
     public Auction? Auction { get; set; }
     public List<Image> Images { get; set; }
+
+    public List<AppUser> SavedByUsers { get; set; }
 }

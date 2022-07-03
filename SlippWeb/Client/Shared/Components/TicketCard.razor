@@ -14,10 +14,10 @@
             </div>
 
             <div id="content-left">
-@*                <MudAvatar Style="margin-bottom: 5px;" Color="Color.Secondary">B</MudAvatar>
-*@                <MudText Typo="Typo.h2">@Ticket.Title</MudText>
+                <MudText Typo="Typo.body2">SLIPP-biljett till</MudText>
+                <MudText Typo="Typo.h2">@Ticket.Title</MudText>
                 <MudContainer>
-                    <MudText Typo="Typo.body1">Tillgängliga förköpsbiljetter:</MudText>
+                    <MudText Typo="Typo.body1">Tillgängliga biljetter:</MudText>
                     <MudText Typo="Typo.h3">8</MudText>
                     <MudText Typo="Typo.body2">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
                 </MudContainer>
@@ -25,8 +25,9 @@
                 @*</MudCard>*@
             </div>
             <div id="content-right">
+                <MudText Typo="Typo.body2">Entré + köföreträde:</MudText>
                 <MudText Typo="Typo.h5">@Ticket.Price SEK</MudText>
-                <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Secondary"/>
+                <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Default"/> @*Byt till icon @Icons.Filled.Favorite och lägg till i favoriter-listan*@
             </div>
         </div>
     </div>

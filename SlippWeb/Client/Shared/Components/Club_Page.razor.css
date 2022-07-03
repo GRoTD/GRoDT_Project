@@ -1,16 +1,7 @@
-﻿::deep .mud-main-content {
-    padding-top: 0;
-}
-::deep .mud-container {
-    margin: 0;
-}
-/*Ovan funkar ej...*/
-
-.component-content {
+﻿.component-content {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
 }
 .club-page-header {
     width: 100%;
@@ -37,6 +28,7 @@
     width: 100%;
     max-height: 250px;
     position: relative;
+    padding-bottom: 15px;
     
 }
 .club-page-top-icons {
@@ -44,19 +36,4 @@
     width: 100%;
     justify-content: space-between;
     
-}
-.club-page-info {
-    background-color: #555a60;
-    padding: 20px 20px;
-    
-    font-style: italic;
-}
-.club-page-info .club-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-style: normal;
-}
-::deep .club-info .mud-icon-button {
-    padding: 10px 0;
 }

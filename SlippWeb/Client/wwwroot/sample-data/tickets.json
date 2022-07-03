@@ -1,7 +1,7 @@
 [
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "En kväll på Locatelli",
+    "title": "Locatelli",
     "price": "250",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
@@ -13,7 +13,7 @@
   },
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "En kväll på Push",
+    "title": "Push",
     "price": "300",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
@@ -25,7 +25,7 @@
   },
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "En kväll på Lounge",
+    "title": "Lounge",
     "price": "350",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [

@@ -1,5 +1,4 @@
-﻿@page "/klubb" 
-@*/{Id:guid}*@
+﻿@page "/klubb/{clubId}"
 @using Slipp.Services.DTO
 @using Slipp.Services.Models
 
@@ -9,7 +8,7 @@
 
 
 
-<div class="main-container">
+
     @if (getAuctionsError)
     {
         <p>Unable to load club. Please try again later.</p>
@@ -17,22 +16,22 @@
     else
     {
        
-        <Club_Page Club=clubs[0]></Club_Page>
-
-        @*TODO Lägg till swipearea för auktioner och tickets*@
-        @*TODO Ändra till endast tickets för specifika klubben*@
+        <Club_Page Club=@club></Club_Page>
+        <HeaderTabs FirstTabValue="Om" SecondTabValue="Biljetter" ThirdTabValue="Auktioner"></HeaderTabs>
         
-        @foreach (var ticket in tickets)
+        @*@foreach (var ticket in tickets)
         {
             <TicketCard Ticket=ticket></TicketCard>
-        }
+        }*@
     }
-</div>
+
 
 @code {
     
     private ClubOutput[] clubs;
+    private ClubOutput club;
     private CreateTicketOutput[] tickets;
+    [Parameter] public string clubId { get; set; }
 
     private bool getAuctionsError;
     private bool shouldRender;  
@@ -42,7 +41,9 @@
     protected override async Task OnInitializedAsync()
     {
         clubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
+        club = clubs.FirstOrDefault(c => c.Id.ToString() == clubId);
         tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
+        
 
         shouldRender = true;
     }

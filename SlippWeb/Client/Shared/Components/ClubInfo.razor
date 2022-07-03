@@ -1,0 +1,39 @@
+﻿@using Slipp.Services.Models
+@inject HttpClient Client
+
+
+<div class="club-page-info">
+    <MudText Typo="Typo.body1">@club.Description</MudText>
+    <div class="club-info">
+        <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
+        <MudText Typo="Typo.body2">@club.Address</MudText>
+    </div>
+    <div class="club-info">
+        <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
+        <MudLink Href="@club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@club.Website</MudLink>
+    </div>
+
+</div>
+
+@code {
+    private ClubOutput[] clubs;
+    private ClubOutput club;
+    private CreateTicketOutput[] tickets;
+    public string clubId = "462a6830-9471-42fb-b0c3-a5dc6a2d8e50";
+
+    private bool shouldRender;  
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
+        club = clubs.FirstOrDefault(c => c.Id.ToString() == clubId);
+        tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
+        
+
+        shouldRender = true;
+    }
+
+    
+}
