@@ -1,0 +1,25 @@
+﻿@page "/account"
+
+@*@attribute [Authorize]*@
+
+<MudText Typo="Typo.h1">Username</MudText>
+
+    <MudContainer Fixed="true" MaxWidth="MaxWidth.Small">
+        <MudList Clickable="true">
+        <MudListItem Href="/Account/PurchaseHistory" Text="Köphistorik" Icon="@Icons.Filled.History" />
+        <MudDivider />
+        <MudListItem Href="/Account/Favourites" Text="Favoriter" Icon="@Icons.Filled.Favorite" />
+        <MudDivider />
+        <MudListItem Href="/Account/MyBids" Text="Mina bud" Icon="@Icons.Material.Filled.Inbox" />
+        <MudDivider />
+        <MudListItem Href="/Account/Settings" Text="Inställningar" Icon="@Icons.Filled.Settings" />
+        <MudDivider />
+        <MudListItem Href="/Account/Help" Text="Hjälp" Icon="@Icons.Filled.Help" />
+        <MudDivider />
+    </MudList>
+    </MudContainer>
+
+
+@code {
+
+}

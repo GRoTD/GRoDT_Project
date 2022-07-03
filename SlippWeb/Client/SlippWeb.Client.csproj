@@ -16,11 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Account.razor.css" />
     <None Remove="Pages\Auctions.razor.css" />
     <None Remove="Pages\Index.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Pages\Account.razor.css" />
     <Content Include="Pages\Index.razor.css" />
     <Content Include="Pages\Auctions.razor.css" />
   </ItemGroup>
