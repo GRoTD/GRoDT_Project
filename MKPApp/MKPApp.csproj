@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -12,7 +12,7 @@
 		<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk> <!--https://stackoverflow.com/questions/67603184/how-to-set-embedassembliesintoapk-msbuild-property-to-true-in-visual-studio-->
 
 		<!-- Display name -->
-		<ApplicationTitle>MKPApp</ApplicationTitle>
+		<ApplicationTitle>Slipp</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.mkpapp</ApplicationId>
@@ -28,6 +28,8 @@
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
 		<Nullable>enable</Nullable>
+		<Title>Slipp</Title>
+		<PackageIcon>Slipp_128px.png</PackageIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
@@ -36,10 +38,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#121821" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#121821" BaseSize="273,80" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -56,6 +58,13 @@
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\..\..\OneDrive\Skrivbord\Slipp.se\Slipp_128px.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>

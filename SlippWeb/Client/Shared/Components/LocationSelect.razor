@@ -1,4 +1,6 @@
-﻿<MudPaper Width="100%" Square="true" Class="d-flex flex-column justify-center">
+﻿@using System.Net.Mime
+@*TODO - OnSelect hide onscreen keyboard*@
+<MudPaper Width="100%" Square="true" Class="d-flex flex-column justify-center">
     <MudStack AlignItems="AlignItems.Center" Elevation="0" Square="true" >
         @*LOCATION*@
                 
@@ -20,7 +22,7 @@
 @code {
 
     private string location;
-
+    
     private async Task<IEnumerable<string>> Search(string value)
     {
         await Task.Delay(5);
