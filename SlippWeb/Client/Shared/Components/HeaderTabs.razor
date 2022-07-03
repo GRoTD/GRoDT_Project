@@ -1,25 +1,6 @@
 ﻿<MudContainer Fixed="true" Style="padding: 0 0 200px 0;">
     <MudPaper Width="100%" Square="true" Class="d-flex flex-column justify-center">
-
-        <MudStack AlignItems="AlignItems.Center" Elevation="0" Square="true" class="pt-2">
-            @*LOCATION*@
-            
-            <MudAutocomplete 
-                Style="Width: 200px; font-size: 18px;"
-                T="string"
-                Variant="Variant.Text"
-                Placeholder="Välj plats"
-                Clearable="true"
-                Margin="Margin.Normal"
-                AnchorOrigin="Origin.BottomCenter"
-                DisableUnderLine="true"
-                @bind-Value="location" 
-                SearchFunc="@Search"/>
-
-        </MudStack>
-
-        @*TABS*@
-        <MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%; height: 100px;">
+        <MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%; height: 60px;">
 
             <MudTabs
                 Rounded="false" 
@@ -27,20 +8,19 @@
                 TabPanelHeaderPosition="TabHeaderPosition.Before" 
                 ApplyEffectsToContainer="true"
                 DisableRipple="false"
-                 TabPanelClass="pa-0 tab-width"
-                Style="padding: 0 0 100px 0;"
+                TabPanelClass="pa-0 tab-width"
                 ActivePanelIndex="@ActiveTabPanel">
-
-                <MudTabPanel Text="@FirstTabValue">
-                    <Tickets></Tickets>
+                @*TAB 1*@
+                <MudTabPanel Style="padding: 50%" Text="@FirstTabValue">
+                    <Tickets></Tickets> @*tillfälligt*@
                 </MudTabPanel>
-
-                <MudTabPanel Text="Auktioner">
+                @*TAB 2*@
+                <MudTabPanel Text="@SecondTabValue">
                     <Tickets></Tickets> @*tillfälligt*@
                     <MudLink Href="#"></MudLink>
                 </MudTabPanel>
-
-                <MudTabPanel Text="Nattklubbar">
+                @*TAB 3*@
+                <MudTabPanel Text="@ThirdTabValue">
                     <Tickets></Tickets>  @*tillfälligt*@
                     <MudLink Href="#"></MudLink>
                 </MudTabPanel>
@@ -69,17 +49,12 @@
 
     [Parameter]
     public string FirstTabValue { get; set; }
+    [Parameter]
+    public string SecondTabValue { get; set; }
+    [Parameter]
+    public string ThirdTabValue { get; set; }
 
-   private string location;
-
-    private async Task<IEnumerable<string>> Search(string value)
-    {
-        await Task.Delay(5);
-
-        if (string.IsNullOrEmpty(value))
-            return locations;
-        return locations.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-    }
+   
 
 
     private int ActiveTabPanel;
@@ -112,15 +87,7 @@
     }
     
 
-    string[] locations = new string[] //Test data, Remove
-    {
-        "Göteborg",
-        "Stockholm",
-        "Lerum",
-        "Falun",
-        "Mora",
-        "Malmö"
-    };
+  
 
 
 }

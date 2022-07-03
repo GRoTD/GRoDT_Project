@@ -1,0 +1,43 @@
+﻿<MudPaper Width="100%" Square="true" Class="d-flex flex-column justify-center">
+    <MudStack AlignItems="AlignItems.Center" Elevation="0" Square="true" >
+        @*LOCATION*@
+                
+        <MudAutocomplete 
+            Style="Width: 200px; font-size: 18px;"
+            T="string"
+            Variant="Variant.Text"
+            Placeholder="Välj plats"
+            Clearable="true"
+            Margin="Margin.Normal"
+            AnchorOrigin="Origin.BottomCenter"
+            DisableUnderLine="true"
+            @bind-Value="location" 
+            SearchFunc="@Search"/>
+
+    </MudStack>
+</MudPaper>
+
+@code {
+
+    private string location;
+
+    private async Task<IEnumerable<string>> Search(string value)
+    {
+        await Task.Delay(5);
+
+        if (string.IsNullOrEmpty(value))
+            return locations;
+        return locations.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    //Test data, Remove
+    string[] locations = new string[] 
+    {
+        "Göteborg",
+        "Stockholm",
+        "Lerum",
+        "Falun",
+        "Mora",
+        "Malmö"
+    };
+}
