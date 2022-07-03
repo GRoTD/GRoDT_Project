@@ -10,10 +10,12 @@ namespace SlippAPI.Controllers;
 public class TicketController : ControllerBase
 {
     private readonly TicketService _ticketService;
+    private readonly Database _db;
 
-    public TicketController(TicketService ticketService)
+    public TicketController(TicketService ticketService, Database db)
     {
         _ticketService = ticketService;
+        _db = db;
     }
 
     [HttpPost]
@@ -38,7 +40,7 @@ public class TicketController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets([FromQuery] Guid? clubId,
-        [FromQuery] string city)
+        [FromQuery] string? city)
     {
         //TODO: Catch errors
 

@@ -16,6 +16,13 @@ public class Database
         _roleManager = roleManager;
     }
 
+    public async Task SeedIfPrductionAndDbIsNotCreated()
+    {
+        var created = await _slippDbCtx.Database.EnsureCreatedAsync();
+
+        if (!created) await Seed();
+    }
+
     public async Task RecreateAndSeed()
     {
         await _slippDbCtx.Database.EnsureDeletedAsync();
