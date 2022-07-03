@@ -2,23 +2,28 @@
 
 @*@attribute [Authorize]*@
 
-<MudText Typo="Typo.h2" Align="Align.Center">Konto</MudText>
+<MudText Typo="Typo.h2" Align="Align.Center" Color="Color.Primary">Konto</MudText>
 
     <MudContainer Fixed="true" MaxWidth="MaxWidth.Small">
         <MudList Clickable="true">
-        <MudListItem Href="/Account/PurchaseHistory" Text="Köphistorik" Icon="@Icons.Filled.History" />
+        <MudListItem IconColor="Color.Primary" Href="/Account/PurchaseHistory" Text="Köphistorik" Icon="@Icons.Filled.History" />
         <MudDivider />
-        <MudListItem Href="/Account/Favourites" Text="Favoriter" Icon="@Icons.Filled.Favorite" />
+        <MudListItem IconColor="Color.Primary" Href="/Account/Favourites" Text="Favoriter" Icon="@Icons.Filled.Favorite" />
         <MudDivider />
-        <MudListItem Href="/Account/MyBids" Text="Mina bud" Icon="@Icons.Material.Filled.Inbox" />
+        <MudListItem IconColor="Color.Primary" Href="/Account/MyBids" Text="Mina bud" Icon="@Icons.Material.Filled.Inbox" />
         <MudDivider />
-        <MudListItem Href="/Account/Settings" Text="Inställningar" Icon="@Icons.Filled.Settings" />
+        <MudListItem IconColor="Color.Primary" Href="/Account/Settings" Text="Inställningar" Icon="@Icons.Filled.Settings" />
         <MudDivider />
-        <MudListItem Href="/Account/Help" Text="Hjälp" Icon="@Icons.Filled.Help" />
+        <MudListItem IconColor="Color.Primary" Href="/Account/Help" Text="Hjälp" Icon="@Icons.Filled.Help" />
         <MudDivider />
     </MudList>
     </MudContainer>
 
+    <style>
+        .mud-list{
+            color: var(--mud-palette-primary)
+        }
+    </style>
 
 @code {
 
