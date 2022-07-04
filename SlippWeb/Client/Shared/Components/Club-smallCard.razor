@@ -2,7 +2,7 @@
 @using Slipp.Services.Models
 
 <div>
-    <a href="/klubb/@Club.Id"> @*OBS hur länkar jag till rätt sida med mudblazor? Kan jag skicka med hela objektet?*@
+    <MudLink Href=@Url>
     <div class="component-content">
         <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
             <div class="my-clubCard-content">
@@ -10,8 +10,7 @@
                 <MudCardHeader>
                     <CardHeaderContent>
                         <div class="club-info">
-                            <MudAvatar Style="margin-bottom: 5px;" Color="Color.Secondary">C</MudAvatar>
-                            <MudText Typo="Typo.h4">@Club.Name</MudText>
+                            <MudText Typo="Typo.h2">@Club.Name</MudText>
                         </div>
                     </CardHeaderContent>
 
@@ -21,15 +20,12 @@
                         <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
                         <MudText Typo="Typo.body2">@Club.Address</MudText>
                     </div>
-                    @*<div class="club-info">
-                        <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
-                        <MudLink Href="@Club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@Club.Website</MudLink>
-                    </div>*@
                     <div class="club-description">
                         <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
                     </div>
                 </MudCardContent>
-                <MudCardActions Class="d-flex justify-end">
+
+                @*<MudCardActions Class="d-flex justify-end">
 
                     <MudLink Href="/nattklubbar">
                         <MudButton Variant="Variant.Text" Color="Color.Primary">Biljetter</MudButton>
@@ -37,16 +33,22 @@
                     <MudLink Href="/nattklubbar">
                         <MudButton Variant="Variant.Text" Color="Color.Primary">Auktioner</MudButton>
                     </MudLink>
-                </MudCardActions>
+                </MudCardActions>*@
 
             </div>
         </div>
     </div>
-    </a>
+    </MudLink>
 </div>
 
 @code {
     [Parameter] public ClubOutput Club { get; set; }
-     
-    
+    private string Url { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Url = "/klubb/" + Club.Id;
+    }
+
 }

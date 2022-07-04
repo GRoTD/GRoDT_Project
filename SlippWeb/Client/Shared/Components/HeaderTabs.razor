@@ -1,4 +1,5 @@
 ﻿@using System.Text.Encodings.Web
+@using System.ComponentModel.Design
 <MudContainer Fixed="true" Style="padding: 0 0 200px 0;">
     <MudPaper Width="100%" Square="true" Class="d-flex flex-column justify-center">
         <MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%; height: 60px;">
@@ -13,18 +14,34 @@
                 ActivePanelIndex="@ActiveTabPanel">
                 @*TAB 1*@
                 <MudTabPanel Text="@FirstTabValue">
-                    @if(FirstTabValue == "Biljetter")
-                    {<Tickets></Tickets>}
+                    @switch (FirstTabValue)
+                    {
+                        case "Biljetter":
+                            <Tickets></Tickets>
+                            break;
+                        case "Om":
+                            <ClubInfo ></ClubInfo>
+                            break;
+                    }
                 </MudTabPanel>
                 @*TAB 2*@
                 <MudTabPanel Text="@SecondTabValue">
+
                     @if (SecondTabValue == "Auktioner")
                     {<Tickets></Tickets>}
+                    else if (SecondTabValue == "Biljetter")
+                    {
+                        <Tickets></Tickets>
+                    }
                 </MudTabPanel>
                 @*TAB 3*@
                 <MudTabPanel Text="@ThirdTabValue">
-                    @if (SecondTabValue == "Nattklubbar")
-                    {<Tickets></Tickets>}
+                    @if (ThirdTabValue == "Nattklubbar")
+                    {<ClubsOverview></ClubsOverview>}
+                    else if(ThirdTabValue =="Auktioner")
+                    {
+                        <Tickets></Tickets>
+                    }
                 </MudTabPanel>
 
             </MudTabs>

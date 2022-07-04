@@ -1,12 +1,13 @@
 ﻿@using Slipp.Services.DTO
 @using Slipp.Services.Models
+@inject NavigationManager NavigationManager
 
 
 <div class="component-content">
     <div class="club-page-header" style="background-image: url('@Club.Images[0].Url');">
         <div class="club-page-header-content">
             <div class="club-page-top-icons">
-                <MudIconButton Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Default"/> @*Länka till returnUrl*@
+                <MudIconButton Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Default" Href="@ReturnUrl"/> @*Länka till returnUrl*@
                 <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Default"/> @*Byt till icon @Icons.Filled.Favorite och lägg till i favoriter-listan*@
             </div>
             <div >
@@ -14,7 +15,10 @@
             </div>
         </div>
     </div>
-    <div class="club-page-info">
+
+    
+
+   @* <div class="club-page-info">
         <MudText Typo="Typo.body1">@Club.Description</MudText>
         <div class="club-info">
             <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
@@ -24,14 +28,21 @@
             <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
             <MudLink Href="@Club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@Club.Website</MudLink>
         </div>
-    </div>
+    </div>*@
 </div>
 
 
 
 @code {
     [Parameter] public ClubOutput Club { get; set; }
-     
+    public string ReturnUrl {get; set;}
+
+    protected override  void OnInitialized()
+    {
+        //ReturnUrl = NavigationManager.LocationChanged 
+            
+    }
+   
 
     
 }

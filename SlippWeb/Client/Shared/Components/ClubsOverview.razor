@@ -1,23 +1,21 @@
-﻿@page "/nattklubbar"
+﻿
 @using Slipp.Services.DTO
 @using Slipp.Services.Models
 @inject HttpClient Client
 
 
-<OurHeader></OurHeader>
-
 <div class="main-container">
-    @if (getAuctionsError)
+   @* @if (getAuctionsError)
     {
         <p>Unable to load clubs. Please try again later.</p>
     }
     else
-    {
+    {*@
         @foreach (var club in clubs)
         {
             <Club_smallCard Club=club></Club_smallCard>
         }
-    }
+    @*}*@
 </div>
 
 
