@@ -28,7 +28,10 @@
     width: 100%;
     position: relative;
     color: white;
+    border: 1.5px dotted #F2C080;
+    border-radius: 10px;
 }
+
 
 ::deep .my-club-card .mud-card-header {
     padding-bottom: 0px;

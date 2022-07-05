@@ -1,7 +1,8 @@
 [
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "Locatelli",
+    "clubName": "Locatelli",
+    "title": "Vi välkomnar mannen bakom 2021 års största hit, 'Do it To it' - ACRAZE!",
     "price": "250",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
@@ -13,8 +14,9 @@
   },
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "Push",
-    "price": "300",
+    "clubName": "Push",
+    "title": "Vi välkomnar mannen bakom 2021 års största hit, 'Do it To it' - ACRAZE!",
+        "price": "300",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
       {
@@ -25,8 +27,9 @@
   },
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "Lounge",
-    "price": "350",
+    "clubName": "Lounge",
+    "title": "Vi välkomnar mannen bakom 2021 års största hit, 'Do it To it' - ACRAZE!",
+        "price": "350",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
       {
@@ -37,8 +40,9 @@
   },
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "Port du Soleil",
-    "price": "300",
+    "clubName": "Port du Soleil",
+    "title": "Vi välkomnar mannen bakom 2021 års största hit, 'Do it To it' - ACRAZE!",
+        "price": "300",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
       {
@@ -50,8 +54,9 @@
 
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "Puta Madre",
-    "price": "300",
+    "clubName": "Puta Madre",
+    "title": "Vi välkomnar mannen bakom 2021 års största hit, 'Do it To it' - ACRAZE!",
+        "price": "300",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
       {
@@ -62,8 +67,9 @@
   },
   {
     "id": "12355e99-cceb-499e-e90c-08da4e4ca855",
-    "title": "Stranger",
-    "price": "300",
+    "clubName": "Stranger",
+    "title": "Vi välkomnar mannen bakom 2021 års största hit, 'Do it To it' - ACRAZE!",
+        "price": "300",
     "clubUrl": "https://localhost:7197/api/club?id=d37ec09f-602e-482c-f7d6-08da4e4ca823",
     "images": [
       {
