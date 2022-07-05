@@ -2,26 +2,36 @@
 
 @attribute [Authorize]
 
-<MudText Typo="Typo.h2" Align="Align.Center" Color="Color.Primary">Konto</MudText>
+<MudPaper Square="true" Height="80px" Width="100%" Style="background-color: transparent" Class="d-flex justify-center align-center">
+    <MudText Typo="Typo.h4" Color="Color.Primary">Konto</MudText>
+</MudPaper>
 
-    <MudContainer Fixed="true" MaxWidth="MaxWidth.Small">
+    <MudContainer Fixed="true" Style="padding: 0" MaxWidth="MaxWidth.Small">
         <MudList Clickable="true">
-        <MudListItem IconColor="Color.Primary" Href="/Account/PurchaseHistory" Text="Köphistorik" Icon="@Icons.Filled.History" />
-        <MudDivider />
-        <MudListItem IconColor="Color.Primary" Href="/Account/Favourites" Text="Favoriter" Icon="@Icons.Filled.Favorite" />
-        <MudDivider />
-        <MudListItem IconColor="Color.Primary" Href="/Account/MyBids" Text="Mina bud" Icon="@Icons.Material.Filled.Inbox" />
-        <MudDivider />
-        <MudListItem IconColor="Color.Primary" Href="/Account/Settings" Text="Inställningar" Icon="@Icons.Filled.Settings" />
-        <MudDivider />
-        <MudListItem IconColor="Color.Primary" Href="/Account/Help" Text="Hjälp" Icon="@Icons.Filled.Help" />
-        <MudDivider />
-    </MudList>
+            <MudListItem IconColor="Color.Primary" Href="/Account/Favourites" Text="Favoriter" Icon="@Icons.Filled.Favorite"/>
+            <MudDivider />
+            <MudListItem IconColor="Color.Primary" Href="/Account/MySlipps" Text="Mina köp" Icon="@Icons.Material.Filled.AttachMoney" />
+            <MudDivider/>
+            <MudListItem IconColor="Color.Primary" Href="/Account/MyBids" Text="Mina bud" Icon="@Icons.Material.Filled.Gavel"/>
+            <MudDivider/>
+            <MudListItem IconColor="Color.Primary" Href="/Account/PurchaseHistory" Text="Köphistorik" Icon="@Icons.Filled.History"/>
+            <MudDivider/>
+            <MudListItem IconColor="Color.Primary" Href="/Account/Settings" Text="Inställningar" Icon="@Icons.Filled.Settings"/> 
+            <MudDivider/>
+            <MudListItem IconColor="Color.Primary" Href="/Account/Terms" Text="Vilkor" Icon="@Icons.Filled.Info"/>
+            <MudDivider/>
+            <MudListItem IconColor="Color.Primary" Href="/Account/Help" Text="Hjälp" Icon="@Icons.Filled.Help"/>
+            <MudDivider/>
+        </MudList>
     </MudContainer>
 
     <style>
         .mud-list{
             color: var(--mud-palette-primary)
+        }
+
+        .mud-list-item {
+            padding: 8px 20px;
         }
     </style>
 
