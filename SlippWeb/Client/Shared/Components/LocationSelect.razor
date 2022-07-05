@@ -1,27 +1,37 @@
 ﻿@using System.Net.Mime
+@using System.Reflection.Metadata
 @*TODO - OnSelect hide onscreen keyboard*@
 <MudPaper Width="100%" Square="true" Class="d-flex flex-column justify-center">
     <MudStack AlignItems="AlignItems.Center" Elevation="0" Square="true" >
         @*LOCATION*@
                 
-        <MudAutocomplete 
+        <MudAutocomplete
+            AdornmentColor="Color.Primary"
             Style="Width: 200px; font-size: 18px;"
             T="string"
             Variant="Variant.Text"
             Placeholder="Välj plats"
-            Clearable="true"
             Margin="Margin.Normal"
             AnchorOrigin="Origin.BottomCenter"
             DisableUnderLine="true"
             @bind-Value="location" 
-            SearchFunc="@Search"/>
+            SearchFunc="@Search"
+            Clearable="true"/>
 
     </MudStack>
 </MudPaper>
 
+<style>
+    .mud-input {
+        color: #F2C080;
+    }
+
+</style>
+
 @code {
 
     private string location;
+    private string selectedValue = "";
     
     private async Task<IEnumerable<string>> Search(string value)
     {
