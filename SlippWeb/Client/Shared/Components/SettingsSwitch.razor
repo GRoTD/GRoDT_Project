@@ -1,0 +1,13 @@
+﻿<MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
+    <MudText Class="px-3" Typo="Typo.body2">@SwitchText</MudText>
+    <MudSwitch Style="Margin: 0;" Color="Color.Primary" @bind-Checked=@(@checked) />
+</MudContainer>
+
+@code {
+
+    [Parameter]
+    public string SwitchText { get; set; }
+    
+    [CascadingParameter]
+    public bool @checked { get; set; }
+}
