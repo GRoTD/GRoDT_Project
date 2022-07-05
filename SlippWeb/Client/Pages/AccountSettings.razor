@@ -6,8 +6,7 @@
 <MudPaper Square="true" Height="80px" Width="100%" Style="background-color: transparent" Class="d-flex align-center">
     <MudGrid>
         <MudItem xs="4" Class="d-flex align-basline justify-content-start">
-            <MudIconButton Style="padding: 0;" Icon="@Icons.Filled.ArrowBackIos" Href="/Account"></MudIconButton>
-            <MudText Color="Color.Primary" Style="padding-top: 10px;" Typo="Typo.body2">Konto</MudText>
+            <MudIconButton Style="padding: 12px;" Size="Size.Large" Icon="@Icons.Filled.ArrowCircleLeft" Href="/Account"></MudIconButton>
         </MudItem>
         <MudItem xs="4"Class="d-flex align-center justify-center">
             <MudText Color="Color.Primary" Typo="Typo.h4">Inställningar</MudText>
@@ -22,12 +21,12 @@
 @*PLATS*@
 <MudContainer Square="true" Elevation="0" Class="d-flex flex-column align-center px-0">
     
-    <MudPaper Style="padding: 10px;" Square="true" Elevation="0" Width="100%">
+    <MudPaper Style="padding: 10px 20px;" Square="true" Elevation="0" Width="100%">
         <MudText Color="Color.Primary" Typo="Typo.h3">PLATSNOTISER</MudText>
     </MudPaper>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Plats</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Plats</MudText>
         <MudIconButton Icon="@Icons.Filled.ArrowForwardIos" Href="/Account/Location"></MudIconButton>
     </MudContainer>
 
@@ -36,14 +35,14 @@
 @*OM*@
 <MudContainer Square="true" Elevation="0" Class="d-flex flex-column align-center  px-0">
         
-    <MudPaper Style="padding: 10px;" Square="true" Elevation="0" Width="100%">
+    <MudPaper Style="padding: 10px 20px;" Square="true" Elevation="0" Width="100%">
         <MudText Color="Color.Primary" Typo="Typo.h3">OM MIG</MudText>
     </MudPaper>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
         <MudGrid>
             <MudItem xs="10">
-                <MudSimpleTable T="string" HorizontalScrollbar="false" Dense="true" Style="background-color: transparent;" Square="true" Elevation="0">
+                <MudSimpleTable T="string" Class="px-3" HorizontalScrollbar="false" Dense="true" Style="background-color: transparent;" Square="true" Elevation="0">
                     <tbody>
                     <tr>
                         <td>Namn</td>
@@ -76,26 +75,26 @@
 @*MOBIL NOTISER*@
 <MudContainer Square="true" Elevation="0" Class="d-flex flex-column align-center  px-0">
      
-    <MudPaper Style="padding: 10px;" Square="true" Elevation="0" Width="100%">
+    <MudPaper Style="padding: 10px 20px;" Square="true" Elevation="0" Width="100%">
         <MudText Color="Color.Primary" Typo="Typo.h3">NOTISER I MOBILEN</MudText>
     </MudPaper>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Erbjudanden och nyheter</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Erbjudanden och nyheter</MudText>
         <MudSwitch Style="Margin: 0;" Color="Color.Primary" @bind-Checked=@(disabled)/>
     </MudContainer>
         
     <MudDivider></MudDivider>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Annonser</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Annonser</MudText>
         <MudSwitch Style="Margin: 0;" Color="Color.Primary" @bind-Checked=@(disabled) />
     </MudContainer>
         
     <MudDivider></MudDivider>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Bevakningar</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Bevakningar</MudText>
         <MudIconButton Icon="@Icons.Filled.ArrowForwardIos" Href="/Account/AdAlerts"></MudIconButton>
     </MudContainer>
 
@@ -104,26 +103,26 @@
 @*EPOST NOTISER*@
 <MudContainer Square="true" Elevation="0" Class="d-flex flex-column align-center  px-0">
         
-    <MudPaper Style="padding: 10px;" Square="true" Elevation="0" Width="100%">
+    <MudPaper Style="padding: 10px 20px;" Square="true" Elevation="0" Width="100%">
         <MudText Color="Color.Primary" Typo="Typo.h3">E-POST NOTISER</MudText>
     </MudPaper>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Erbjudanden och nyheter</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Erbjudanden och nyheter</MudText>
         <MudSwitch Style="Margin: 0;" Color="Color.Primary" @bind-Checked=@(disabled) />
     </MudContainer>
 
     <MudDivider></MudDivider>
     
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Annonser</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Annonser</MudText>
         <MudSwitch Style="Margin: 0;" Color="Color.Primary" @bind-Checked=@(disabled) />
     </MudContainer>
         
     <MudDivider></MudDivider>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Bevakningar</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Bevakningar</MudText>
         <MudSwitch Style="Margin: 0;" Color="Color.Primary" @bind-Checked=@(disabled) />
     </MudContainer>
 
@@ -133,12 +132,12 @@
 @*APP INSTÄLLNINGAR*@
 <MudContainer Square="true" Elevation="0" Class="d-flex flex-column align-center px-0">
 
-    <MudPaper Style="padding: 10px;" Square="true" Elevation="0" Width="100%">
+    <MudPaper Style="padding: 10px 20px;" Square="true" Elevation="0" Width="100%">
         <MudText Color="Color.Primary" Typo="Typo.h3">APP INSTÄLLNINGAR</MudText>
     </MudPaper>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Dark mode</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Dark mode</MudText>
         <MudSwitch Style="Margin: 0;" Color="Color.Primary" @bind-Checked=@(disabled) />
 
     </MudContainer>
@@ -149,12 +148,12 @@
 @*AVÄNDARDATA*@
 <MudContainer Square="true" Elevation="0" Class="d-flex flex-column align-center px-0">
 
-    <MudPaper Style="padding: 10px;" Square="true" Elevation="0" Width="100%">
+    <MudPaper Style="padding: 10px 20px;" Square="true" Elevation="0" Width="100%">
         <MudText Color="Color.Primary" Typo="Typo.h3">ANVÄNDARDATA</MudText>
     </MudPaper>
 
     <MudContainer square="true" Class="d-flex px-2 justify-space-between align-center">
-        <MudText Typo="Typo.body2">Ladde ner användardata</MudText>
+        <MudText Class="px-3" Typo="Typo.body2">Ladde ner användardata</MudText>
         <MudIconButton Icon="@Icons.Filled.Download"></MudIconButton> @*TODO - OnClick*@
 
     </MudContainer>
