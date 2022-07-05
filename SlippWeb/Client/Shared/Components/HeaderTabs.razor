@@ -26,21 +26,26 @@
                 </MudTabPanel>
                 @*TAB 2*@
                 <MudTabPanel Text="@SecondTabValue">
-
-                    @if (SecondTabValue == "Auktioner")
-                    {<Tickets></Tickets>}
-                    else if (SecondTabValue == "Biljetter")
+                    @switch (SecondTabValue)
                     {
-                        <Tickets></Tickets>
+                        case "Auktioner":
+                            <Tickets></Tickets>
+                            break;
+                        case "Biljetter":
+                            <Tickets></Tickets>
+                            break;
                     }
                 </MudTabPanel>
                 @*TAB 3*@
                 <MudTabPanel Text="@ThirdTabValue">
-                    @if (ThirdTabValue == "Nattklubbar")
-                    {<ClubsOverview></ClubsOverview>}
-                    else if(ThirdTabValue =="Auktioner")
+                    @switch (ThirdTabValue)
                     {
-                        <Tickets></Tickets>
+                        case "Nattklubbar":
+                            <ClubsOverview></ClubsOverview>
+                            break;
+                        case "Auktioner":
+                            <Tickets></Tickets>
+                            break;
                     }
                 </MudTabPanel>
 
