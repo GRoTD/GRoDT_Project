@@ -1,4 +1,6 @@
 ﻿@page "/account"
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
 
 @attribute [Authorize]
 
@@ -21,6 +23,8 @@
             <MudListItem IconColor="Color.Primary" Href="/Account/Terms" Text="Vilkor" Icon="@Icons.Filled.Info"/>
             <MudDivider/>
             <MudListItem IconColor="Color.Primary" Href="/Account/Help" Text="Hjälp" Icon="@Icons.Filled.Help"/>
+            <MudDivider/> 
+            <MudListItem IconColor="Color.Primary" OnClick="Logout" Text="Logga ut" Icon="@Icons.Filled.Logout"/>
             <MudDivider/>
         </MudList>
     </MudContainer>
@@ -37,4 +41,11 @@
 
 @code {
 
-}
+    private async void Logout()
+    {
+        await AuthenticationService.Logout();
+        
+    }
+
+
+} 

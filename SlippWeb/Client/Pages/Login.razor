@@ -89,8 +89,8 @@
         loading = true;
         try
         {
-            await AuthenticationService.Login(_loginInput);
-            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
+            await AuthenticationService.Login(_loginInput); /*TODO - Show loader on while waiting*/
+            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/Home";
             NavigationManager.NavigateTo(returnUrl);
         }
         catch (Exception ex)
