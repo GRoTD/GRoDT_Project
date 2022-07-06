@@ -27,13 +27,13 @@
                               For="(() => _loginInput.Password)"
                         RequiredError="Password is required!"/>
 
-                    <div class=" float-end mt-6">
+                    <div class=" d-flex mt-6 gap-5">
                         <MudButton 
                             ButtonType="ButtonType.Submit"
                             Variant="Variant.Filled"
                             Size="Size.Large"
                             Color="Color.Primary"
-                            Class="ml-auto">
+                            Class="login-btn">
                             @if (loading)
                             {
                                 <span class="spinner-border spinner-border-sm mr-1"></span>
@@ -46,8 +46,9 @@
                             Variant="Variant.Filled"
                             Size="Size.Large"
                             Color="Color.Primary"
-                            OnClick="@(() => NavigationManager.NavigateTo("/register"))">
-                            Register
+                            OnClick="@(() => NavigationManager.NavigateTo("/register"))"
+                            Class="create-btn">
+                            Skapa konto
                         </MudButton>
 
                     </div>
@@ -61,6 +62,17 @@
     .mud-input-label-outlined {
         background-color: #121821;
     }
+
+    .login-btn {
+        color: #121821
+    }
+
+    .create-btn {
+        color: #F2C080 !important;
+        background-color: #27272f !important;
+    }
+
+
 </style>
 
 
@@ -90,8 +102,9 @@
         try
         {
             await AuthenticationService.Login(_loginInput); /*TODO - Show loader on while waiting*/
-            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/Home";
+            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
             NavigationManager.NavigateTo(returnUrl);
+            /*TODO - Logga in byter inte till konto direkt*/
         }
         catch (Exception ex)
         {
