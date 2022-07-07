@@ -5,7 +5,7 @@
        
         <div class="my-card-content">
             <div class="date-avatar">
-            <MudAvatar Style="height:48px; width:48px; font-size: 0.8rem; color:#121821; font-weight: 600;"  Color="Color.Primary">@Ticket.StartValidTime.ToString("dd") <br/> @Ticket.StartValidTime.ToString("MMM").Remove(3, 1).ToUpper()</MudAvatar>
+            <MudAvatar Style="height:48px; width:48px; position:absolute; top:10px; left:10px; font-size: 0.8rem; color:#121821; font-weight: 600;"  Color="Color.Primary">@Ticket.StartValidTime.ToString("dd") <br/> @Ticket.StartValidTime.ToString("MMM").Remove(3, 1).ToUpper()</MudAvatar>
             </div>
                 <div class="ticket-circles">
                 <p id="tl"></p>
@@ -58,12 +58,12 @@
         if (IsFavourite)
         {
             IsFavourite = false;
-            @*ToDO Ta bort ur favoriter-listan*@
+    @*ToDO Ta bort ur favoriter-listan*@
         }
         else
         {
             IsFavourite = true;
-            @*TODO Lägg till i favoriter-listan*@
+    @*TODO Lägg till i favoriter-listan*@
         }
     }
        
