@@ -45,13 +45,13 @@ public class Database
 
         var images = new List<Image>()
         {
-            new() {Id = 1, Url = "images/locatelli.jpg"},
-            new() {Id = 2, Url = "images/push.jpg"},
-            new() {Id = 3, Url = "images/lounge.jpg"},
-            new() {Id = 4, Url = "images/portdusoleil.jpg"},
-            new() {Id = 5, Url = "images/excet.jpg"},
-            new() {Id = 6, Url = "images/putamadre.jpg"},
-            new() {Id = 7, Url = "images/stranger.jpg"},
+            new() {Url = "images/locatelli.jpg"},
+            new() {Url = "images/push.jpg"},
+            new() {Url = "images/lounge.jpg"},
+            new() {Url = "images/portdusoleil.jpg"},
+            new() {Url = "images/excet.jpg"},
+            new() {Url = "images/putamadre.jpg"},
+            new() {Url = "images/stranger.jpg"},
         };
 
         _slippDbCtx.AddRange(images);

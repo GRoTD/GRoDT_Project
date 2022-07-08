@@ -12,17 +12,32 @@ using Slipp.Services;
 namespace SlippAPI.Migrations
 {
     [DbContext(typeof(SlippDbCtx))]
-    [Migration("20220703143231_updateDbModels-1")]
-    partial class updateDbModels1
+    [Migration("20220708211513_db-update-reset")]
+    partial class dbupdatereset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("AppUserTicket", b =>
+                {
+                    b.Property<Guid>("FavouriteTicketsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SavedByUsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("FavouriteTicketsId", "SavedByUsersId");
+
+                    b.HasIndex("SavedByUsersId");
+
+                    b.ToTable("AppUserTicket");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -262,6 +277,10 @@ namespace SlippAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Website")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
@@ -367,6 +386,9 @@ namespace SlippAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("TicketId")
                         .HasColumnType("uniqueidentifier");
 
@@ -376,9 +398,11 @@ namespace SlippAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClubId");
+
                     b.HasIndex("TicketId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Slipp.Services.Models.Sale", b =>
@@ -444,6 +468,21 @@ namespace SlippAPI.Migrations
                     b.HasIndex("SaleId");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("AppUserTicket", b =>
+                {
+                    b.HasOne("Slipp.Services.Models.Ticket", null)
+                        .WithMany()
+                        .HasForeignKey("FavouriteTicketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Slipp.Services.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("SavedByUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -566,6 +605,10 @@ namespace SlippAPI.Migrations
 
             modelBuilder.Entity("Slipp.Services.Models.Image", b =>
                 {
+                    b.HasOne("Slipp.Services.Models.Club", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ClubId");
+
                     b.HasOne("Slipp.Services.Models.Ticket", null)
                         .WithMany("Images")
                         .HasForeignKey("TicketId");
@@ -622,6 +665,8 @@ namespace SlippAPI.Migrations
             modelBuilder.Entity("Slipp.Services.Models.Club", b =>
                 {
                     b.Navigation("Auctions");
+
+                    b.Navigation("Images");
 
                     b.Navigation("Tickets");
                 });

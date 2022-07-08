@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/database")]
+[Route("/api/database")]
 [ApiController]
 public class DatabaseController : ControllerBase
 {
@@ -16,10 +16,10 @@ public class DatabaseController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    [Route("resetDb")]
+    [Route("reset-db")]
     public async Task<ActionResult> ResetDb()
     {
         await _db.RecreateAndSeed();
-        return Ok();
+        return Ok("Database reset!");
     }
 }

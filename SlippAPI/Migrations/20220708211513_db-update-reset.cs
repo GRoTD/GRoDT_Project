@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SlippAPI.Migrations
 {
-    public partial class updateDbModels1 : Migration
+    public partial class dbupdatereset : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,9 +63,10 @@ namespace SlippAPI.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Adress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -326,23 +327,58 @@ namespace SlippAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "AppUserTicket",
+                columns: table => new
+                {
+                    FavouriteTicketsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SavedByUsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserTicket", x => new { x.FavouriteTicketsId, x.SavedByUsersId });
+                    table.ForeignKey(
+                        name: "FK_AppUserTicket_AppUsers_SavedByUsersId",
+                        column: x => x.SavedByUsersId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppUserTicket_Tickets_FavouriteTicketsId",
+                        column: x => x.FavouriteTicketsId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Tickets_TicketId",
+                        name: "FK_Images_Clubs_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Clubs",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Images_Tickets_TicketId",
                         column: x => x.TicketId,
                         principalTable: "Tickets",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUserTicket_SavedByUsersId",
+                table: "AppUserTicket",
+                column: "SavedByUsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -414,8 +450,13 @@ namespace SlippAPI.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_TicketId",
-                table: "Image",
+                name: "IX_Images_ClubId",
+                table: "Images",
+                column: "ClubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_TicketId",
+                table: "Images",
                 column: "TicketId");
 
             migrationBuilder.CreateIndex(
@@ -442,6 +483,9 @@ namespace SlippAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AppUserTicket");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -460,7 +504,7 @@ namespace SlippAPI.Migrations
                 name: "Bids");
 
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
