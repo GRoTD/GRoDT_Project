@@ -1,5 +1,4 @@
 {
-  {
   "dependencies": {
     "mssql1": {
       "type": "mssql",

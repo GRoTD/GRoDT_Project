@@ -36,6 +36,19 @@ if (app.Environment.IsDevelopment())
 
     await db.RecreateAndSeed();
 }
+/*else
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var db = services.GetRequiredService<Database>();
+
+    await db.Seed();
+}*/
+
+app.UseDeveloperExceptionPage();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseDeveloperExceptionPage();
 

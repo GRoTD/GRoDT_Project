@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Slipp.Services.Constants;
+using Slipp.Services.DTO;
 
 namespace SlippAPI.Controllers;
 

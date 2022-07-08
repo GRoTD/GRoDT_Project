@@ -3,7 +3,8 @@
 @using Slipp.Services.DTO
 @using Slipp.Services.Models
 @using System.Net
-@inject HttpClient Client
+@*@inject HttpClient Client*@
+@inject ITicketAPIService TicketApiService
 
 @*@inject IHttpClientFactory ClientFactory*@
 
@@ -44,7 +45,7 @@
 
 @code {
     //Flytta fetchanrop till komponenter eller till egen fil (motsvarande som vi gjorde i poke-uppgiften?) Förmodligen komponenter...
-    private CreateTicketOutput[] tickets; //TODO - Gör denna "cascading?", för att inte kontakta APIn inom en visst tidsspan(minska anrop till databasen). 
+    private IEnumerable<CreateTicketOutput> tickets;
     //private List<CreateTicketOutput> tickets;
     private bool getAuctionsError;
     private bool shouldRender;  
@@ -53,28 +54,29 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(1000); //Just 4 fun :D
-        tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
-        //var request = new HttpRequestMessage(HttpMethod.Get,
-        //   "https://localhost:7197/api/Ticket"); //byt ut till vår url + headers
-        //request.Headers.Add("Accept", "application/json");
+        //tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
+
+        tickets = await TicketApiService.GetTickets(null, null);
+
+        /*var request = new HttpRequestMessage(HttpMethod.Get,
+           "https://slippapifortesting.azurewebsites.net/api/Ticket"); //byt ut till vår url + headers
+        request.Headers.Add("Accept", "application/json");
         ////request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
 
-        ////var client = ClientFactory.CreateClient();
-        //var client=new HttpClient();
+        //var client = ClientFactory.CreateClient();
+        var client=new HttpClient();
 
-        //var response = await client.SendAsync(request);
+        var response = await client.SendAsync(request);
 
-        //if (response.IsSuccessStatusCode)
-        //{
-        //    using var responseStream = await response.Content.ReadAsStreamAsync();
-        //    tickets = await JsonSerializer.DeserializeAsync
-        //        <List<CreateTicketOutput>>(responseStream);
-        //}
-        //else
-        //{
-        //    getAuctionsError = true;
-        //}
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            tickets = await JsonSerializer.DeserializeAsync<List<CreateTicketOutput>>(responseStream);
+        }
+        else
+        {
+            getAuctionsError = true;
+        }*/
 
         shouldRender = true;
     }
