@@ -42,6 +42,7 @@ public class TicketController : ControllerBase
     public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets([FromQuery] Guid? clubId,
         [FromQuery] string? city)
     {
+        //Shouldn't be able to ask for city and clubId at the same time. //REFACTOR
         //TODO: Catch errors
 
         var tickets = new List<Ticket>();

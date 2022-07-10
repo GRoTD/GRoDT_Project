@@ -6,9 +6,15 @@ public class TicketService
 {
     private readonly SlippDbCtx _slippDbCtx;
 
+    private readonly IQueryable<Ticket> _query;
+
     public TicketService(SlippDbCtx slippDbCtx)
     {
         _slippDbCtx = slippDbCtx;
+        _query = _slippDbCtx.Tickets
+            .Include(t => t.Club)
+            .Include(t => t.Sale)
+            .Include(t => t.Images);
     }
 
     /// <summary>
@@ -43,11 +49,7 @@ public class TicketService
 
     public async Task<Ticket> GetTicket(Guid id)
     {
-        var query = _slippDbCtx.Tickets
-            .Include(t => t.Club)
-            .Include(t => t.Sale)
-            .Include(t => t.Auction)
-            .Include(t => t.Images);
+        var query = _query.Include(t => t.Auction);
 
         var ticket = await query.FirstOrDefaultAsync(t => t.Id == id);
 
@@ -58,10 +60,7 @@ public class TicketService
 
     public async Task<List<Ticket>> GetUnsoldTicketsWithoutAuctions(Guid? clubId)
     {
-        var query = _slippDbCtx.Tickets
-            .Include(t => t.Club)
-            .Include(t => t.Sale)
-            .Include(t => t.Images)
+        var query = _query
             .Where(t => t.Auction == null)
             .Where(t => t.Sale == null)
             .AsQueryable();
@@ -81,10 +80,7 @@ public class TicketService
 
     public async Task<List<Ticket>> GetUnsoldTicketsAtCity(string city)
     {
-        var query = _slippDbCtx.Tickets
-            .Include(t => t.Club)
-            .Include(t => t.Sale)
-            .Include(t => t.Images)
+        var query = _query
             .Where(t => t.Auction == null)
             .Where(t => t.Sale == null)
             .Where(t => t.Club.City.ToUpper() == city.ToUpper())

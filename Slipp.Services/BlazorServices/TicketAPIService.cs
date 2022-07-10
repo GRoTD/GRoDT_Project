@@ -37,6 +37,7 @@ public class TicketAPIService : ITicketAPIService
 
     public async Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city)
     {
+        //Shouldn't be able to ask for city and clubId at the same time. //REFACTOR
         IEnumerable<CreateTicketOutput> tickets;
 
         var queries = new Dictionary<string, string>();
