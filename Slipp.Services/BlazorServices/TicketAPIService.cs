@@ -1,6 +1,6 @@
 ﻿using Slipp.Services.Constants;
 using Slipp.Services.DTO;
-using Slipp.Services.Models;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Slipp.Services.BlazorServices;
 
@@ -9,14 +9,15 @@ public interface ITicketAPIService
     LoggedInUser User { get; }
     Task Initialize();
     Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city);
-    Task GetTicket(Guid? id);
-    Task DeleteTicket(Guid? id);
+    Task<CreateTicketOutput> GetTicket(Guid id);
+    Task<CreateTicketOutput> DeleteTicket(Guid id);
 }
 
 public class TicketAPIService : ITicketAPIService
 {
     private readonly IApiService _apiService;
     private readonly ILocalStorageService _localStorageService;
+    private readonly string _path = ApiPaths.TICKETCONTROLLER;
 
     public TicketAPIService(
         IApiService apiService,
@@ -34,19 +35,37 @@ public class TicketAPIService : ITicketAPIService
         User = await _localStorageService.GetItem<LoggedInUser>("user");
     }
 
-    public Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city)
+    public async Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city)
     {
-        var tickets = _apiService.Get<IEnumerable<CreateTicketOutput>>(ApiPaths.TICKETCONTROLLER);
+        IEnumerable<CreateTicketOutput> tickets;
+
+        var queries = new Dictionary<string, string>();
+
+        string path = _path;
+
+        if (clubId != null) queries.Add("clubId", clubId.ToString());
+        if (city != null) queries.Add("city", city);
+        if (queries.Count > 0) path = QueryHelpers.AddQueryString(path, queries);
+
+        tickets = await _apiService.Get<IEnumerable<CreateTicketOutput>>(path);
+
+
         return tickets;
     }
 
-    public Task GetTicket(Guid? id)
+    public async Task<CreateTicketOutput> GetTicket(Guid id)
     {
-        throw new NotImplementedException();
+        var path = _path + $"/{id}";
+        var ticket = await _apiService.Get<CreateTicketOutput>(path);
+
+        return ticket;
     }
 
-    public Task DeleteTicket(Guid? id)
+    public async Task<CreateTicketOutput> DeleteTicket(Guid id)
     {
-        throw new NotImplementedException();
+        var path = _path + $"/{id}";
+        var ticket = await _apiService.Delete<CreateTicketOutput>(path);
+
+        return ticket;
     }
 }

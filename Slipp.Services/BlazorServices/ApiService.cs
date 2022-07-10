@@ -13,6 +13,7 @@ public interface IApiService
 {
     Task<T> Get<T>(string uri);
     Task<T> Post<T>(string uri, object value);
+    Task<T> Delete<T>(string uri);
 }
 
 public class ApiService : IApiService
@@ -38,19 +39,25 @@ public class ApiService : IApiService
     public async Task<T> Get<T>(string uri)
     {
         var request = new HttpRequestMessage(HttpMethod.Get, uri);
-        return await sendRequest<T>(request);
+        return await SendRequest<T>(request);
     }
 
     public async Task<T> Post<T>(string uri, object value)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, uri);
         request.Content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
-        return await sendRequest<T>(request);
+        return await SendRequest<T>(request);
+    }
+
+    public async Task<T> Delete<T>(string uri)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Delete, uri); //TODO: Test this one!
+        return await SendRequest<T>(request);
     }
 
     // helper methods
 
-    private async Task<T> sendRequest<T>(HttpRequestMessage request)
+    private async Task<T> SendRequest<T>(HttpRequestMessage request)
     {
         // add jwt auth header if user is logged in and request is to the api url
         var user = await _localStorageService.GetItem<LoggedInUser>("user");
@@ -71,7 +78,9 @@ public class ApiService : IApiService
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
-            throw new Exception(error["message"]);
+            throw
+                new Exception(
+                    error["message"]); //Send only the message of the exception, so to easier see what happened.
         }
 
         return await response.Content.ReadFromJsonAsync<T>();

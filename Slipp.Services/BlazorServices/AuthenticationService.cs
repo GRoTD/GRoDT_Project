@@ -38,8 +38,7 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task Login(LoginInput input)
     {
-        User = await _apiService.Post<LoggedInUser>(ApiPaths.LOGINUSER,
-            input); //TODO: Rätt uri här
+        User = await _apiService.Post<LoggedInUser>(ApiPaths.LOGINUSER, input);
         await _localStorageService.SetItem("user", User);
     }
 
