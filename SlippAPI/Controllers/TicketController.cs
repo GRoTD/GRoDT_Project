@@ -74,8 +74,10 @@ public class TicketController : ControllerBase
 
     [HttpDelete]
     [Route("{id}")]
+    [Authorize(Roles = $"{StaticConfig.ClubRole}, {StaticConfig.AdminRole}")]
     public async Task<ActionResult> DeleteTicket(Guid id)
     {
+        //TODO: Check if club owns the ticket. 
         bool deleted = await _ticketService.DeleteTicket(id);
 
         if (deleted) return Ok();

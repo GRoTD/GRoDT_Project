@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Slipp.Services.Constants;
 
 namespace SlippAPI.Controllers;
 
-[Route("/api/database")]
+[Route(ApiPaths.DATABASECONTROLLER))]
 [ApiController]
 public class DatabaseController : ControllerBase
 {

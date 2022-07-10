@@ -9,4 +9,5 @@ public static class ApiPaths
     public const string AUCTIONSCONTROLLER = "/api/auction";
     public const string ADMINCONTROLLER = "/api/admin";
     public const string APPUSERCONTROLLER = "/api/user";
+    public const string DATABASECONTROLLER = "/api/database";
 }
