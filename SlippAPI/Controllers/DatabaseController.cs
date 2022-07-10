@@ -4,7 +4,7 @@ using Slipp.Services.Constants;
 
 namespace SlippAPI.Controllers;
 
-[Route(ApiPaths.DATABASECONTROLLER))]
+[Route(ApiPaths.DATABASECONTROLLER)]
 [ApiController]
 public class DatabaseController : ControllerBase
 {
