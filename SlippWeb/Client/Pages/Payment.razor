@@ -1,0 +1,50 @@
+﻿@*TODO Sätt denna till authorize*@
+
+@page "/pay"
+
+
+<div class="main-container">
+<PageHeader HeaderTitle="Betalning"/>
+<TicketBackside></TicketBackside>
+
+<div class="numericSpinnerContainer">
+    <div class="numericSpinner">
+        <MudNumericField @bind-Value="choosenValue" Label="Antal biljetter" Variant="Variant.Text" Min="1" Max="10" /> @*TODO Byt Max till antal biljetter*@
+    </div>
+</div>
+
+<MudDivider DividerType="DividerType.Middle" Class="my-6"></MudDivider>
+
+<MudText Typo="Typo.h2" Style="text-align: left;">Översikt</MudText>
+<MudText Typo="Typo.body2">dnjksnfjkab</MudText>
+
+</div>
+
+@code {
+    public int choosenValue { get; set; }
+    [Parameter] public CreateTicketOutput TicketToBuy { get; set; }
+}
+
+
+
+
+
+
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+    }
+    .numericSpinnerContainer {
+        width: 90vh;
+        display: flex;
+        justify-content: center;
+    }
+    .numericSpinner {
+        max-width: 100px;
+  
+    }
+</style>

@@ -1,31 +1,34 @@
 ﻿@using Slipp.Services.DTO
 @using Slipp.Services.Models
+@using System.Net
+@inject NavigationManager NavigationManager
 
 <div>
-    <MudLink Href=@Url>
-    <div class="component-content">
-        <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
-            <div class="my-clubCard-content">
+    <MudButton OnClick="NavigateToClub">
 
-                <MudCardHeader>
-                    <CardHeaderContent>
+        <div class="component-content" >
+            <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
+                <div class="my-clubCard-content">
+
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <div class="club-info">
+                                <MudText Typo="Typo.h2">@Club.Name</MudText>
+                            </div>
+                        </CardHeaderContent>
+
+                    </MudCardHeader>
+                    <MudCardContent>
                         <div class="club-info">
-                            <MudText Typo="Typo.h2">@Club.Name</MudText>
+                            <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
+                            <MudText Typo="Typo.body2">@Club.Address</MudText>
                         </div>
-                    </CardHeaderContent>
+                        <div class="club-description">
+                            <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
+                        </div>
+                    </MudCardContent>
 
-                </MudCardHeader>
-                <MudCardContent>
-                    <div class="club-info">
-                        <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
-                        <MudText Typo="Typo.body2">@Club.Address</MudText>
-                    </div>
-                    <div class="club-description">
-                        <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
-                    </div>
-                </MudCardContent>
-
-                @*<MudCardActions Class="d-flex justify-end">
+                    @*<MudCardActions Class="d-flex justify-end">
 
                     <MudLink Href="/nattklubbar">
                         <MudButton Variant="Variant.Text" Color="Color.Primary">Biljetter</MudButton>
@@ -35,20 +38,42 @@
                     </MudLink>
                 </MudCardActions>*@
 
+                </div>
             </div>
         </div>
-    </div>
-    </MudLink>
+    </MudButton>
 </div>
-
+ 
 @code {
     [Parameter] public ClubOutput Club { get; set; }
-    private string Url { get; set; }
+    public string? baseUrl { get; set; }
+    public string currentPageUrl { get; set; }
+    public string returnUrl { get; set; }
+    public string navigateToUrl { get; set;  }
+
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Url = "/klubb/" + Club.Id;
+       // baseUrl = "/klubb/" + Club.Id;
+       // returnUrl = NavigationManager.Uri;
+       //// returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+       // navigateToUrl = $"{baseUrl}?returnUrl={returnUrl}";
     }
+
+    public void NavigateToClub()
+    {
+        //var returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+
+        baseUrl = NavigationManager.BaseUri;
+        currentPageUrl =  "klubb/" + Club.Id;
+
+        returnUrl = NavigationManager.Uri;
+
+        NavigationManager.NavigateTo($"{baseUrl}{currentPageUrl}?returnUrl={returnUrl}");
+        
+    }
+  
+    
 
 }

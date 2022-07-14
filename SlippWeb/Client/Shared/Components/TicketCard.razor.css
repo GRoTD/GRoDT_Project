@@ -37,6 +37,16 @@
     position: relative;
     color: white;
 }
+.hr-divider {
+    border: 1px solid #F2C080;
+    margin: 5px 0 10px 0;
+}
+
+.date-avatar {
+    position: absolute;
+    top: 5%;
+    right: 27.5%;
+}
 
 #content-left {
     flex: 1 1 70%;

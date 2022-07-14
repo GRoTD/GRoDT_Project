@@ -1,0 +1,49 @@
+﻿@inject NavigationManager NavigationManager
+
+<div class="page-header">
+    <div class="header-top-icons">
+        <MudIconButton Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
+    </div>
+    <div >
+        <MudText Color="Color.Primary" Typo="Typo.h1">@HeaderTitle</MudText>
+    </div>
+</div>
+
+
+
+
+
+@code {
+    [Parameter] public string HeaderTitle { get; set; }
+    public string ReturnUrl {get; set;}
+
+    protected override void OnInitialized()
+    {
+        ReturnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
+        
+    }
+   
+    public void GoBack()
+    {
+        NavigationManager.NavigateTo(ReturnUrl);
+    }
+}
+
+<style>
+    .page-header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: #27272f;
+        /*background-color: var(--mud-palette-surface);*/
+        align-items: center;
+        max-height: 250px;
+        padding-bottom: 15px;
+    }
+
+    .header-top-icons {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+</style>

@@ -1,9 +1,13 @@
 ﻿@using Slipp.Services.DTO
 
 <div class="component-content">
-    <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');">
-
+    <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');" @*@onclick="@(() => ShowPaymentPage(@Ticket))"*@>
+            
         <div class="my-card-content">
+            <MudImage Fluid="true" Src="images/ticket.svg" Class="ticketFrame"/>
+            <div class="date-avatar">
+                <MudAvatar Style="height: 48px; width: 48px; font-size: 0.8rem; color: #121821; font-weight: 600;" Color="Color.Primary">@Ticket.StartValidTime.ToString("dd") <br/> @Ticket.StartValidTime.ToString("MMM").Remove(3, 1).ToUpper()</MudAvatar>
+            </div>
             <div class="ticket-circles">
                 <p id="tl"></p>
                 <p id="bl"></p>
@@ -14,20 +18,27 @@
             </div>
 
             <div id="content-left">
-                <MudText Typo="Typo.body2">SLIPP-biljett till</MudText>
-                <MudText Typo="Typo.h2">@Ticket.Title</MudText>
+                <MudText Typo="Typo.h2">@Ticket.ClubName</MudText>
+                <MudText Typo="Typo.body2">@Ticket.Title</MudText>
                 <MudContainer>
-                    <MudText Typo="Typo.body1">Tillgängliga biljetter:</MudText>
+                    <hr class="hr-divider"/>
+                    <MudText Typo="Typo.body2">Antal biljetter:</MudText>
                     <MudText Typo="Typo.h3">8</MudText>
                     <MudText Typo="Typo.body2">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
                 </MudContainer>
-
-                @*</MudCard>*@
             </div>
             <div id="content-right">
                 <MudText Typo="Typo.body2">Entré + köföreträde:</MudText>
-                <MudText Typo="Typo.h5">@Ticket.Price SEK</MudText>
-                <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Default"/> @*Byt till icon @Icons.Filled.Favorite och lägg till i favoriter-listan*@
+                <MudText Typo="Typo.h5">@Math.Round(Ticket.Price) SEK</MudText>
+                @if (IsFavourite)
+                {
+                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="MakeFavourite"/>
+                }
+                else
+                {
+                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary" OnClick="MakeFavourite"/>
+                }
+
             </div>
         </div>
     </div>
@@ -35,7 +46,32 @@
 
 
 
+
+
 @code {
     [Parameter] public CreateTicketOutput Ticket { get; set; }
-        
+
+    //TODO Kolla om den är favorit genom att kolla i FavouriteTicket i AppUser
+    public bool IsFavourite = false;
+
+    public void MakeFavourite()
+    {
+        if (IsFavourite)
+        {
+            IsFavourite = false;
+            @*ToDO Ta bort ur favoriter-listan*@
+        }
+        else
+        {
+            IsFavourite = true;
+            @*TODO Lägg till i favoriter-listan*@
+        }
+    }
+
+    //public void ShowPaymentPage(CreateTicketOutput ticket)
+    //{
+    //    <Payment TicketToBuy="ticket"></Payment>
+    //}
+       
+
 }
