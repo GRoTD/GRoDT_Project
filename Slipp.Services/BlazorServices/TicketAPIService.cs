@@ -9,7 +9,7 @@ public interface ITicketAPIService
     LoggedInUser User { get; }
     Task Initialize();
     Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city);
-    Task GetTicket(Guid? id);
+    Task <CreateTicketOutput> GetTicket(Guid? id);
     Task DeleteTicket(Guid? id);
 }
 
@@ -40,9 +40,12 @@ public class TicketAPIService : ITicketAPIService
         return tickets;
     }
 
-    public Task GetTicket(Guid? id)
+    public async Task<CreateTicketOutput> GetTicket(Guid? id)
     {
-        throw new NotImplementedException();
+        var path = ApiPaths.TICKETCONTROLLER + $"/{id}";
+        var ticket = await _apiService.Get<CreateTicketOutput>(path);
+
+        return ticket;
     }
 
     public Task DeleteTicket(Guid? id)

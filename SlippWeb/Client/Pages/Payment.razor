@@ -1,6 +1,9 @@
 ﻿@*TODO Sätt denna till authorize*@
+@inject NavigationManager NavigationManager
+@inject ITicketAPIService ApiService
 
-@page "/pay"
+@page "/pay/{ticketId}" 
+@*Här ska vi sen byta till den aktuella apiQueryn*@
 
 
 <div class="main-container">
@@ -21,8 +24,19 @@
 </div>
 
 @code {
+    [Parameter] public string ticketId { get; set; }
     public int choosenValue { get; set; }
-    [Parameter] public CreateTicketOutput TicketToBuy { get; set; }
+    public CreateTicketOutput Ticket { get; set; } //Detta ska sen bytas till en lista med tickets
+  
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        Ticket = await ApiService.GetTicket(new Guid(ticketId));
+    }
+
+  
 }
 
 

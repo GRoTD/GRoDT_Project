@@ -1,10 +1,14 @@
 ﻿@using Slipp.Services.DTO
+@using Slipp.Services.Models
+@using System.Net
+@using Slipp.Services.Constants
+@inject NavigationManager NavigationManager
 
 <div class="component-content">
-    <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');" @*@onclick="@(() => ShowPaymentPage(@Ticket))"*@>
+    <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');" onclick="@ShowPaymentPage">
             
         <div class="my-card-content">
-            <MudImage Fluid="true" Src="images/ticket.svg" Class="ticketFrame"/>
+            @*<MudImage Fluid="true" Src="images/ticket.svg" Class="ticketFrame"/>*@
             <div class="date-avatar">
                 <MudAvatar Style="height: 48px; width: 48px; font-size: 0.8rem; color: #121821; font-weight: 600;" Color="Color.Primary">@Ticket.StartValidTime.ToString("dd") <br/> @Ticket.StartValidTime.ToString("MMM").Remove(3, 1).ToUpper()</MudAvatar>
             </div>
@@ -50,6 +54,9 @@
 
 @code {
     [Parameter] public CreateTicketOutput Ticket { get; set; }
+    public string pageToGoToUrl { get; set; }
+    public string returnUrl { get; set; }
+    public string apiRequestForThisTicket { get; set; }
 
     //TODO Kolla om den är favorit genom att kolla i FavouriteTicket i AppUser
     public bool IsFavourite = false;
@@ -68,10 +75,13 @@
         }
     }
 
-    //public void ShowPaymentPage(CreateTicketOutput ticket)
-    //{
-    //    <Payment TicketToBuy="ticket"></Payment>
-    //}
+    public void ShowPaymentPage()
+    {
+        pageToGoToUrl =  "pay/"+Ticket.Id; //TicketId ska sen bytas mot query
+        returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+
+        NavigationManager.NavigateTo($"{pageToGoToUrl}?returnUrl={returnUrl}");
+    }
        
 
 }
