@@ -2,6 +2,12 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using MudBlazor.Utilities
 @using System.Dynamic
+@using System.Linq.Expressions
+@using System.Net.Mime
+@using System.Security.Cryptography.X509Certificates
+@using Microsoft.EntityFrameworkCore.Design.Internal
+@using Microsoft.VisualBasic.CompilerServices
+@using MudBlazor.Charts.SVG.Models
 @inject IAuthenticationService AuthenticationService
 
 @*TODO - Hide appbar if soft/OnScreen keyboard is showing*@
@@ -9,16 +15,16 @@
 <MudAppBar Class="py-1" DisableGutters="false" Fixed="true" Bottom="true">
     <MudGrid Justify="Justify.SpaceAround">
         <MudItem>
-            <MudLink Href="/Home" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+            <MudLink Href="/" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
                 <MudIcon Icon="@Icons.Filled.Home" Title="HOME" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                <MudText Typo="Typo.h6" Color="Color.Primary">BILJETTER</MudText>
+                <MudText Typo="Typo.h6" Color="Color.Primary">HEM</MudText>
             </MudLink>
         </MudItem>
         
         <MudItem>
             <MudLink Href="#" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
                 <MudIcon Icon="@Icons.Filled.Search" Title="CLUBS" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                <MudText Typo="Typo.h6" Color="Color.Primary">UPPTÄCK</MudText>
+                <MudText Typo="Typo.h6" Color="Color.Primary">SÖK</MudText>
             </MudLink>
         </MudItem>
 
@@ -30,9 +36,9 @@
         </MudItem>
 
         <MudItem>
-            <MudLink Href="/biljetter" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
-                <MudIcon Icon="@Icons.Filled.ListAlt" Title="LISTS" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                <MudText Typo="Typo.h6" Color="Color.Primary">LISTOR</MudText>
+            <MudLink Href="/MySlipp" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudImage Style="width: 35px; padding: 6px 0;" Src="../icons/SlippTicket5.svg"></MudImage>
+                <MudText Typo="Typo.h6" Color="Color.Primary">MINA SLIPP</MudText>
             </MudLink>
         </MudItem>
 
@@ -41,9 +47,9 @@
             <MudItem>
                 <MudLink Href="/Account" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
                     <MudIcon Icon="@Icons.Filled.Person" Title="USER" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                    <MudText Typo="Typo.h6" Color="Color.Primary">ANVÄNDARE</MudText>
+                    <MudText Typo="Typo.h6" Color="Color.Primary">KONTO</MudText>
                 </MudLink>
-                </MudItem>
+            </MudItem>
 
         }
         else
@@ -53,7 +59,7 @@
                     <MudIcon Icon="@Icons.Filled.Login" Title="LOGIN" Color="Color.Primary" Size="Size.Large"></MudIcon>
                     <MudText Typo="Typo.h6" Color="Color.Primary">LOGGA IN</MudText>
                 </MudLink>
-                </MudItem>
+            </MudItem>
         }
 
     </MudGrid>

@@ -16,10 +16,10 @@
         </div>
     </div>*@
 
-    <MudMainContent Style="padding: 0 0 100px 0;">
-        <MudContainer MaxWidth="MaxWidth.Medium" Style="padding: 0;">
+    <MudMainContent Style="height: 91vh; padding: 0;">
+        @*<MudContainer MaxWidth="MaxWidth.Medium" Style="padding: 0; height: 100%;">*@
             @Body
-        </MudContainer>
+        @*</MudContainer>*@
     </MudMainContent>
 
     <MudAppBar Bottom="true" Style="background-image:linear-gradient(180deg, #161a20, #3A4553);">
@@ -168,11 +168,11 @@
             
             H2 = new H2()
             {
-                    FontFamily = new[] { "Montserrat" },
-                    FontSize = "28px",
-                    FontWeight = 600,
-                    LineHeight = 1.25,
-                    LetterSpacing = "+.03",
+                FontFamily = new[] { "Montserrat" },
+                FontSize = "28px",
+                FontWeight = 600,
+                LineHeight = 1.25,
+                LetterSpacing = "+.03",
             },
             
             H3 = new H3()
