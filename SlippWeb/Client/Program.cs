@@ -15,7 +15,9 @@ builder.Services.AddHttpClient<IApiService, ApiService>(client =>
 
 builder.Services
     .AddScoped<IAuthenticationService, AuthenticationService>()
+    .AddScoped<ITicketAPIService, TicketAPIService>()
     .AddScoped<ILocalStorageService, LocalStorageService>();
+
 
 builder.Services.AddMudServices();
 
@@ -23,5 +25,7 @@ var host = builder.Build();
 
 var authenticationService = host.Services.GetRequiredService<IAuthenticationService>();
 await authenticationService.Initialize();
+var ticketService = host.Services.GetRequiredService<ITicketAPIService>();
+await ticketService.Initialize();
 
 await host.RunAsync();

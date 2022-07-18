@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Slipp.Services.Constants;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route(ApiPaths.ADMINCONTROLLER)]
 [ApiController]
 public class AdminController : ControllerBase
 {

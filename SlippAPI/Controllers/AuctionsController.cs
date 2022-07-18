@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Slipp.Services.Constants;
 using SlippAPI.Services;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route(ApiPaths.AUCTIONSCONTROLLER)]
 [ApiController]
 public class AuctionsController : ControllerBase
 {

@@ -46,31 +46,22 @@
  
 @code {
     [Parameter] public ClubOutput Club { get; set; }
-    public string? baseUrl { get; set; }
-    public string currentPageUrl { get; set; }
+    public string pageToGoToUrl { get; set; }
     public string returnUrl { get; set; }
-    public string navigateToUrl { get; set;  }
 
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-       // baseUrl = "/klubb/" + Club.Id;
-       // returnUrl = NavigationManager.Uri;
-       //// returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
-       // navigateToUrl = $"{baseUrl}?returnUrl={returnUrl}";
+ 
     }
 
     public void NavigateToClub()
     {
-        //var returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+        pageToGoToUrl =  "klubb/" + Club.Id;
+        returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
 
-        baseUrl = NavigationManager.BaseUri;
-        currentPageUrl =  "klubb/" + Club.Id;
-
-        returnUrl = NavigationManager.Uri;
-
-        NavigationManager.NavigateTo($"{baseUrl}{currentPageUrl}?returnUrl={returnUrl}");
+        NavigationManager.NavigateTo($"{pageToGoToUrl}?returnUrl={returnUrl}");
         
     }
   

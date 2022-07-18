@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Slipp.Services.Constants;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/club")]
+[Route(ApiPaths.CLUBCONTROLLER)]
 [ApiController]
 [Authorize]
 public class ClubController : ControllerBase

@@ -1,0 +1,97 @@
+﻿@*TODO Sätt denna till authorize  --> @attribute [Authorize]*@
+
+@inject NavigationManager NavigationManager
+@inject ITicketAPIService ApiService
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Identity
+
+@page "/pay/{ticketId}" 
+@*Här ska vi sen byta till den aktuella apiQueryn*@
+
+
+<div class="main-container">
+<PageHeader HeaderTitle="Betalning"/>
+<TicketBackside Ticket="Ticket"></TicketBackside>
+
+<div class="numericSpinnerContainer">
+    <div class="numericSpinner">
+        <MudNumericField @bind-Value="choosenValue" Label="Antal biljetter" Variant="Variant.Text" Min="1" Max="10" /> @*TODO Byt Max till antal biljetter*@
+    </div>
+</div>
+
+@*<MudDivider DividerType="DividerType.Middle" Class="my-6"></MudDivider>*@
+<div class="payment-overview">
+<MudText Align="Align.Left" Class="mb-4 mt-6 border-b" Typo="Typo.h2">Översikt</MudText>
+    <MudText Typo="Typo.body1">Ellen Lundell</MudText> @*TODO Byt till @userName*@
+    <MudText Typo="Typo.body1">Antal biljetter: @choosenValue</MudText> @*TODO Byt till @userName*@
+    <MudText Typo="Typo.body1">Pris per biljett: @Math.Round(Ticket.Price) kr</MudText> @*TODO Byt till @userName*@
+    <MudText Typo="Typo.body1">Totalt belopp: @Math.Round((Ticket.Price)*(@choosenValue)) kr</MudText> @*TODO Byt till @userName*@
+
+</div>
+
+<div class="payment-conditions">
+    <MudLink Href="/Home">Avtalsvillkor</MudLink> @*TODO Lägg in rätt länk*@
+    <MudLink Href="/Home">Slutkundsvillkor</MudLink> @*TODO Lägg in rätt länk*@
+</div>
+
+</div>
+
+@code {
+    [Parameter] public string ticketId { get; set; }
+    public int choosenValue { get; set; }
+    public CreateTicketOutput Ticket { get; set; } //Detta ska sen bytas till en lista med tickets
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    public string userName { get; set; }
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        Ticket = await ApiService.GetTicket(new Guid(ticketId));
+        
+        //Är detta rätt sätt att göra det på??
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+        userName = user.Identity.Name;
+
+    }
+
+  
+}
+
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+    }
+    .numericSpinnerContainer {
+        width: 90vh;
+        display: flex;
+        justify-content: center;
+    }
+    .numericSpinner {
+        max-width: 100px;
+  
+    }
+    .payment-overview {
+        width: 60vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+    }
+    .payment-conditions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px;
+        gap: 32px;
+        position: absolute;
+        bottom: 20px;
+    }
+
+</style>

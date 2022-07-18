@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Slipp.Services.Constants;
 
 namespace SlippAPI.Services;
 
@@ -35,6 +36,9 @@ public class JwtService
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
         };
+
+        if (dbUser.Club != null)
+            tokenDescriptor.Subject.AddClaim(new Claim(SlippClaimTypes.CLUBID, dbUser.Club.Id.ToString()));
 
         var roles = await _userManager.GetRolesAsync(dbUser);
         if (roles is not null)
