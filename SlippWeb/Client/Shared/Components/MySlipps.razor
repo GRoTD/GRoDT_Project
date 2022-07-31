@@ -1,4 +1,5 @@
 ﻿@inject HttpClient Client
+@inject NavigationManager NavigationManager
 
 
 <MudPaper Class="d-flex align-center slipp-ticket mx-4">
@@ -53,13 +54,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(1000); //Just 4 fun :D
         tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
     }
 
 
     private void ShowTicket()
     {
+
+        NavigationManager.NavigateTo("/MySlippTicket");
+
         throw new NotImplementedException();
     } 
 
