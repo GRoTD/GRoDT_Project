@@ -10,6 +10,7 @@ public interface IAuthenticationService
     Task Initialize();
     Task Login(LoginInput input);
     Task Logout();
+    Task Register(CreateAppUserInput newUser);
 }
 
 public class AuthenticationService : IAuthenticationService
@@ -49,4 +50,12 @@ public class AuthenticationService : IAuthenticationService
         await _localStorageService.RemoveItem("user");
         _navigationManager.NavigateTo("login");
     }
+
+    public async Task Register(CreateAppUserInput newUser)
+    {
+        await _apiService.Post<CreatedAppUserReturn>(
+              ApiPaths.APPUSERCONTROLLER, newUser);
+        _navigationManager.NavigateTo("login");
+    }
+
 }
