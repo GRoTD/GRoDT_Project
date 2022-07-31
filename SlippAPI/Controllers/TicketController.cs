@@ -32,7 +32,7 @@ public class TicketController : ControllerBase
 
         var createdTickets =
             tickets.Select(ticket =>
-                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
+                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = clubId}, "https"), ticket))
                 .ToList();
 
         return Ok(createdTickets);
@@ -59,6 +59,7 @@ public class TicketController : ControllerBase
 
         return Ok(returnTickets);
     }
+
 
     [HttpGet]
     [Route("{id}")]

@@ -6,6 +6,7 @@ public static class ApiPaths
     public const string TICKETCONTROLLER = "/api/ticket";
     public const string CLUBCONTROLLER = "/api/club";
     public const string COMPANYCONTROLLER = "/api/company";
+    public const string SALECONTROLLER = "/api/sale";
     public const string AUCTIONSCONTROLLER = "/api/auction";
     public const string ADMINCONTROLLER = "/api/admin";
     public const string APPUSERCONTROLLER = "/api/user";
