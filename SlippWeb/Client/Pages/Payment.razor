@@ -1,4 +1,4 @@
-﻿@*TODO Sätt denna till authorize  --> @attribute [Authorize]*@
+﻿@attribute [Authorize]
 
 @inject NavigationManager NavigationManager
 @inject ILocalStorageService _localStorageService;
@@ -22,13 +22,20 @@
             <PageHeader HeaderTitle="Betalning"/>
             <TicketBackside Ticket="@Ticket"></TicketBackside>
 
-            <div class="numericSpinnerContainer">
-                <div class="numericSpinner">
-                    <MudNumericField IconSize="Size.Large" Immediate="@true" @bind-Value="@choosenValue" Label="Antal biljetter:" Variant="@Variant.Text" Min="1" Max="10"/> @*TODO Byt Max till antal biljetter*@
-                </div>
+            <div class="numberOfTicketsSpinner">
+                <MudIconButton Size="Size.Large" Icon="@Icons.Filled.RemoveCircle" Color="Color.Primary" OnClick="WithdrawTicket"/> 
+                <MudText Class="choosenValue" Typo="Typo.h2">@choosenValue</MudText>
+                <MudIconButton Size="Size.Large" Icon="@Icons.Filled.AddCircle" Color="Color.Primary" OnClick="AddTicket"/> 
+
             </div>
 
-            /*<MudDivider DividerType="DividerType.Middle" Class="my-6"></MudDivider>*/
+            @*<div class="numericSpinnerContainer">
+                <div class="numericSpinner">
+                    <MudNumericField IconSize="Size.Large" Immediate="@true" @bind-Value="@choosenValue" Label="Antal biljetter:" Variant="@Variant.Text" Min="1" Max="10"/>*@ @*TODO Byt Max till antal biljetter*@
+              @*  </div>
+            </div>*@
+
+            
             <div class="payment-overview">
                 <MudText Align="@Align.Left" Class="mb-4 mt-6 border-b" Typo="@Typo.h2">Översikt</MudText>
                 <MudText Typo="@Typo.body1">@userFirstName</MudText> 
@@ -92,7 +99,22 @@
     {
         purchaseIsConfirmed = true;
     }
-  
+
+    public void AddTicket()
+    {
+        if (choosenValue != 8) /*TODO: Byt till umberOfTickets*/
+        {
+            choosenValue += 1;
+        }
+
+    }
+    public void WithdrawTicket()
+    {
+        if (choosenValue != 1)
+        {
+            choosenValue -= 1;
+        }
+    }
 }
 
 
@@ -104,7 +126,7 @@
         
         
     }
-    .numericSpinnerContainer {
+    /*.numericSpinnerContainer {
         width: 90vh;
         display: flex;
         justify-content: center;
@@ -112,7 +134,7 @@
     .numericSpinner {
         max-width: 100px;
   
-    }
+    }*/
     .payment-overview {
         width: 60vw;
         display: flex;
@@ -137,6 +159,18 @@
     .swish-btn .mud-button {
         width: 60vw;
         padding: 10px 20px;
+        
+    }
+    .numberOfTicketsSpinner {
+        display: flex;
+        flex-direction: row;
+        align-items: center
+    }
+    .choosenValue {
+        border: 1.5px dotted #F2C080;
+        width: 50px;
+        margin: 0 5px;
+        text-align: center;
         
     }
 </style>
