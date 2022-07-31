@@ -1,12 +1,24 @@
 ﻿@inject NavigationManager NavigationManager
 
 <div class="page-header">
-    <div class="header-top-icons">
-        <MudIconButton Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
-    </div>
-    <div >
-        <MudText Color="Color.Primary" Typo="Typo.h1">@HeaderTitle</MudText>
-    </div>
+    <MudGrid>
+
+        <MudItem xs="1" Class="d-flex align-basline justify-content-start">
+            <div class="header-top-icons">
+                <MudIconButton Size="Size.Large" Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
+            </div>
+        </MudItem>
+
+        <MudItem xs="10" Class="d-flex align-basline justify-center">
+        <div >
+            <MudText Color="Color.Primary" Typo="Typo.h1">@HeaderTitle</MudText>
+        </div>
+        </MudItem>
+        
+        <MudItem xs="1" Class="d-flex align-basline justify-content-start">
+        </MudItem>
+
+    </MudGrid>
 </div>
 
 
@@ -25,7 +37,7 @@
    
     public void GoBack()
     {
-        NavigationManager.NavigateTo(ReturnUrl);
+        NavigationManager.NavigateTo(ReturnUrl); /*BUG - Always returns to home for me, JF*/
     }
 }
 
@@ -38,7 +50,7 @@
         /*background-color: var(--mud-palette-surface);*/
         align-items: center;
         max-height: 250px;
-        padding-bottom: 15px;
+        padding: 15px 0;
     }
 
     .header-top-icons {

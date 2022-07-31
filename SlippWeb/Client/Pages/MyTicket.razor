@@ -1,25 +1,26 @@
 ﻿@page "/MySlippTicket"
 @inject HttpClient Client
+@inject ILocalStorageService _localStorageService;
 
 @attribute [Authorize]
+
+<PageHeader HeaderTitle="Slipp Biljett"></PageHeader>
 
 <MudPaper Elevation="0" Style="background-color: transparent; padding-bottom: 100px;">
 
     <MudPaper Class="slipp-ticket flex-center" Elevation="0" Style=" background-color: transparent; ">
-            
-        <MudImage Style="Width: 250px; padding-top: 25px;" Src="/Loggo/TicketLogga_UL_Horizontal.png"></MudImage>
 
         <MudPaper Elevation="0" Class="flex-center" Style="background-color: transparent;">
 
-            <MudPaper Class="flex-center"  Style="background-color: transparent; padding-top: 50px;" Elevation="0">
+            <MudPaper Class="flex-center"  Style="background-color: transparent; padding-top: 25px;" Elevation="0">
 
                 <MudText Typo="Typo.h2">@tickets[3].ClubName.ToUpper()</MudText>
                 <MudDivider Style="height: 1px; background-color: #f2c080; width: 105%;" DividerType="DividerType.Middle"></MudDivider>
                 @*<MudIconButton OnClick="showMap" Color="Color.Primary" Size="Size.Medium" Icon="@Icons.Filled.LocationOn"></MudIconButton>*@
-
+                <MudText Style="margin: 25px 0;" Color="Color.Primary" Typo="Typo.body1">@userFirstName</MudText> 
             </MudPaper>
 
-            <MudPaper Style="background-color: transparent; margin: 25px 0;" Elevation="0">
+            <MudPaper Style="background-color: transparent;" Elevation="0">
                 <MudGrid>
                     <MudItem xs="4">
                         <MudText Typo="Typo.body2">DATUM: </MudText>
@@ -42,7 +43,7 @@
     <MudPaper Class="flex-center" Style="background-color: transparent;" Elevation="0">
 
         <MudIcon Style="Width: 350px; height: 350px;" ViewBox="0 0 24 24" Color="Color.Primary" Icon="@Icons.Filled.QrCode2"></MudIcon>
-        <MudText Color="Color.Primary" Typo="Typo.body2">Biljettnummer: 44452021451321</MudText> @*TODO - hard data no good*@
+        <MudText Color="Color.Primary" Typo="Typo.body2">Biljettnummer: 44452021451212321</MudText> @*TODO - hard data no good*@
 
     </MudPaper>
 
@@ -78,11 +79,17 @@
 
 @code {
 
+    public string userFirstName { get; set; }
+
     private CreateTicketOutput[] tickets;
 
     protected override async Task OnInitializedAsync()
     {
         tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
+
+        //Set username
+        var LoggedInUser = await _localStorageService.GetItem<LoggedInUser>("user");
+        userFirstName = LoggedInUser.Email; /*TODO Byt till FirstName*/
     }
 
 
