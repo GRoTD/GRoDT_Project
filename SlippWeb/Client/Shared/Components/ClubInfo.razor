@@ -7,21 +7,20 @@
     <MudText Class="mt-4 mb-4" Align="Align.Center" Typo="Typo.body2">Social - Livlig musik - Cocktailbar</MudText> @*TODO Byt till clubspecifik-keywords + lägg till i modell*@
 
     <MudCarousel Class="mud-width-full mud-icon-size-small" Style="height: 200px;" ShowArrows="@arrows" TData="object">
-        <MudCarouselItem Transition="transition" Color="@Color.Primary">
-            <div class="d-flex carouselItem">
-                <MudImage Src="@club.Images[0].Url"/>
-            </div>
-        </MudCarouselItem>
-        <MudCarouselItem Transition="transition" Color="@Color.Secondary">
-            <div class="d-flex carouselItem">
-                <MudImage Src="@club.Images[1].Url"/>
-            </div>
-        </MudCarouselItem>
-        <MudCarouselItem Transition="transition">
-            <div class="d-flex carouselItem">
-                <MudImage Src="@club.Images[2].Url"/>
-            </div>
-        </MudCarouselItem>
+
+        @foreach (var image in club.Images)
+        {
+            <MudCarouselItem Transition="@transition" Color="@Color.Primary">
+                <div class="d-flex carouselItem">
+
+                    @{
+                        var carouselImage=image.Url;
+                    } 
+                    <MudImage Src="@carouselImage"/>
+                </div>
+            </MudCarouselItem>
+        }
+
     </MudCarousel>
 
 
