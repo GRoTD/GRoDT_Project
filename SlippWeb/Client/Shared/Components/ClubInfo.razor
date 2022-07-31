@@ -3,16 +3,61 @@
 
 
 <div class="club-page-info">
-    <MudText Typo="Typo.body1">@club.Description</MudText>
+    
+    <MudText Class="mt-4 mb-4" Align="Align.Center" Typo="Typo.body2">Social - Livlig musik - Cocktailbar</MudText> @*TODO Byt till clubspecifik-keywords + lägg till i modell*@
+
+    <MudCarousel Class="mud-width-full mud-icon-size-small" Style="height: 200px;" ShowArrows="@arrows" TData="object">
+        <MudCarouselItem Transition="transition" Color="@Color.Primary">
+            <div class="d-flex carouselItem">
+                <MudImage Src="@club.Images[0].Url"/>
+            </div>
+        </MudCarouselItem>
+        <MudCarouselItem Transition="transition" Color="@Color.Secondary">
+            <div class="d-flex carouselItem">
+                <MudImage Src="@club.Images[1].Url"/>
+            </div>
+        </MudCarouselItem>
+        <MudCarouselItem Transition="transition">
+            <div class="d-flex carouselItem">
+                <MudImage Src="@club.Images[2].Url"/>
+            </div>
+        </MudCarouselItem>
+    </MudCarousel>
+
+
     <div class="club-info">
-        <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
-        <MudText Typo="Typo.body2">@club.Address</MudText>
-    </div>
-    <div class="club-info">
-        <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
-        <MudLink Href="@club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@club.Website</MudLink>
+        <MudText Typo="Typo.body1">@club.Description</MudText>
     </div>
 
+    @* TODO: Byt till Clubspecifik-data! och lägg till i modell*@
+    <div class="openingsHours">
+        <MudText Typo="Typo.body2">Onsdag & torsdag: 17:00 - 00:00</MudText>
+        <MudText Typo="Typo.body2">Fredag & lördag: 15:00 - 02:00</MudText>
+        <MudText Typo="Typo.body2">Söndag: 19:00 - 01:00</MudText>
+    </div>
+
+    <div class="club-info">
+        <div class="clubContactInfo">
+            <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
+            <MudText Typo="Typo.body2">@club.Address</MudText>
+        </div>
+        <div class="clubContactInfo">
+            <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
+            <MudLink Href="@club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@club.Website</MudLink>
+
+        </div>
+        <div class="clubContactInfo">
+            <MudIconButton Icon="@Icons.Filled.Email" Color="Color.Default"/>
+            <MudLink Href="@club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">locatelli@elite.se</MudLink> @*TODO: Lägg till mejl i club-modell*@
+
+        </div>
+    </div>
+    <div class="club-info clubMap">
+        <MudImage Class="clubMapImage" Src="images/map.png"/>
+    </div>
+    <div class="club-info">
+        <MudText Typo="Typo.body2">Övrig info: Vi är kontantfria</MudText> @*TODO Lägg till Övrig info i modell*@
+    </div>
 </div>
 
 @code {
@@ -20,6 +65,8 @@
     private ClubOutput club;
     private CreateTicketOutput[] tickets;
     public string clubId = "462a6830-9471-42fb-b0c3-a5dc6a2d8e50";
+    private bool arrows = true;
+    private Transition transition = Transition.Slide;
 
     private bool shouldRender;  
 
