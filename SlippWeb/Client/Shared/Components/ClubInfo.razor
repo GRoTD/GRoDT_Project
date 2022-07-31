@@ -36,10 +36,7 @@
     </div>
 
     <div class="club-info">
-        <div class="clubContactInfo">
-            <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
-            <MudText Typo="Typo.body2">@club.Address</MudText>
-        </div>
+        
         <div class="clubContactInfo">
             <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
             <MudLink Href="@club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@club.Website</MudLink>
@@ -49,6 +46,10 @@
             <MudIconButton Icon="@Icons.Filled.Email" Color="Color.Default"/>
             <MudLink Href="@club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">locatelli@elite.se</MudLink> @*TODO: Lägg till mejl i club-modell*@
 
+        </div>
+        <div class="clubContactInfo">
+            <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
+            <MudText  Typo="Typo.h5">@club.Address</MudText>
         </div>
     </div>
     <div class="club-info clubMap">
