@@ -3,7 +3,13 @@
      <MudText Typo="Typo.h2">Grattis!</MudText>
      <MudText Typo="Typo.body1">Varmt välkommen till en härlig kväll på @PurchasedTicket.ClubName.</MudText>
      <MudDivider DividerType="DividerType.Middle" Class="my-6"/>
-     <MudText Typo="Typo.body1">@userName +@ticketsToShow</MudText>
+     <div class="displayRow">
+     <MudText Typo="Typo.body1">@userName</MudText> 
+         @if (ticketsToShow > 0)
+         {
+             <MudText Typo="Typo.body1">+@ticketsToShow</MudText>
+         }
+     </div>
      <MudText Color="Color.Dark" Typo="Typo.body2">@PurchasedTicket.StartValidTime.ToShortDateString() | @PurchasedTicket.StartValidTime.ToShortTimeString()</MudText>
      <MudText Typo="Typo.body1">Totalt belopp: @Math.Round((PurchasedTicket.Price) * (@NumberOfTicketsPurchased)) kr</MudText> 
      
@@ -38,5 +44,10 @@
          width: 80vw;
          justify-content: center;
          text-align: center;
+     }
+     .displayRow {
+         display: flex;
+         flex-direction: row;
+         gap: 5px;  
      }
  </style>
