@@ -9,6 +9,9 @@
             
         <div class="my-card-content">
             @*<MudImage Fluid="true" Src="images/ticket.svg" Class="ticketFrame"/>*@
+            
+            @*TODO Flytta avataren till höger (ovanför Entré köföreträde)*@
+
             <div class="date-avatar">
                 <MudAvatar Style="height: 48px; width: 48px; font-size: 0.8rem; color: #121821; font-weight: 600;" Color="Color.Primary">@Ticket.StartValidTime.ToString("dd") <br/> @Ticket.StartValidTime.ToString("MMM").Remove(3, 1).ToUpper()</MudAvatar>
             </div>

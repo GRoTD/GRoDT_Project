@@ -1,24 +1,17 @@
 ﻿@inject NavigationManager NavigationManager
 
 <div class="page-header">
-    <MudGrid>
+    
+    <div class="header-top-icons">
+        <MudIconButton Size="Size.Medium" Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
+    </div>
+    <div >
+        <MudText Color="Color.Primary" Typo="Typo.h2">@HeaderTitle</MudText>
+    </div>
 
-        <MudItem xs="1" Class="d-flex align-basline justify-content-start">
-            <div class="header-top-icons">
-                <MudIconButton Size="Size.Large" Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
-            </div>
-        </MudItem>
 
-        <MudItem xs="10" Class="d-flex align-basline justify-center">
-        <div >
-            <MudText Color="Color.Primary" Typo="Typo.h1">@HeaderTitle</MudText>
-        </div>
-        </MudItem>
-        
-        <MudItem xs="1" Class="d-flex align-basline justify-content-start">
-        </MudItem>
+        @*TODO Man kan dra hela skärmen lite åt sidan (design grej)*@
 
-    </MudGrid>
 </div>
 
 
@@ -50,7 +43,7 @@
         /*background-color: var(--mud-palette-surface);*/
         align-items: center;
         max-height: 250px;
-        padding: 15px 0;
+        padding-bottom: 15px;
     }
 
     .header-top-icons {

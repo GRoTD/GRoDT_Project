@@ -40,8 +40,9 @@
                         RequiredError="Du måste ange en e-postadress!"
                         Validation="@(new EmailAddressAttribute() {ErrorMessage = "E-postadressen är inte giltig"})"
                         For="(() => createAppUser.Email)"/>
+                        
 
-                    <MudTextField 
+                <MudTextField 
                         T="string" 
                         Variant="Variant.Outlined" 
                         Label="Lösenord" 
@@ -70,9 +71,11 @@
                     <div class="d-flex align-center justify-content-start">
                     <MudCheckBox Color="Color.Primary" T="bool" Required="true" RequiredError="Du måste acceptera" Class="ml-n2" Label="Är 18 år eller äldre"/>
                     </div>
-                    <div class=" float-end mt-6">
-                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" Class="ml-auto">Registrera</MudButton>
-                    </div>
+                <div class=" float-end mt-6">
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" Class="ml-auto">Registrera</MudButton>
+                </div>
+                @*TODO Submit och accept terms är ingen regel på för registrering.*@
+
                         
               
             </MudItem>
@@ -94,7 +97,6 @@
     bool success;
     string[] errors = { };
     MudTextField<string> pwField1;
-    MudForm form;
 
     private IEnumerable<string> PasswordStrength(string pw)
     {
@@ -105,15 +107,17 @@
             yield break;
         }
         if (pw.Length < 8)
-            yield return "Lösenordet måste innehålla minst 6 tecken";
+            yield return "Lösenordet måste innehålla minst 8 tecken";
         if (!Regex.IsMatch(pw, @"[A-Z]"))
             yield return "Lösenordet måste innehålla minst en stor bokstav";
         if (!Regex.IsMatch(pw, @"[a-z]"))
-            yield return "Lösenordet måste innehålla minst en lite bokstav";
+            yield return "Lösenordet måste innehålla minst en liten bokstav";
         if (!Regex.IsMatch(pw, @"[0-9]"))
             yield return "Lösenordet måste innehålla minst en siffra";
         if (!Regex.IsMatch(pw, @"[^a-zA-Z\\d\\s:]"))
             yield return "Lösenordet måste innehålla minst en symbol";
+        @*TODO Symbol ger ingen prompt.*@
+
     }
 
     private string PasswordMatch(string arg)
