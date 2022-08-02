@@ -1,11 +1,218 @@
 ﻿@inherits LayoutComponentBase
+@using MudBlazor.Utilities
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-    <main>
-        @Body
-    </main>
+<MudThemeProvider Theme="_slippAppTheme"/>
 
-</div>
+<MudLayout>
+    @*<div class="page">
+        <main>
+            <article class="content">
+                @Body
+            </article>
+        </main>
+        
+        <div class="bottom-nav">
+            <NavMenu />
+        </div>
+    </div>*@
+
+    <MudMainContent Style="height: 91vh; padding: 0;">
+        @*<MudContainer MaxWidth="MaxWidth.Medium" Style="padding: 0; height: 100%;">*@
+            @Body
+        @*</MudContainer>*@
+    </MudMainContent>
+
+    <MudAppBar Bottom="true" Style="background-image:linear-gradient(180deg, #161a20, #3A4553);">
+              <NavMenu></NavMenu>
+    </MudAppBar>
+</MudLayout>
+
+@code
+{
+    /*private MudTheme _darkTheme = new MudTheme()
+    {
+            Palette = new Palette()
+            {
+                Primary = (MudColor)"#F2C080",
+                Black = (MudColor) "#27272f",
+                Background = (MudColor) "#3A4553",
+                BackgroundGrey = (MudColor) "#27272f",
+                Surface = (MudColor)"#1b2432",
+                DrawerBackground = (MudColor) "#27272f",
+                DrawerText = (MudColor) "rgba(255,255,255, 0.50)",
+                DrawerIcon = (MudColor) "rgba(255,255,255, 0.50)",
+                AppbarBackground = (MudColor) "#27272f",
+                AppbarText = (MudColor) "rgba(255,255,255, 0.70)",
+                TextPrimary = (MudColor) "#F2C080",
+                TextSecondary = (MudColor) "rgba(255,255,255, 0.50)",
+                ActionDefault = (MudColor) "#adadb1",
+                ActionDisabled = (MudColor) "rgba(255,255,255, 0.26)",
+                ActionDisabledBackground = (MudColor) "rgba(255,255,255, 0.12)",
+                Divider = (MudColor) "rgba(255,255,255, 0.12)",
+                DividerLight = (MudColor) "rgba(255,255,255, 0.06)",
+                TableLines = (MudColor) "rgba(255,255,255, 0.12)",
+                LinesDefault = (MudColor) "rgba(255,255,255, 0.12)",
+                LinesInputs = (MudColor) "rgba(255,255,255, 0.3)",
+                TextDisabled = (MudColor) "rgba(255,255,255, 0.2)",
+                Info = (MudColor) "#3299ff",
+                Success = (MudColor) "#0bba83",
+                Warning = (MudColor) "#ffa800",
+                Error = (MudColor) "#f64e62",
+                Dark = (MudColor)"#3A4553",
+
+
+            }
+        };*/
+
+    private MudTheme _slippAppTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = (MudColor)"#F2C080",
+            Black = (MudColor) "#27272f",
+            Background = (MudColor)"#121821", /*#3A4553*/
+            BackgroundGrey = (MudColor) "#27272f",
+            Surface = (MudColor)"#27272f", /*Header background*/
+            DrawerBackground = (MudColor) "#27272f",
+            DrawerText = (MudColor) "rgba(255,255,255, 0.50)",
+            DrawerIcon = (MudColor) "rgba(255,255,255, 0.50)",
+            AppbarBackground = (MudColor) "#27272f",
+            AppbarText = (MudColor) "rgba(255,255,255, 0.70)",
+            TextPrimary = (MudColor) "#fafafa",
+            TextSecondary = (MudColor) "rgba(255,255,255, 0.50)",
+            ActionDefault = (MudColor) "#adadb1",
+            ActionDisabled = (MudColor) "rgba(255,255,255, 0.26)",
+            ActionDisabledBackground = (MudColor) "rgba(255,255,255, 0.12)",
+            Divider = (MudColor) "rgba(255,255,255, 0.12)",
+            DividerLight = (MudColor) "rgba(255,255,255, 0.06)",
+            TableLines = (MudColor) "rgba(255,255,255, 0.12)",
+            LinesDefault = (MudColor) "rgba(255,255,255, 0.12)",
+            LinesInputs = (MudColor) "rgba(255,255,255, 0.3)",
+            TextDisabled = (MudColor) "rgba(255,255,255, 0.2)",
+            Info = (MudColor) "#3299ff",
+            Success = (MudColor) "#0bba83",
+            Warning = (MudColor) "#ffa800",
+            Error = (MudColor) "#f64e62",
+            Dark = (MudColor)"#3A4553",
+
+
+        },
+
+        Typography = new Typography()
+        {
+            Body1 = new Body1(){
+                FontFamily = new[] { "Josefin Sans" },
+                FontSize = "18px",
+                FontWeight = 400,
+                LineHeight = 1.5,
+                LetterSpacing = ".00938em",
+            },
+            
+            Body2 = new Body2()
+            {
+                FontFamily = new[] { "Josefin Sans" },
+                FontSize = "16px",
+                FontWeight = 400,
+                LineHeight = 1.5,
+                LetterSpacing = ".00938em",
+            },
+            
+            
+            Button = new Button()
+            {
+                FontSize = ".875rem",
+                FontWeight = 500,
+                LineHeight = 1.75,
+                LetterSpacing = ".02857em",
+                TextTransform = "uppercase",
+            },
+            
+            /*Caption = new Caption()
+            {
+                FontSize = ".75rem",
+                FontWeight = 400,
+                LineHeight = 1.66,
+                LetterSpacing = ".03333em",
+            },*/
+            
+            Default = new Default()
+            {
+                FontFamily = new string[4]
+                {
+                    "Roboto",
+                    "Helvetica",
+                    "Arial",
+                    "sans-serif"
+                },
+                FontSize = ".875rem",
+                FontWeight = 400,
+                LineHeight = 1.43,
+                LetterSpacing = ".01071em",
+            },
+            
+            /*Subtitle1 = new Subtitle1(){},
+            
+            Subtitle2 = new Subtitle2(){},
+            
+            Overline = new Overline(){},*/
+            
+            H1 = new H1(){
+
+                FontFamily = new[] { "Montserrat" },
+                FontSize = "48px",
+                FontWeight = 600,
+                LineHeight = 1.25,
+                LetterSpacing = "+.03",
+
+            },
+            
+            H2 = new H2()
+            {
+                FontFamily = new[] { "Montserrat" },
+                FontSize = "28px",
+                FontWeight = 600,
+                LineHeight = 1.25,
+                LetterSpacing = "+.03",
+            },
+            
+            H3 = new H3()
+            {
+                FontFamily = new[] { "Montserrat" },
+                FontSize = "22px",
+                FontWeight = 600,
+                LineHeight = 1.25,
+                LetterSpacing = "+.03",
+            },
+            
+            H4 = new H4()
+            {
+                FontFamily = new[] { "Montserrat" },
+                FontSize = "34px",
+                FontWeight = 600,
+                LineHeight = 1.25,
+                LetterSpacing = "+.03",
+            },
+            
+            H5 = new H5()
+            {
+                FontFamily = new[] { "Josefin Sans" }, //En till "body" eftersom jag behövde en mindre än body2
+                FontSize = "12px",
+                FontWeight = 400,
+                LineHeight = 1.334,
+                LetterSpacing = "0",
+            },
+            
+            H6 = new H6()
+            {
+                FontFamily = new[] { "Josefin Sans" },
+                FontSize = "9px",
+                FontWeight = 400,
+                LineHeight = 1.5,
+                LetterSpacing = ".00938em",
+            },
+
+        }
+
+
+    };
+}

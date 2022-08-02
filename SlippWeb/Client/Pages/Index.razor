@@ -1,41 +1,50 @@
-﻿@page "/"
+﻿@*@page "/"
 @using System.ComponentModel.DataAnnotations
+@inject NavigationManager _nav
+
+@attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
 
-<h1>SLIPP.se</h1>
+<div class="Loggo"></div>
 
 <EditForm Model="testUser" OnValidSubmit="isValidSubmit">
     <DataAnnotationsValidator/>
-    <ValidationSummary/>
+   
     <div class="loginContainer">
         <label >
-            EmailAddress:
-            <input @bind="testUser.EmailAddress" />
+            <input @bind="testUser.EmailAddress" placeholder="Email"/>
         </label>
+        <ValidationMessage For="() => testUser.EmailAddress"/>
         <label >
-            Password:
-            <input @bind="testUser.Password"/>
+            <input @bind="testUser.Password" placeholder="Password"/>
         </label>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
+        <ValidationMessage For="() => testUser.Password"/>
+        <div class="btnContainer">
+            <div>
+                <button type="submit">Login</button>
+            </div>
+            <div>
+                <button type="button" onclick="@(()=>_nav.NavigateTo("/register"))" >Register</button>
+            </div>
+        </div>
+        
     </div>
 </EditForm>
 
 
 
-@code{
+@code{ //TODO - Tillfällig DTO byt ut senare, plocka med ErrorMessages.
 
     private TestUser testUser = new();
 
     public class TestUser
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Du måste ange en e-postadress")]
+        [EmailAddress(ErrorMessage = "Angiven e-postadress inte giltig format")]
         public string EmailAddress { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Du måste ange ett lösenord")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
@@ -44,5 +53,5 @@
     {
 
     }
-
-}
+    
+}*@

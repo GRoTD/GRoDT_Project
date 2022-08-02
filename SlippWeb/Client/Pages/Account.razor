@@ -1,0 +1,60 @@
+﻿@page "/account"
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+
+@attribute [Authorize]
+
+<MudPaper Square="true" Height="80px" Width="100%" Elevation="5" Style="background-color: transparent" Class="d-flex justify-center align-center">
+    <MudText Typo="Typo.h2" Color="Color.Primary">Konto</MudText>
+</MudPaper>
+
+
+<MudPaper Square="true" Width="100%" Elevation="0"  Style="background-color: transparent">
+   <MudList Clickable="true">
+        <MudListItem IconColor="Color.Primary" Href="/Account/Favourites" Text="Favoriter" Icon="@Icons.Filled.Favorite"/>
+        <MudDivider/>
+       
+        <MudListItem IconColor="Color.Primary" Href="/Account/MySlipps" Text="Mina köp" Icon="@Icons.Material.Filled.AttachMoney"/>
+        <MudDivider/>
+        
+        <MudListItem IconColor="Color.Primary" Href="/Account/MyBids" Text="Mina bud" Icon="@Icons.Material.Filled.Gavel"/>
+        <MudDivider/>
+       
+        <MudListItem IconColor="Color.Primary" Href="/Account/PurchaseHistory" Text="Köphistorik" Icon="@Icons.Filled.History"/>
+        <MudDivider/>
+        
+        <MudListItem IconColor="Color.Primary" Href="/Account/Settings" Text="Inställningar" Icon="@Icons.Filled.Settings"/>
+        <MudDivider/>
+        
+        <MudListItem IconColor="Color.Primary" Href="/Account/Terms" Text="Vilkor" Icon="@Icons.Filled.Info"/>
+        <MudDivider/>
+        
+        <MudListItem IconColor="Color.Primary" Href="/Account/Help" Text="Hjälp" Icon="@Icons.Filled.Help"/>
+        <MudDivider/>
+    </MudList>
+    <MudList Style="position: absolute; bottom: 0px; width: 100%" Clickable="true">
+        <MudDivider/>
+        <MudListItem Style="color: red;" IconColor="Color.Primary" OnClick="Logout" Text="Logga ut" Icon="@Icons.Filled.Logout"/> @*TODO - Add logout confirmation?*@
+        <MudDivider/>
+        <MudText Typo="Typo.body2" Style="padding: 5px 0" Align="Align.Center">Slipp version: beta</MudText>
+    </MudList>
+</MudPaper>
+<style>
+        .mud-list{
+            color: var(--mud-palette-primary)
+        }
+
+        .mud-list-item {
+            padding: 8px 20px;
+        }
+    </style>
+
+@code {
+
+    private async void Logout()
+    {
+        await AuthenticationService.Logout();
+    }
+
+
+} 

@@ -1,11 +1,4 @@
-﻿/*header*/
-.header {
-    position:relative;
-    min-height: 200px;
-    background: #000000;
-    color: white;
-    margin: 0;
-}
+﻿
 
 .location-info{
     text-align:center;
@@ -22,6 +15,12 @@ padding: 10px 0 45px 0;
    position:absolute;
    top: 50px;
    padding-left: 5px;
+}
+.header {
+    position: relative;
+    min-height: 200px;
+    background-color: red;
+    margin: 0;
 }
 .header-menu {
     display: flex;

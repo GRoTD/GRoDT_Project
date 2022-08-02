@@ -1,0 +1,86 @@
+﻿@using System.Text.Json
+@using System.Text.Json.Serialization;
+@using Slipp.Services.DTO
+@using Slipp.Services.Models
+@using System.Net
+@*@inject HttpClient Client*@
+@inject ITicketAPIService TicketApiService
+
+@*@inject IHttpClientFactory ClientFactory*@
+
+
+
+@*¨/test Består av olika komponenter + html-kod*@
+
+
+<div class="main-container">
+    @if (tickets == null)
+    {
+        <MudProgressCircular Size="Size.Large" Color="Color.Primary" Indeterminate="true" />
+    }
+    @*<p>Unable to load auctions. Please try again later.</p>*@
+
+    else
+    {
+        @foreach (var ticket in tickets)
+        {
+            <TicketCard Ticket=ticket></TicketCard>
+        }
+    }
+</div>
+
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /*background-color: #3a4553;*/
+        padding-top: 20px;
+    }
+</style>
+
+
+
+
+@code {
+    //Flytta fetchanrop till komponenter eller till egen fil (motsvarande som vi gjorde i poke-uppgiften?) Förmodligen komponenter...
+    private IEnumerable<CreateTicketOutput> tickets;
+    //private List<CreateTicketOutput> tickets;
+    private bool getAuctionsError;
+    private bool shouldRender;  
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
+
+        tickets = await TicketApiService.GetTickets(null, null);
+
+        /*var request = new HttpRequestMessage(HttpMethod.Get,
+           "https://slippapifortesting.azurewebsites.net/api/Ticket"); //byt ut till vår url + headers
+        request.Headers.Add("Accept", "application/json");
+        ////request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+        //var client = ClientFactory.CreateClient();
+        var client=new HttpClient();
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            tickets = await JsonSerializer.DeserializeAsync<List<CreateTicketOutput>>(responseStream);
+        }
+        else
+        {
+            getAuctionsError = true;
+        }*/
+
+        shouldRender = true;
+    }
+
+
+}
+

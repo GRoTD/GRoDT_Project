@@ -1,49 +1,55 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Slipp.Services.Constants;
 using SlippAPI.Services;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route(ApiPaths.TICKETCONTROLLER)]
 [ApiController]
 public class TicketController : ControllerBase
 {
     private readonly TicketService _ticketService;
+    private readonly Database _db;
 
-    public TicketController(TicketService ticketService)
+    public TicketController(TicketService ticketService, Database db)
     {
         _ticketService = ticketService;
+        _db = db;
     }
 
-    /* [HttpPost]
-     public async Task<ActionResult<List<CreateTicketOutput>>> CreateTickets(int amount,
-         CreateTicketInput ticketInput)
-     {
-         var tickets = await _ticketService.CreateTickets(amount, ticketInput);
- 
-         var createdTickets = new List<CreateTicketOutput>();
- 
-         foreach (var ticket in tickets)
-         {
-             var createdTicket = new CreateTicketOutput
-             {
-                 Id = ticket.Id,
-                 Title = ticket.Title,
-                 Price = ticket.Price,
-                 StartValidTime = ticket.StartValidTime,
-                 EndValidTime = ticket.EndValidTime
-             };
- 
-             createdTickets.Add(createdTicket);
-         }
- 
-         return Ok(createdTickets);
-     }*/
+    [HttpPost]
+    [Authorize(Roles = $"{StaticConfig.ClubRole}")]
+    public async Task<ActionResult<List<CreateTicketOutput>>> CreateTickets(Guid clubId, int amount,
+        CreateTicketInput ticketInput)
+    {
+        var userClubId = User.Claims
+            .FirstOrDefault(c => c.Type == SlippClaimTypes.CLUBID
+                                 && c.Value == clubId.ToString());
+        if (userClubId == null) return Unauthorized();
+
+        var tickets = await _ticketService.CreateTickets(clubId, amount, ticketInput);
+
+        var createdTickets =
+            tickets.Select(ticket =>
+                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
+                .ToList();
+
+        return Ok(createdTickets);
+    }
 
     [HttpGet]
-    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets()
+    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets([FromQuery] Guid? clubId,
+        [FromQuery] string? city)
     {
         //TODO: Catch errors
-        var tickets = await _ticketService.GetTicketsWithoutAuctions();
+
+        var tickets = new List<Ticket>();
+
+        //Should be easy to refactor to be better/easier to read.
+        if (clubId == null && city == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions();
+        else if (clubId != null && city == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions(clubId);
+        else tickets = await _ticketService.GetUnsoldTicketsAtCity(city);
 
         var returnTickets =
             tickets.Select(ticket =>
@@ -64,5 +70,18 @@ public class TicketController : ControllerBase
             CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}), ticket);
 
         return Ok(returnTicket);
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [Authorize(Roles = $"{StaticConfig.ClubRole}, {StaticConfig.AdminRole}")]
+    public async Task<ActionResult> DeleteTicket(Guid id)
+    {
+        //TODO: Check if club owns the ticket. 
+        bool deleted = await _ticketService.DeleteTicket(id);
+
+        if (deleted) return Ok();
+
+        return BadRequest();
     }
 }

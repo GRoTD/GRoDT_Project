@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Slipp.Services.DTO;
+using Slipp.Services.Constants;
 
 namespace SlippAPI.Controllers;
 
-[Route("api/user")]
+[Route(ApiPaths.APPUSERCONTROLLER)]
 [ApiController]
 public class AppUserController : ControllerBase
 {
@@ -40,6 +40,8 @@ public class AppUserController : ControllerBase
 
         if (createdUser is null) return NotFound(); //TODO: Something else probably?
 
+        //return Conflict(); /*TODO - Add try/catch*/
+
         var returnUser = new CreatedAppUserReturn
         {
             Email = createdUser.Email,
@@ -48,6 +50,6 @@ public class AppUserController : ControllerBase
             Id = createdUser.Id
         };
 
-        return CreatedAtAction(nameof(GetAppUser), new {email = returnUser.Email}, returnUser);
+        return CreatedAtAction(nameof(GetAppUser), new { email = returnUser.Email }, returnUser);
     }
 }

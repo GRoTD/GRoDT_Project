@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace SlippAPI.Services;
 
@@ -42,12 +41,29 @@ public class TicketService
         return tickets;
     }
 
-    public async Task<List<Ticket>> GetTicketsWithoutAuctions(Guid? clubId) //Add lon, lat, radius
+    public async Task<Ticket> GetTicket(Guid id)
     {
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
             .Include(t => t.Sale)
+            .Include(t => t.Auction)
+            .Include(t => t.Images);
+
+        var ticket = await query.FirstOrDefaultAsync(t => t.Id == id);
+
+        if (ticket is null) throw new TicketNotFoundException();
+
+        return ticket;
+    }
+
+    public async Task<List<Ticket>> GetUnsoldTicketsWithoutAuctions(Guid? clubId)
+    {
+        var query = _slippDbCtx.Tickets
+            .Include(t => t.Club)
+            .Include(t => t.Sale)
+            .Include(t => t.Images)
             .Where(t => t.Auction == null)
+            .Where(t => t.Sale == null)
             .AsQueryable();
 
         //TODO: Can add filtering here. Ex clubId below. 
@@ -58,30 +74,42 @@ public class TicketService
         return tickets;
     }
 
-    public async Task<List<Ticket>> GetTicketsWithoutAuctions()
+    public async Task<List<Ticket>> GetUnsoldTicketsWithoutAuctions()
     {
-        return await GetTicketsWithoutAuctions(null);
+        return await GetUnsoldTicketsWithoutAuctions(null);
     }
 
-
-    public async Task<Ticket> GetTicket(Guid id)
+    public async Task<List<Ticket>> GetUnsoldTicketsAtCity(string city)
     {
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
             .Include(t => t.Sale)
-            .Include(t => t.Auction);
+            .Include(t => t.Images)
+            .Where(t => t.Auction == null)
+            .Where(t => t.Sale == null)
+            .Where(t => t.Club.City.ToUpper() == city.ToUpper())
+            .AsQueryable();
 
-        var ticket = await query.FirstOrDefaultAsync(t => t.Id == id);
+        var tickets = await query.ToListAsync();
 
-        if (ticket is null) throw new TicketNotFoundException("There is no ticket with that id");
+        return tickets;
+    }
 
-        return ticket;
+    public async Task<bool> DeleteTicket(Guid id)
+    {
+        var ticket = new Ticket() {Id = id};
+
+        _slippDbCtx.Tickets.Remove(ticket);
+
+        await _slippDbCtx.SaveChangesAsync();
+
+        return true;
     }
 }
 
 public class TicketNotFoundException : Exception
 {
-    public TicketNotFoundException(string message) : base(message)
+    public TicketNotFoundException() : base("There is no ticket with that id")
     {
     }
 }

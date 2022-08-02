@@ -1,0 +1,52 @@
+﻿::deep.component-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+::deep.my-club-card {
+    width: 90vw;
+    margin: 10px 0;
+    border-radius: 10px;
+    background-size: cover;
+    position: relative;
+    padding: 3%;
+}
+    ::deep .my-club-card::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgba(0,0,0,0.8);
+        border-radius: 10px;
+    }
+::deep .my-clubCard-content {
+    width: 100%;
+    position: relative;
+    color: white;
+    border: 1.5px dotted #F2C080;
+    border-radius: 10px;
+    text-align: left;
+}
+
+
+::deep .my-club-card .mud-card-header {
+    padding-bottom: 0px;
+}
+.club-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+::deep .club-info .mud-icon-button {
+        padding: 6px 6px 6px 0;
+    }
+::deep .club-info .mud-avatar {
+    margin-right: 10px;
+}
+.club-description {
+        font-style: italic;
+    }

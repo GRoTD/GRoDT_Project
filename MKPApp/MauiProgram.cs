@@ -13,12 +13,14 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("Lato-Regular.ttf", "LatoRegular");
+                fonts.AddFont("JosefinSans-Regular.ttf", "JosefinRegular");
+                fonts.AddFont("Montserrat-Medium.ttf", "MontserratRegular");
 
             });
 
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddSingleton<WeatherForecastService>();
 
-		return builder.Build();
-	}
+        return builder.Build();
+    }
 }

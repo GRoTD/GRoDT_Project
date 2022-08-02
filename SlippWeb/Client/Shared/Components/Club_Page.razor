@@ -1,0 +1,75 @@
+﻿@using Slipp.Services.DTO
+@using Slipp.Services.Models
+@inject NavigationManager NavigationManager
+
+
+<div class="component-content">
+    <div class="club-page-header" style="background-image: url('@Club.Images[0].Url');">
+        <div class="club-page-header-content">
+            <div class="club-page-top-icons">
+                <MudIconButton Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/> 
+                @if(IsFavourite)
+                {
+                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="MakeFavourite"/> 
+                }
+                else
+                {
+                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary" OnClick="MakeFavourite"/> 
+                }
+            </div>
+            <div >
+                <MudText Typo="Typo.h1">@Club.Name</MudText>
+            </div>
+        </div>
+    </div>
+
+    
+
+   @* <div class="club-page-info">
+        <MudText Typo="Typo.body1">@Club.Description</MudText>
+        <div class="club-info">
+            <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
+            <MudText Typo="Typo.body2">@Club.Address</MudText>
+        </div>
+        <div class="club-info">
+            <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
+            <MudLink Href="@Club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@Club.Website</MudLink>
+        </div>
+    </div>*@
+</div>
+
+
+
+@code {
+    [Parameter] public ClubOutput Club { get; set; }
+    public string ReturnUrl {get; set;}
+
+    protected override void OnInitialized()
+    {
+        ReturnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
+        
+    }
+   
+    public void GoBack()
+    {
+        NavigationManager.NavigateTo(ReturnUrl);
+    }
+
+    //TODO Kolla om den är favorit genom att kolla i FavouriteClubs i AppUser
+    public bool IsFavourite = false;
+        
+    public void MakeFavourite()
+    {
+        if (IsFavourite)
+        {
+            IsFavourite = false;
+            @*ToDO Ta bort ur favoriter-listan*@
+        }
+        else
+        {
+            IsFavourite = true;
+            @*TODO Lägg till i favoriter-listan*@
+        }
+    }
+    
+}
