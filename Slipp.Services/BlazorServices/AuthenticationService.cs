@@ -55,7 +55,7 @@ public class AuthenticationService : IAuthenticationService
     {
         await _apiService.Post<CreatedAppUserReturn>(
               ApiPaths.APPUSERCONTROLLER, newUser);
-        _navigationManager.NavigateTo("login");
+        _navigationManager.NavigateTo("/login");
     }
 
 }

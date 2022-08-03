@@ -1,5 +1,7 @@
 ﻿@inject HttpClient Client
 @using Slipp.Services.DTO
+@using SlippWeb.Client.Utils
+@using System.Net
 @inject NavigationManager NavigationManager
 @inject ITicketAPIService TicketApiService
 
@@ -68,18 +70,12 @@
 
     private void ShowTicket()
     {
-    <ReturnUrl
-            pageUrl="MySlippTicket/">
+        NavigationUtil.GoToNextpageIncludeReturnUrl(pageUrl: "MySlippTicket", pageQuery:"");
 
-    </ReturnUrl>
-        //NavigationManager.NavigateTo("/MySlippTicket");
     }
 
     private void OpenClub(string clubUrl)
     {
-    <ReturnUrl
-            pageUrl="clubUrl">
-               
-    </ReturnUrl>
+        NavigationUtil.GoToNextpageIncludeReturnUrl(pageUrl: clubUrl, pageQuery:"");
     }
 }

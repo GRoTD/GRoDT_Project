@@ -1,4 +1,5 @@
 ﻿@page "/login"
+@using SlippWeb.Client.Utils
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
 
@@ -79,6 +80,7 @@
 
 @code {
     private readonly LoginInput _loginInput = new();
+    [CascadingParameter] public NavMenu _Parent { get; set; }
     private bool loading;
     //private string error; 
 
@@ -103,8 +105,8 @@
         try
         {
             await AuthenticationService.Login(_loginInput); /*TODO - Show loader on while waiting*/
-            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
-            NavigationManager.NavigateTo(returnUrl);
+            
+            NavigationManager.NavigateTo("/refresh");
             StateHasChanged();
             /*TODO - Logga in byter inte till konto direkt*/
         }

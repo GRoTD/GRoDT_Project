@@ -114,9 +114,8 @@
             yield return "Lösenordet måste innehålla minst en liten bokstav";
         if (!Regex.IsMatch(pw, @"[0-9]"))
             yield return "Lösenordet måste innehålla minst en siffra";
-        if (!Regex.IsMatch(pw, @"[^a-zA-Z\\d\\s:]"))
+        if (!Regex.IsMatch(pw, @"[^a-zA-Z0-9\\s:]"))
             yield return "Lösenordet måste innehålla minst en symbol";
-        @*TODO Symbol ger ingen prompt.*@
 
     }
 
