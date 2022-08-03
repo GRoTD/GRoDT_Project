@@ -1,0 +1,27 @@
+﻿@using System.Net
+@inject NavigationManager NavigationManager
+
+@ReturnPage;
+
+@code {
+    /// <summary>
+    /// <param> Page url path to navigate to as a string, end path with forward slash</param> 
+    /// </summary>
+    [Parameter] public string pageUrl { get; set; }
+    /// <summary>
+    /// <param> Page query as a string</param> 
+    /// </summary>
+    [Parameter] public string pageQuery { get; set; }
+
+    public string goToUrl { get; set; }
+    public string returnUrl { get; set; }
+    
+    public void ReturnPage()
+    {
+        goToUrl = pageUrl + pageQuery;
+
+        returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+        
+        NavigationManager.NavigateTo($"{goToUrl}?returnUrl={returnUrl}");
+    }
+}

@@ -1,4 +1,5 @@
 ﻿@inject HttpClient Client
+@using Slipp.Services.DTO
 @inject NavigationManager NavigationManager
 @inject ITicketAPIService TicketApiService
 
@@ -9,7 +10,7 @@
         <MudGrid>
             <MudItem xs="8" Class="d-block pl-4">
             
-                <MudButton OnClick="OpenClub" Style="background-color: transparent; padding: 10px 0 0 0;" Class="ClubName" Elevation="0">
+                <MudButton OnClick="() => OpenClub(ticket.ClubUrl)" Style="background-color: transparent; padding: 10px 0 0 0;" Class="ClubName" Elevation="0">
                     <MudText Typo="Typo.h3">@ticket.ClubName.ToUpper()</MudText>
                     @*<MudIconButton OnClick="showMap" Color="Color.Primary" Size="Size.Medium" Icon="@Icons.Filled.LocationOn"></MudIconButton>*@
                 </MudButton>
@@ -56,7 +57,8 @@
 
 @code
 {
-    private IEnumerable<CreateTicketOutput> tickets;
+    private IEnumerable<CreateTicketOutput>? tickets;
+    private ClubOutput Club { get; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -66,14 +68,18 @@
 
     private void ShowTicket()
     {
+    <ReturnUrl
+            pageUrl="MySlippTicket/">
 
-        NavigationManager.NavigateTo("/MySlippTicket");
+    </ReturnUrl>
+        //NavigationManager.NavigateTo("/MySlippTicket");
+    }
 
-        throw new NotImplementedException();
-    } 
-
-    private void OpenClub()
+    private void OpenClub(string clubUrl)
     {
-        throw new NotImplementedException();
+    <ReturnUrl
+            pageUrl="clubUrl">
+               
+    </ReturnUrl>
     }
 }

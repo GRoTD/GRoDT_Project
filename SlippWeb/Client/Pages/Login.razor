@@ -84,7 +84,7 @@
 
 
     bool success;
-    string[] errors = {};
+    string error = "";
     MudForm form;
 
 
@@ -110,7 +110,7 @@
         }
         catch (Exception ex)
         {
-            //error = ex.Message;
+            error = ex.Message;
             loading = false;
             StateHasChanged();
         }
