@@ -15,6 +15,7 @@ public class SlippDbCtx : IdentityDbContext<DatabaseUser, IdentityRole, string>
     public DbSet<Auction> Auctions { get; set; }
     public DbSet<Sale> Sales { get; set; }
     public DbSet<Image> Images { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     public SlippDbCtx(DbContextOptions<SlippDbCtx> options)
         : base(options)

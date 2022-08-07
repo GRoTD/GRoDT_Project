@@ -10,9 +10,8 @@ public class Ticket
     public DateTime StartValidTime { get; set; }
     public DateTime EndValidTime { get; set; }
     public Club Club { get; set; }
-    public Sale? Sale { get; set; }
+    public Order? Order { get; set; }
     public Auction? Auction { get; set; }
     public List<Image> Images { get; set; }
-
     public List<AppUser> SavedByUsers { get; set; }
 }

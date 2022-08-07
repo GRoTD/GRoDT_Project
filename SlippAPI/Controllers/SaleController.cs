@@ -39,7 +39,7 @@ public class SaleController : ControllerBase
 
         if (sale == null) return NotFound();
 
-        var clubUrl = Url.Action("Get", "Club", new {id = sale.Tickets[0].Club.Id}, "https");
+        var clubUrl = Url.Action("Get", "Club", new {id = sale.Order.Tickets[0].Club.Id}, "https");
 
         var saleOutput = SaleOutput.Create(clubUrl, sale);
 

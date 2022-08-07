@@ -13,13 +13,14 @@ public class SaleService
 
     public async Task<Sale> CreateSale(SaleInput input)
     {
+        var order = _slippDbCtx.Orders.FirstOrDefault(o => o.Id == input.OrderId);
+
+        if (order == null) throw new Exception("Order must exist");
+
         Sale sale = new Sale()
         {
             BoughtDateTime = DateTime.Now,
-            /*Buyer = input.Buyer,*/
-            IsPayed = false,
-            /*PaymentDeadline = input.PaymentDeadLine,*/
-            /*Tickets = input.Tickets*/
+            Order = order
         };
 
         _slippDbCtx.Sales.Add(sale);
@@ -31,13 +32,12 @@ public class SaleService
     public async Task<Sale> GetSale(Guid id)
     {
         var query = _slippDbCtx.Sales
-            .Include(s => s.Buyer)
-            .Include(s => s.Tickets)
+            .Include(s => s.Order)
             .AsQueryable();
 
         var sale = await query.FirstOrDefaultAsync(s => s.Id == id);
 
-        if (sale == null) return null; //Make Exception
+        if (sale == null) throw new Exception("Sale does not exist"); //Make Exception
 
         return sale;
     }
