@@ -1,5 +1,5 @@
 ﻿@attribute [Authorize]
-
+@inject PageHistoryState PageHistoryState
 @inject NavigationManager NavigationManager
 @inject ILocalStorageService _localStorageService;
 @inject ITicketAPIService ApiService
@@ -39,7 +39,7 @@
             
             <div class="payment-overview">
                 <MudText Align="@Align.Center" Class="mb-4 mt-6 border-b" Typo="@Typo.h2">Översikt</MudText>
-                <MudText Align="@Align.Center" Typo="@Typo.body1"  >@userFirstName</MudText> 
+                <MudText Align="@Align.Center" Color="Color.Primary" Typo="@Typo.body1"  >@userFirstName</MudText> 
                 <MudText Align="@Align.Center" Typo="@Typo.body1">Antal biljetter: @choosenValue</MudText>
                 <MudText Align="@Align.Center" Typo="@Typo.body1">Pris per biljett: @Math.Round(Ticket.Price) kr</MudText>
                 <MudText Align="@Align.Center" Typo="@Typo.body1">Totalt belopp: @Math.Round((Ticket.Price) * (@choosenValue)) kr</MudText> 
@@ -86,14 +86,16 @@
 
     protected override async Task OnInitializedAsync()
     {
+       
         choosenValue = 1;
         Ticket = await ApiService.GetTicket(new Guid(ticketId));
-        await base.OnInitializedAsync();
         purchaseIsConfirmed = false;
-
         //Är detta rätt sätt att göra det på??
         LoggedInUser = await _localStorageService.GetItem<LoggedInUser>("user");
-        userFirstName = LoggedInUser.Email; /*TODO Byt till FirstName*/
+        userFirstName = LoggedInUser.FirstName + " " + LoggedInUser.LastName; /*TODO Byt till FirstName*/
+
+        PageHistoryState.AddPageToHistory($"/pay/{ticketId}");
+        await base.OnInitializedAsync();
     }
 
     public void ConfirmPurchase()

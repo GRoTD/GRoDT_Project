@@ -1,6 +1,8 @@
 ﻿@page "/account"
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
+@inject PageHistoryState PageHistoryState
+
 
 @attribute [Authorize]
 
@@ -50,6 +52,12 @@
     </style>
 
 @code {
+
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/account");
+        base.OnInitialized();
+    }
 
     private async void Logout()
     {

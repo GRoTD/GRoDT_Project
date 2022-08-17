@@ -16,7 +16,8 @@ builder.Services.AddHttpClient<IApiService, ApiService>(client =>
 builder.Services
     .AddSingleton<IAuthenticationService, AuthenticationService>()
     .AddSingleton<ITicketAPIService, TicketAPIService>()
-    .AddSingleton<ILocalStorageService, LocalStorageService>();
+    .AddSingleton<ILocalStorageService, LocalStorageService>()
+    .AddSingleton<PageHistoryState>();
 
 
 builder.Services.AddMudServices();

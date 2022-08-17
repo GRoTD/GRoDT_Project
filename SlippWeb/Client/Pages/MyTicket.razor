@@ -1,5 +1,6 @@
 ﻿@page "/MySlippTicket"
 @inject HttpClient Client
+@inject PageHistoryState PageHistoryState
 @inject ILocalStorageService _localStorageService;
 
 @attribute [Authorize]
@@ -85,11 +86,15 @@
 
     protected override async Task OnInitializedAsync()
     {
+        PageHistoryState.AddPageToHistory("/MySlippTicket");
+        
         tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
 
         //Set username
         var LoggedInUser = await _localStorageService.GetItem<LoggedInUser>("user");
         userFirstName = LoggedInUser.Email; /*TODO Byt till FirstName*/
+
+        base.OnInitialized();
     }
 
 

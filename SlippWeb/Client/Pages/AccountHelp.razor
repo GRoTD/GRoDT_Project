@@ -1,5 +1,5 @@
 ﻿@page "/account/help"
-
+@inject PageHistoryState PageHistoryState
 @attribute [Authorize]
 
 <PageHeader HeaderTitle="Hjälp"></PageHeader>
@@ -47,10 +47,17 @@
 
 <style>
     .padding {
-    padding: 5px;
-}
+        padding: 5px;
+    }
 
 </style>
-@code {
 
+@code
+{
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/account/help");
+        base.OnInitialized();
+    }
 }
+

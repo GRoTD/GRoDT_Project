@@ -1,5 +1,4 @@
 ﻿@page "/login"
-@using SlippWeb.Client.Utils
 @using Microsoft.AspNetCore.Identity
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager NavigationManager
@@ -111,7 +110,7 @@ else{
     // redirect to home if already logged in
         if (AuthenticationService.User != null)
         {
-            NavigationManager.NavigateTo("");
+            NavigationManager.NavigateTo("/");
         }
         AuthenticationService.OnChange += StateHasChanged;
     }
