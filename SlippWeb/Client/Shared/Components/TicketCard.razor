@@ -39,11 +39,13 @@
                 <MudText Typo="Typo.h5">@Math.Round(Ticket.Price) SEK</MudText>
                 @if (IsFavourite)
                 {
-                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="MakeFavourite"/>
+
+                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="OnHeartClicked"/>
+                    
                 }
                 else
                 {
-                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary" OnClick="MakeFavourite"/>
+                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary" OnClick="OnHeartClicked"/>
                 }
 
             </div>
@@ -59,10 +61,40 @@
     [Parameter] public CreateTicketOutput Ticket { get; set; }
     public string pageToGoToUrl { get; set; }
     public string returnUrl { get; set; }
-    public string apiRequestForThisTicket { get; set; }
+    //public string apiRequestForThisTicket { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
+    string state = "Message box hasn't been opened yet";
+
 
     //TODO Kolla om den är favorit genom att kolla i FavouriteTicket i AppUser
     public bool IsFavourite = false;
+
+
+    private async void OnHeartClicked()
+    {
+        
+
+        if (IsFavourite)
+        {
+            bool? result = await DialogService.ShowMessageBox(
+                "Ta bort favorit", 
+                "Vill du ta bort biljetten från dina favoriter?", 
+                yesText:"Ja", cancelText:"Nej");
+            state= result==null ? "Cancelled" : "Deleted!";
+            if (result==true)
+            {
+                StateHasChanged();
+                MakeFavourite();
+            }
+           
+        }
+        else
+        {
+            MakeFavourite();
+        }
+        
+        
+    }
 
     public void MakeFavourite()
     {
