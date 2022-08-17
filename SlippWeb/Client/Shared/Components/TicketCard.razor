@@ -41,6 +41,23 @@
                 {
 
                     <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="OnHeartClicked"/>
+
+                    <MudMessageBox @ref="mbox" >
+                        
+                        <MessageContent>
+                            <div class="message-box-icon">
+                            <MudIconButton Class="align-center" Icon="@Icons.Filled.HeartBroken" Color="Color.Primary"></MudIconButton>
+                            </div>
+                            <MudText Align="Align.Center" Typo="Typo.body2">Vill du ta bort biljetten <br> från dina favoriter?</MudText>
+
+                        </MessageContent>
+                        <YesButton>
+                            <MudButton Color="Color.Error">Ja!</MudButton>
+                        </YesButton>
+                        <CancelButton>
+                            <MudButton Color="Color.Primary">Nej!</MudButton>
+                        </CancelButton>
+                    </MudMessageBox>
                     
                 }
                 else
@@ -62,8 +79,9 @@
     public string pageToGoToUrl { get; set; }
     public string returnUrl { get; set; }
     //public string apiRequestForThisTicket { get; set; }
-    [Inject] private IDialogService DialogService { get; set; }
+    MudMessageBox mbox { get; set; }
     string state = "Message box hasn't been opened yet";
+
 
 
     //TODO Kolla om den är favorit genom att kolla i FavouriteTicket i AppUser
@@ -76,11 +94,9 @@
 
         if (IsFavourite)
         {
-            bool? result = await DialogService.ShowMessageBox(
-                "Ta bort favorit", 
-                "Vill du ta bort biljetten från dina favoriter?", 
-                yesText:"Ja", cancelText:"Nej");
+            bool? result = await mbox.Show();
             state= result==null ? "Cancelled" : "Deleted!";
+            
             if (result==true)
             {
                 StateHasChanged();
@@ -118,5 +134,16 @@
         NavigationManager.NavigateTo($"{pageToGoToUrl}?returnUrl={returnUrl}");
     }
        
+    
 
 }
+
+<style>
+    .message-box-icon {
+        display: flex;
+        justify-content: center;
+    }
+    ::deep .mud-dialog-actions{
+        justify-content: center !important;
+    }
+</style>

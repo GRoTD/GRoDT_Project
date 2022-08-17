@@ -12,8 +12,33 @@
 
                     <MudCardHeader>
                         <CardHeaderContent>
-                            <div class="club-info">
+                            <div class="club-info club-info-header">
                                 <MudText Typo="Typo.h2">@Club.Name</MudText>
+                                @if(IsFavourite)
+                                {
+                                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary"  OnClick="OnHeartClicked"/> 
+
+                                    <MudMessageBox @ref="mbox" >
+                        
+                                        <MessageContent>
+                                            <div class="message-box-icon">
+                                                <MudIconButton Class="align-center" Icon="@Icons.Filled.HeartBroken" Color="Color.Primary"></MudIconButton>
+                                            </div>
+                                            <MudText Align="Align.Center" Typo="Typo.body2">Vill du ta bort klubben <br> från dina favoriter?</MudText>
+
+                                        </MessageContent>
+                                        <YesButton>
+                                            <MudButton Color="Color.Error">Ja!</MudButton>
+                                        </YesButton>
+                                        <CancelButton>
+                                            <MudButton Color="Color.Primary">Nej!</MudButton>
+                                        </CancelButton>
+                                    </MudMessageBox>
+                                }
+                                else
+                                {
+                                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary"  OnClick="OnHeartClicked"/> 
+                                }
                             </div>
                         </CardHeaderContent>
 
@@ -28,16 +53,6 @@
                         </div>
                     </MudCardContent>
 
-                    @*<MudCardActions Class="d-flex justify-end">
-
-                    <MudLink Href="/nattklubbar">
-                        <MudButton Variant="Variant.Text" Color="Color.Primary">Biljetter</MudButton>
-                    </MudLink>
-                    <MudLink Href="/nattklubbar">
-                        <MudButton Variant="Variant.Text" Color="Color.Primary">Auktioner</MudButton>
-                    </MudLink>
-                </MudCardActions>*@
-
                 </div>
             </div>
         </div>
@@ -48,12 +63,49 @@
     [Parameter] public ClubOutput Club { get; set; }
     public string pageToGoToUrl { get; set; }
     public string returnUrl { get; set; }
+    public bool IsFavourite = false;
+    MudMessageBox mbox { get; set; }
+    string state = "Message box hasn't been opened yet";
 
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
  
+    }
+    private async void OnHeartClicked()
+    {
+        
+        if (IsFavourite)
+        {
+            bool? result = await mbox.Show();
+            state= result==null ? "Cancelled" : "Deleted!";
+            
+            if (result==true)
+            {
+                StateHasChanged();
+                MakeFavourite();
+            }
+        }
+        else
+        {
+            MakeFavourite();
+        }
+        
+        
+    }
+    public void MakeFavourite()
+    {
+        if (IsFavourite)
+        {
+            IsFavourite = false;
+            @*ToDO Ta bort ur favoriter-listan*@
+        }
+        else
+        {
+            IsFavourite = true;
+            @*TODO Lägg till i favoriter-listan*@
+        }
     }
 
     public void NavigateToClub()
