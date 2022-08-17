@@ -30,10 +30,7 @@ public class TicketController : ControllerBase
 
         var tickets = await _ticketService.CreateTickets(clubId, amount, ticketInput);
 
-        var createdTickets =
-            tickets.Select(ticket =>
-                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = clubId}, "https"), ticket))
-                .ToList();
+        var createdTickets = CreateTicketOutputList(tickets);
 
         return Ok(createdTickets);
     }
@@ -49,13 +46,24 @@ public class TicketController : ControllerBase
 
         //Should be easy to refactor to be better/easier to read.
         if (clubId == null && city == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions();
+
         else if (clubId != null && city == null) tickets = await _ticketService.GetUnsoldTicketsWithoutAuctions(clubId);
+
         else tickets = await _ticketService.GetUnsoldTicketsAtCity(city);
 
-        var returnTickets =
-            tickets.Select(ticket =>
-                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
-                .ToList();
+        var returnTickets = CreateTicketOutputList(tickets);
+
+        return Ok(returnTickets);
+    }
+
+    [HttpGet]
+    [Route("{email}")]
+    [Authorize(Roles = StaticConfig.AppUserRole)]
+    public async Task<ActionResult> GetUserTickets(string email)
+    {
+        List<Ticket> userTickets = await _ticketService.GetUserTickets(email);
+
+        var returnTickets = CreateTicketOutputList(userTickets);
 
         return Ok(returnTickets);
     }
@@ -68,8 +76,7 @@ public class TicketController : ControllerBase
         //TODO: Catch errors
         var ticket = await _ticketService.GetTicket(id);
 
-        var returnTicket =
-            CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}), ticket);
+        var returnTicket = CreateOneTicketOutput(ticket);
 
         return Ok(returnTicket);
     }
@@ -86,4 +93,19 @@ public class TicketController : ControllerBase
 
         return BadRequest();
     }
+
+    #region HelperMethods
+
+    private List<CreateTicketOutput> CreateTicketOutputList(List<Ticket> tickets)
+    {
+        return tickets.Select(ticket => CreateOneTicketOutput(ticket))
+            .ToList();
+    }
+
+    private CreateTicketOutput CreateOneTicketOutput(Ticket ticket)
+    {
+        return CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket);
+    }
+
+    #endregion
 }

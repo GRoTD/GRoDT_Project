@@ -13,7 +13,7 @@ public class TicketService
         _slippDbCtx = slippDbCtx;
         _query = _slippDbCtx.Tickets
             .Include(t => t.Club)
-            .Include(t => t.Sale)
+            .Include(t => t.Order)
             .Include(t => t.Images);
     }
 
@@ -100,6 +100,13 @@ public class TicketService
         await _slippDbCtx.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<List<Ticket>> GetUserTickets(string email)
+    {
+        var tickets = await _query.Where(t => t.Order.Buyer.DatabaseUser.Email == email).ToListAsync();
+
+        return tickets;
     }
 }
 
