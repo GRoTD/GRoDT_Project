@@ -11,6 +11,8 @@
 @using MudBlazor.Charts.SVG.Models
 @using SlippWeb.Client.Utils
 @inject IAuthenticationService AuthenticationService
+@implements IDisposable
+
 
 @*TODO - Hide appbar if soft/OnScreen keyboard is showing*@
 
@@ -67,4 +69,17 @@
 
     </MudGrid>
 </MudAppBar>
+
+              
+@code {
+    protected override void OnInitialized()
+    {
+        AuthenticationService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose() //Save the RAM!
+    {
+        AuthenticationService.OnChange -= StateHasChanged;
+    }
+}
 

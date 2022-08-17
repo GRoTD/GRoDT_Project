@@ -14,9 +14,9 @@ builder.Services.AddHttpClient<IApiService, ApiService>(client =>
     client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]));
 
 builder.Services
-    .AddScoped<IAuthenticationService, AuthenticationService>()
-    .AddScoped<ITicketAPIService, TicketAPIService>()
-    .AddScoped<ILocalStorageService, LocalStorageService>();
+    .AddSingleton<IAuthenticationService, AuthenticationService>()
+    .AddSingleton<ITicketAPIService, TicketAPIService>()
+    .AddSingleton<ILocalStorageService, LocalStorageService>();
 
 
 builder.Services.AddMudServices();
