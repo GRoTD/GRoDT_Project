@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using SlippAPI.Services;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
+using SlippAPI.Services;
 using SlippAPI.Services.Swagger;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +15,14 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SlippDbCtx>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SlippDb"), b => b.MigrationsAssembly("SlippAPI")));
-builder.Services.AddIdentityCore<DatabaseUser>()
+
+builder.Services.AddIdentityCore<DatabaseUser>(options =>
+        {
+            options.Password.RequiredLength = 8;
+        })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SlippDbCtx>();
+
 builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<Database>();
 builder.Services.AddScoped<UserService>();

@@ -7,10 +7,12 @@ namespace Slipp.Services.BlazorServices;
 public interface IAuthenticationService
 {
     LoggedInUser User { get; }
+    public event Action? OnChange;
     Task Initialize();
     Task Login(LoginInput input);
     Task Logout();
     Task Register(CreateAppUserInput newUser);
+
 }
 
 public class AuthenticationService : IAuthenticationService
@@ -20,6 +22,7 @@ public class AuthenticationService : IAuthenticationService
     private ILocalStorageService _localStorageService;
 
     public LoggedInUser User { get; private set; }
+    public event Action? OnChange;
 
     public AuthenticationService(
         IApiService apiService,
@@ -42,12 +45,14 @@ public class AuthenticationService : IAuthenticationService
         User = await _apiService.Post<LoggedInUser>(ApiPaths.LOGINUSER,
             input); //TODO: Rätt uri här
         await _localStorageService.SetItem("user", User);
+        NotifyStateChanged();
     }
 
     public async Task Logout()
     {
         User = null;
         await _localStorageService.RemoveItem("user");
+        NotifyStateChanged();
         _navigationManager.NavigateTo("login");
     }
 
@@ -55,7 +60,9 @@ public class AuthenticationService : IAuthenticationService
     {
         await _apiService.Post<CreatedAppUserReturn>(
               ApiPaths.APPUSERCONTROLLER, newUser);
-        _navigationManager.NavigateTo("login");
+        _navigationManager.NavigateTo("/login");
     }
+
+    private void NotifyStateChanged() => OnChange?.Invoke();
 
 }

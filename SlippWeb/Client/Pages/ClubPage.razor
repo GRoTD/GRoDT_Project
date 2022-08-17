@@ -1,7 +1,7 @@
 ﻿@page "/klubb/{clubId}"
 @using Slipp.Services.DTO
 @using Slipp.Services.Models
-
+@inject PageHistoryState PageHistoryState
 @inject HttpClient Client
 
 
@@ -43,8 +43,9 @@
         clubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
         club = clubs.FirstOrDefault(c => c.Id.ToString() == clubId);
         tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
-        
+        PageHistoryState.AddPageToHistory($"/klubb/{clubId}");
 
         shouldRender = true;
+        base.OnInitialized();
     }
 }

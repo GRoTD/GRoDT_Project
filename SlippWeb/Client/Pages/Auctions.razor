@@ -2,6 +2,7 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization;
 @using Slipp.Services.Models
+@inject PageHistoryState PageHistoryState
 @*@inject IHttpClientFactory ClientFactory*@
 
 
@@ -67,7 +68,8 @@ else
             "https://api.github.com/repos/dotnet/AspNetCore.Docs/branches"); //byt ut till vår url + headers
         request.Headers.Add("Accept", "application/vnd.github.v3+json");
         request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-
+        PageHistoryState.AddPageToHistory("/auktioner");
+       
         //var client = ClientFactory.CreateClient();
         var client=new HttpClient();
 
@@ -85,8 +87,8 @@ else
         }
 
         shouldRender = true;
+        base.OnInitialized();
     }
 
 
 }
-
