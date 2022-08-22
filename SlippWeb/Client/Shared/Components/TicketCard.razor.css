@@ -41,7 +41,8 @@
 }
 
 .date-avatar {
-    position: absolute;
+    /*position: absolute;*/
+    margin-bottom: 10px;
     top: 5%;
     right: 27.5%;
 }
