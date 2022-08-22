@@ -1,6 +1,5 @@
 ﻿using Slipp.Services.Constants;
 using Slipp.Services.DTO;
-using Slipp.Services.Models;
 
 namespace Slipp.Services.BlazorServices;
 
@@ -9,8 +8,10 @@ public interface ITicketAPIService
     LoggedInUser User { get; }
     Task Initialize();
     Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city);
-    Task <CreateTicketOutput> GetTicket(Guid? id);
+    Task<IEnumerable<CreateTicketOutput>> GetUserTickets(string email);
+    Task<CreateTicketOutput> GetTicket(Guid? id);
     Task DeleteTicket(Guid? id);
+    Task<IEnumerable<CreateTicketOutput>> GetFavouriteTickets(object? o, object? o1);
 }
 
 public class TicketAPIService : ITicketAPIService
@@ -34,7 +35,20 @@ public class TicketAPIService : ITicketAPIService
         User = await _localStorageService.GetItem<LoggedInUser>("user");
     }
 
-    public Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city)
+    public async Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city)
+    {
+        var tickets = await _apiService.Get<IEnumerable<CreateTicketOutput>>(ApiPaths.TICKETCONTROLLER);
+        return tickets;
+    }
+
+    public async Task<IEnumerable<CreateTicketOutput>> GetUserTickets(string email) //TODO - Create API response
+    {
+        var path = ApiPaths.TICKETCONTROLLER + "/" + email;
+        var tickets = await _apiService.Get<IEnumerable<CreateTicketOutput>>(path);
+        return tickets;
+    }
+
+    public Task<IEnumerable<CreateTicketOutput>> GetFavouriteTickets(object? o, object? o1)
     {
         var tickets = _apiService.Get<IEnumerable<CreateTicketOutput>>(ApiPaths.TICKETCONTROLLER);
         return tickets;
@@ -48,7 +62,7 @@ public class TicketAPIService : ITicketAPIService
         return ticket;
     }
 
-    public Task DeleteTicket(Guid? id)
+    public async Task DeleteTicket(Guid? id)
     {
         throw new NotImplementedException();
     }

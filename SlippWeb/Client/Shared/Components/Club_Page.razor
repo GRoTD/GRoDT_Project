@@ -10,11 +10,28 @@
                 <MudIconButton Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/> 
                 @if(IsFavourite)
                 {
-                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="MakeFavourite"/> 
+                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary"  OnClick="OnHeartClicked"/> 
+
+                    <MudMessageBox @ref="mbox" >
+                        
+                        <MessageContent>
+                            <div class="message-box-icon">
+                                <MudIconButton Class="align-center" Icon="@Icons.Filled.HeartBroken" Color="Color.Primary"></MudIconButton>
+                            </div>
+                            <MudText Align="Align.Center" Typo="Typo.body2">Vill du ta bort klubben <br> från dina favoriter?</MudText>
+
+                        </MessageContent>
+                        <YesButton>
+                            <MudButton Color="Color.Error">Ja!</MudButton>
+                        </YesButton>
+                        <CancelButton>
+                            <MudButton Color="Color.Primary">Nej!</MudButton>
+                        </CancelButton>
+                    </MudMessageBox>
                 }
                 else
                 {
-                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary" OnClick="MakeFavourite"/> 
+                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary"  OnClick="OnHeartClicked"/> 
                 }
             </div>
             <div >
@@ -23,19 +40,7 @@
         </div>
     </div>
 
-    
 
-   @* <div class="club-page-info">
-        <MudText Typo="Typo.body1">@Club.Description</MudText>
-        <div class="club-info">
-            <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
-            <MudText Typo="Typo.body2">@Club.Address</MudText>
-        </div>
-        <div class="club-info">
-            <MudIconButton Icon="@Icons.Filled.AddToHomeScreen" Color="Color.Default"/>
-            <MudLink Href="@Club.Website" Target="_blank" Underline="Underline.Always" Typo="Typo.body2">@Club.Website</MudLink>
-        </div>
-    </div>*@
 </div>
 
 
@@ -43,10 +48,36 @@
 @code {
     [Parameter] public ClubOutput Club { get; set; }
     public string ReturnUrl {get; set;}
+    MudMessageBox mbox { get; set; }
+    string state = "Message box hasn't been opened yet";
+    //TODO Kolla om den är favorit genom att kolla i FavouriteClubs i AppUser
+    public bool IsFavourite = false;
 
     protected override void OnInitialized()
     {
         ReturnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
+        
+    }
+
+    private async void OnHeartClicked()
+    {
+        
+        if (IsFavourite)
+        {
+            bool? result = await mbox.Show();
+            state= result==null ? "Cancelled" : "Deleted!";
+            
+            if (result==true)
+            {
+                StateHasChanged();
+                MakeFavourite();
+            }
+        }
+        else
+        {
+            MakeFavourite();
+        }
+        
         
     }
    
@@ -55,8 +86,7 @@
         NavigationManager.NavigateTo(ReturnUrl);
     }
 
-    //TODO Kolla om den är favorit genom att kolla i FavouriteClubs i AppUser
-    public bool IsFavourite = false;
+    
         
     public void MakeFavourite()
     {

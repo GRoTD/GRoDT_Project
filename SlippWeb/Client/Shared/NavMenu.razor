@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using MudBlazor.Utilities
 @using System.Dynamic
+@using System.Formats.Asn1
 @using System.Linq.Expressions
 @using System.Net.Mime
 @using System.Security.Cryptography.X509Certificates
@@ -9,6 +10,8 @@
 @using Microsoft.VisualBasic.CompilerServices
 @using MudBlazor.Charts.SVG.Models
 @inject IAuthenticationService AuthenticationService
+@implements IDisposable
+
 
 @*TODO - Hide appbar if soft/OnScreen keyboard is showing*@
 
@@ -29,7 +32,7 @@
         </MudItem>
 
         <MudItem>
-            <MudLink Href="#" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+            <MudLink Href="/Favourites" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
                 <MudIcon Icon="@Icons.Filled.Favorite" Title="LIKES" Color="Color.Primary" Size="Size.Large"></MudIcon>
                 <MudText Typo="Typo.h6" Color="Color.Primary">FAVORITER</MudText>
             </MudLink>
@@ -55,12 +58,27 @@
         else
         {
             <MudItem>
-                <MudLink Href="/Login" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
-                    <MudIcon Icon="@Icons.Filled.Login" Title="LOGIN" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                    <MudText Typo="Typo.h6" Color="Color.Primary">LOGGA IN</MudText>
-                </MudLink>
-            </MudItem>
+            <MudLink Href="/Login" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Login" Title="LOGIN" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Typo="Typo.h6" Color="Color.Primary">LOGGA IN</MudText>
+            </MudLink>
+        </MudItem>
+        
         }
 
     </MudGrid>
 </MudAppBar>
+
+              
+@code {
+    protected override void OnInitialized()
+    {
+        AuthenticationService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose() //Save the RAM!
+    {
+        AuthenticationService.OnChange -= StateHasChanged;
+    }
+}
+

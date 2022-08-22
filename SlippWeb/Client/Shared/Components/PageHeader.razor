@@ -1,10 +1,13 @@
 ﻿@inject NavigationManager NavigationManager
+@inject PageHistoryState PageHistoryState
 
 <div class="page-header">
     
-    <div class="header-top-icons">
-        <MudIconButton Size="Size.Medium" Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
-    </div>
+    
+        <div class="header-top-icons">
+            <MudIconButton Size="Size.Medium" Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
+        </div>
+
     <div >
         <MudText Color="Color.Primary" Typo="Typo.h2">@HeaderTitle</MudText>
     </div>
@@ -20,17 +23,10 @@
 
 @code {
     [Parameter] public string HeaderTitle { get; set; }
-    public string ReturnUrl {get; set;}
-
-    protected override void OnInitialized()
-    {
-        ReturnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
-        
-    }
-   
+    
     public void GoBack()
     {
-        NavigationManager.NavigateTo(ReturnUrl); /*BUG - Always returns to home for me, JF*/
+        NavigationManager.NavigateTo(PageHistoryState.GetGoBackPage());
     }
 }
 

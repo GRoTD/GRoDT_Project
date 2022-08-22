@@ -1,5 +1,5 @@
 ﻿@page "/Account/Settings"
-
+@inject PageHistoryState PageHistoryState
 @attribute [Authorize]
 
 @*TOPNAV*@
@@ -157,4 +157,11 @@
 </style>
 
 
-
+@code
+{
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/Account/Settings");
+        base.OnInitialized();
+    }
+}

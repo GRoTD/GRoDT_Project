@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@inject PageHistoryState PageHistoryState
 
 <LocationSelect></LocationSelect>
 <HeaderTabs
@@ -7,3 +7,12 @@
     SecondTabValue="Auktioner"
     ThirdTabValue="Nattklubbar">
 </HeaderTabs>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/");
+        base.OnInitialized();
+    }
+}

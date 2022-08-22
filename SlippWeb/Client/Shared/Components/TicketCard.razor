@@ -27,7 +27,7 @@
                 <MudText Typo="Typo.body2">@Ticket.Title</MudText>
                 <MudContainer>
                     <hr class="hr-divider"/>
-                    <MudText Typo="Typo.body2">Antal biljetter:</MudText>
+                    <MudText Typo="Typo.body2">Tillgängliga biljetter:</MudText>
                     <MudText Typo="Typo.h3">8</MudText>
                     <MudText Typo="Typo.body2">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
                 </MudContainer>
@@ -40,11 +40,31 @@
                 <MudText Typo="Typo.h5">@Math.Round(Ticket.Price) SEK</MudText>
                 @if (IsFavourite)
                 {
-                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="MakeFavourite"/>
+
+                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="OnHeartClicked"/>
+
+                    <MudMessageBox @ref="mbox"Class="pt-0 my-message-box">
+                        
+                        <MessageContent>
+                            <div class="message-box-icon">
+                            <MudIconButton Class="align-center" Icon="@Icons.Filled.HeartBroken" Color="Color.Primary"></MudIconButton>
+                            </div>
+                            <MudText Align="Align.Center" Typo="Typo.body2">Vill du ta bort biljetten <br> från dina favoriter?</MudText>
+
+
+                        </MessageContent>
+                        <YesButton>
+                            <MudButton Color="Color.Error">Ja!</MudButton>
+                        </YesButton>
+                        <CancelButton>
+                            <MudButton Color="Color.Primary">Nej!</MudButton>
+                        </CancelButton>
+                    </MudMessageBox>
+                    
                 }
                 else
                 {
-                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary" OnClick="MakeFavourite"/>
+                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary" OnClick="OnHeartClicked"/>
                 }
 
             </div>
@@ -59,11 +79,40 @@
 @code {
     [Parameter] public CreateTicketOutput Ticket { get; set; }
     public string pageToGoToUrl { get; set; }
-    public string returnUrl { get; set; }
-    public string apiRequestForThisTicket { get; set; }
+    //public string returnUrl { get; set; }
+    //public string apiRequestForThisTicket { get; set; }
+    MudMessageBox mbox { get; set; }
+    string state = "Message box hasn't been opened yet";
+
+
 
     //TODO Kolla om den är favorit genom att kolla i FavouriteTicket i AppUser
     public bool IsFavourite = false;
+
+
+    private async void OnHeartClicked()
+    {
+        
+
+        if (IsFavourite)
+        {
+            bool? result = await mbox.Show();
+            state= result==null ? "Cancelled" : "Deleted!";
+            
+            if (result==true)
+            {
+                StateHasChanged();
+                MakeFavourite();
+            }
+           
+        }
+        else
+        {
+            MakeFavourite();
+        }
+        
+        
+    }
 
     public void MakeFavourite()
     {
@@ -82,10 +131,27 @@
     public void ShowPaymentPage()
     {
         pageToGoToUrl =  "pay/"+Ticket.Id; //TicketId ska sen bytas mot query
-        returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+    /*returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);*/
 
-        NavigationManager.NavigateTo($"{pageToGoToUrl}?returnUrl={returnUrl}");
+        NavigationManager.NavigateTo($"{pageToGoToUrl}");
     }
        
+    
 
 }
+
+<style>
+    .message-box-icon {
+        display: flex;
+        justify-content: center;
+    }
+    ::deep .mud-dialog-actions{
+        justify-content: center !important;
+    }
+    .mud-dialog .mud-dialog-title{
+    padding: 0 !important;
+    }
+    .mud-dialog .mud-dialog-actions {
+    justify-content:center;
+    }
+</style>

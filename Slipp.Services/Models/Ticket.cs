@@ -6,6 +6,7 @@ public class Ticket
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
+    //TODO Lägga in EventDescription
     [Column(TypeName = "money")] public decimal Price { get; set; }
     public DateTime StartValidTime { get; set; }
     public DateTime EndValidTime { get; set; }

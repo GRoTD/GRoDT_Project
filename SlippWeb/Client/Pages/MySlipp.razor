@@ -1,5 +1,5 @@
 ﻿@page "/MySlipp"
-
+@inject PageHistoryState PageHistoryState
 @attribute [Authorize]
 
 <PageHeader HeaderTitle="Mina Slipp"></PageHeader>
@@ -13,5 +13,10 @@
 
 
 @code {
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/MySlipp");
+        base.OnInitialized();
+    }
 
 }
