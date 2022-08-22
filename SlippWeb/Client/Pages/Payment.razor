@@ -25,8 +25,7 @@
             <div class="numberOfTicketsSpinner">
                 <MudIconButton Class="MySpinnerButton" Icon="@Icons.Filled.RemoveCircle" Color="Color.Primary" OnClick="WithdrawTicket"/> 
                 <MudText Class="choosenValue" Typo="Typo.h2">@choosenValue</MudText>
-                <MudIconButton Class="MySpinnerButton" Icon="@Icons.Filled.AddCircle" Color="Color.Primary" OnClick="AddTicket"/> 
-                @*TODO Fixa så att knappar är i samma höjd som choosenValue*@
+                <MudIconButton Class="MySpinnerButton" Icon="@Icons.Filled.AddCircle" Color="Color.Primary" OnClick="AddTicket"/>
 
             </div>
 
@@ -91,7 +90,7 @@
         purchaseIsConfirmed = false;
         //Är detta rätt sätt att göra det på??
         LoggedInUser = await _localStorageService.GetItem<LoggedInUser>("user");
-        userFirstName = LoggedInUser.FirstName + " " + LoggedInUser.LastName; /*TODO Byt till FirstName*/
+        userFirstName = LoggedInUser.FirstName + " " + LoggedInUser.LastName;
 
         PageHistoryState.AddPageToHistory($"/pay/{ticketId}");
         await base.OnInitializedAsync();
@@ -104,7 +103,7 @@
 
     public void AddTicket()
     {
-        if (choosenValue != 8) /*TODO: Byt till umberOfTickets*/
+        if (choosenValue != 8) /*TODO: Byt till NumberOfTickets*/
         {
             choosenValue += 1;
         }
