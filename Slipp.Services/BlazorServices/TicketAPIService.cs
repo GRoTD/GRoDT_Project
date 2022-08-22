@@ -7,11 +7,11 @@ public interface ITicketAPIService
 {
     LoggedInUser User { get; }
     Task Initialize();
-    Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city);
-    Task<IEnumerable<CreateTicketOutput>> GetUserTickets(string email);
-    Task<CreateTicketOutput> GetTicket(Guid? id);
+    Task<IEnumerable<TicketOutput>> GetTickets(Guid? clubId, string? city);
+    Task<IEnumerable<TicketOutput>> GetUserTickets(string email);
+    Task<TicketOutput> GetTicket(Guid? id);
     Task DeleteTicket(Guid? id);
-    Task<IEnumerable<CreateTicketOutput>> GetFavouriteTickets(object? o, object? o1);
+    Task<IEnumerable<TicketOutput>> GetFavouriteTickets(object? o, object? o1);
 }
 
 public class TicketAPIService : ITicketAPIService
@@ -35,29 +35,29 @@ public class TicketAPIService : ITicketAPIService
         User = await _localStorageService.GetItem<LoggedInUser>("user");
     }
 
-    public async Task<IEnumerable<CreateTicketOutput>> GetTickets(Guid? clubId, string? city)
+    public async Task<IEnumerable<TicketOutput>> GetTickets(Guid? clubId, string? city)
     {
-        var tickets = await _apiService.Get<IEnumerable<CreateTicketOutput>>(ApiPaths.TICKETCONTROLLER);
+        var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(ApiPaths.TICKETCONTROLLER);
         return tickets;
     }
 
-    public async Task<IEnumerable<CreateTicketOutput>> GetUserTickets(string email) //TODO - Create API response
+    public async Task<IEnumerable<TicketOutput>> GetUserTickets(string email) //TODO - Create API response
     {
         var path = ApiPaths.TICKETCONTROLLER + "/" + email;
-        var tickets = await _apiService.Get<IEnumerable<CreateTicketOutput>>(path);
+        var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(path);
         return tickets;
     }
 
-    public Task<IEnumerable<CreateTicketOutput>> GetFavouriteTickets(object? o, object? o1)
+    public Task<IEnumerable<TicketOutput>> GetFavouriteTickets(object? o, object? o1)
     {
-        var tickets = _apiService.Get<IEnumerable<CreateTicketOutput>>(ApiPaths.TICKETCONTROLLER);
+        var tickets = _apiService.Get<IEnumerable<TicketOutput>>(ApiPaths.TICKETCONTROLLER);
         return tickets;
     }
 
-    public async Task<CreateTicketOutput> GetTicket(Guid? id)
+    public async Task<TicketOutput> GetTicket(Guid? id)
     {
         var path = ApiPaths.TICKETCONTROLLER + $"/{id}";
-        var ticket = await _apiService.Get<CreateTicketOutput>(path);
+        var ticket = await _apiService.Get<TicketOutput>(path);
 
         return ticket;
     }

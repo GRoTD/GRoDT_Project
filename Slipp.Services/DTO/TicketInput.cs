@@ -2,9 +2,9 @@
 
 namespace Slipp.Services.DTO;
 
-public class CreateTicketInput
+public class TicketInput
 {
-    public string Title { get; set; }
+    public string EventDescription { get; set; }
     public decimal Price { get; set; }
     public DateTime StartValidTime { get; set; }
     public DateTime EndValidTime { get; set; }
@@ -14,7 +14,7 @@ public class CreateTicketInput
         Ticket ticket = new Ticket
         {
             Club = club,
-            Title = Title,
+            EventDescription = EventDescription,
             StartValidTime = StartValidTime,
             EndValidTime = EndValidTime,
             Price = Price,

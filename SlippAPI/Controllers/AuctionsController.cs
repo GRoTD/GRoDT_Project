@@ -16,7 +16,7 @@ public class AuctionsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<AuctionOutputDTO>>> GetAuctions()
+    public async Task<ActionResult<List<AuctionOutput>>> GetAuctions()
     {
         //TODO: Add filtering
         var auctions = _auctionService.GetAuctions(null);

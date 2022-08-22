@@ -4,10 +4,10 @@ using System.Text.Json.Serialization;
 namespace Slipp.Services.DTO;
 
 //TODO: Rename to better name. TicketOutput?
-public class CreateTicketOutput
+public class TicketOutput
 {
     [JsonPropertyName("id")] public Guid Id { get; set; }
-    [JsonPropertyName("title")] public string Title { get; set; }
+    [JsonPropertyName("eventDescription")] public string EventDescription { get; set; }
     [JsonPropertyName("price")] public decimal Price { get; set; }
 
     //TODO Lägga in EventDescription
@@ -18,12 +18,12 @@ public class CreateTicketOutput
     [JsonPropertyName("clubUrl")] public string ClubUrl { get; set; }
     [JsonPropertyName("images")] public List<Image> Images { get; set; }
 
-    public static CreateTicketOutput Create(string clubUrl, Ticket ticket)
+    public static TicketOutput Create(string clubUrl, Ticket ticket)
     {
-        var outputTicket = new CreateTicketOutput
+        var outputTicket = new TicketOutput
         {
             EndValidTime = ticket.EndValidTime,
-            Title = ticket.Title,
+            EventDescription = ticket.EventDescription,
             Price = ticket.Price,
             Id = ticket.Id,
             StartValidTime = ticket.StartValidTime,

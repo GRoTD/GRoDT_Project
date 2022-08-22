@@ -1,5 +1,5 @@
 ﻿namespace Slipp.Services.DTO;
 
-public class BidOutputDTO
+public class BidOutput
 {
 }

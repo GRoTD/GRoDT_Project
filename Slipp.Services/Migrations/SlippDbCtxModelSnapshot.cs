@@ -190,7 +190,7 @@ namespace Slipp.Services.Migrations
                     b.Property<DateTime>("IssueDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("EventDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -407,7 +407,7 @@ namespace Slipp.Services.Migrations
                     b.Property<DateTime>("StartValidTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("EventDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -1,14 +1,14 @@
 ﻿namespace Slipp.Services.DTO;
 
-public class AuctionOutputDTO
+public class AuctionOutput
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
     public DateTime IssueDateTime { get; set; }
     public DateTime ExpiryDateTime { get; set; }
-    public List<BidOutputDTO> Bids { get; set; } //Make a link to it instead https://slipp.se/api/auctions/id/bids eg.
+    public List<BidOutput> Bids { get; set; } //Make a link to it instead https://slipp.se/api/auctions/id/bids eg.
 
-    public List<CreateTicketOutput>
+    public List<TicketOutput>
         Tickets
     { get; set; } //Make a link to it instead https://slipp.se/api/auctions/id/tickets eg.
 

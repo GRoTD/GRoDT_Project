@@ -1,13 +1,12 @@
-﻿using System.Diagnostics;
-using Slipp.Services.Models;
+﻿using Slipp.Services.Models;
 
 namespace Slipp.Services.DTO;
 
-public class AuctionInputDTO
+public class AuctionInput
 {
     public string Title { get; set; }
     public DateTime ExpiryDateTime { get; set; }
-    public List<CreateTicketInput> Tickets { get; set; }
+    public List<TicketInput> Tickets { get; set; }
 
     public Auction CreateAuction(Club club)
     {

@@ -5,8 +5,8 @@ namespace Slipp.Services.Models;
 public class Ticket
 {
     public Guid Id { get; set; }
-    public string Title { get; set; }
-    //TODO Lägga in EventDescription
+    public string EventDescription { get; set; }
+
     [Column(TypeName = "money")] public decimal Price { get; set; }
     public DateTime StartValidTime { get; set; }
     public DateTime EndValidTime { get; set; }

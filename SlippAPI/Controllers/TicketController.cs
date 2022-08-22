@@ -20,8 +20,8 @@ public class TicketController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = $"{StaticConfig.ClubRole}")]
-    public async Task<ActionResult<List<CreateTicketOutput>>> CreateTickets(Guid clubId, int amount,
-        CreateTicketInput ticketInput)
+    public async Task<ActionResult<List<TicketOutput>>> CreateTickets(Guid clubId, int amount,
+        TicketInput ticketInput)
     {
         var userClubId = User.Claims
             .FirstOrDefault(c => c.Type == SlippClaimTypes.CLUBID
@@ -32,14 +32,14 @@ public class TicketController : ControllerBase
 
         var createdTickets =
             tickets.Select(ticket =>
-                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
+                    TicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
                 .ToList();
 
         return Ok(createdTickets);
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<CreateTicketOutput>>> GetTickets([FromQuery] Guid? clubId,
+    public async Task<ActionResult<List<TicketOutput>>> GetTickets([FromQuery] Guid? clubId,
         [FromQuery] string? city)
     {
         //TODO: Catch errors
@@ -53,7 +53,7 @@ public class TicketController : ControllerBase
 
         var returnTickets =
             tickets.Select(ticket =>
-                    CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
+                    TicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
                 .ToList();
 
         return Ok(returnTickets);
@@ -61,13 +61,13 @@ public class TicketController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<ActionResult<List<CreateTicketOutput>>> GetTicket(Guid id)
+    public async Task<ActionResult<List<TicketOutput>>> GetTicket(Guid id)
     {
         //TODO: Catch errors
         var ticket = await _ticketService.GetTicket(id);
 
         var returnTicket =
-            CreateTicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}), ticket);
+            TicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}), ticket);
 
         return Ok(returnTicket);
     }

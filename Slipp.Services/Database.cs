@@ -196,7 +196,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(20) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 1 - Auction 1"
+                EventDescription = "Ticket 1 - Auction 1"
             },
             new()
             {
@@ -204,7 +204,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(20) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 2 - Auction 1"
+                EventDescription = "Ticket 2 - Auction 1"
             },
             new()
             {
@@ -212,7 +212,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(20) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 3 - Auction 1"
+                EventDescription = "Ticket 3 - Auction 1"
             },
             new()
             {
@@ -220,7 +220,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(20) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 4 - Auction 1"
+                EventDescription = "Ticket 4 - Auction 1"
             },
         };
         List<Ticket> ticketsAuction2 = new List<Ticket>
@@ -231,7 +231,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 1 - Auction 2"
+                EventDescription = "Ticket 1 - Auction 2"
             },
             new()
             {
@@ -239,7 +239,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 2 - Auction 2"
+                EventDescription = "Ticket 2 - Auction 2"
             },
             new()
             {
@@ -247,7 +247,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 3 - Auction 2"
+                EventDescription = "Ticket 3 - Auction 2"
             },
             new()
             {
@@ -255,7 +255,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 4 - Auction 2"
+                EventDescription = "Ticket 4 - Auction 2"
             },
         };
 
@@ -267,7 +267,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(20) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 1 - Auction 3"
+                EventDescription = "Ticket 1 - Auction 3"
             },
             new()
             {
@@ -275,7 +275,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(20) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 100,
-                Title = "Ticket 2 - Auction 3"
+                EventDescription = "Ticket 2 - Auction 3"
             }
         };
 
@@ -318,7 +318,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 150,
-                Title = "Locatelli",
+                EventDescription = "Locatelli",
                 Images = new List<Image>() {images[0]}
             },
             new()
@@ -328,7 +328,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club2,
                 Price = 150,
-                Title = "Push",
+                EventDescription = "Push",
                 Images = new List<Image>() {images[1]}
             },
             new()
@@ -338,7 +338,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club3,
                 Price = 150,
-                Title = "Lounge",
+                EventDescription = "Lounge",
                 Images = new List<Image>() {images[2]}
             },
             new()
@@ -348,7 +348,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club4,
                 Price = 150,
-                Title = "Port du Soleil",
+                EventDescription = "Port du Soleil",
                 Images = new List<Image>() {images[3]}
             },
             new()
@@ -358,7 +358,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club5,
                 Price = 150,
-                Title = "Puta Madre",
+                EventDescription = "Puta Madre",
                 Images = new List<Image>() {images[5]}
             },
             new()
@@ -368,7 +368,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club7,
                 Price = 150,
-                Title = "Stranger",
+                EventDescription = "Stranger",
                 Images = new List<Image>() {images[6]}
             }
         };

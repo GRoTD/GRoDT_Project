@@ -11,7 +11,7 @@ public class AuctionService
         _slippDbCtx = slippDbCtx;
     }
 
-    public async Task<Auction> CreateAuction(Guid clubId, AuctionInputDTO auctionInput)
+    public async Task<Auction> CreateAuction(Guid clubId, AuctionInput auctionInput)
     {
         var club = await _slippDbCtx.Clubs.FindAsync(clubId);
 

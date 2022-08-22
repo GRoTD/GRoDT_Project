@@ -17,7 +17,7 @@ public class TicketService
     /// <param name="amount">Amount of tickets being createx'd</param>
     /// <param name="ticketInput">Ticket input</param>
     /// <returns>A list of Tickets that have been added to the database</returns>
-    public async Task<List<Ticket>> CreateTickets(Guid clubId, int amount, CreateTicketInput ticketInput)
+    public async Task<List<Ticket>> CreateTickets(Guid clubId, int amount, TicketInput ticketInput)
     {
         var dbClub = await _slippDbCtx.Clubs.FindAsync(clubId);
 
