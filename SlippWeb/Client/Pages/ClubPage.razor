@@ -30,7 +30,7 @@
     
     private ClubOutput[] clubs;
     private ClubOutput club;
-    private CreateTicketOutput[] tickets;
+    private TicketOutput[] tickets;
     [Parameter] public string clubId { get; set; }
 
     private bool getAuctionsError;
@@ -42,7 +42,7 @@
     {
         clubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
         club = clubs.FirstOrDefault(c => c.Id.ToString() == clubId);
-        tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
+        tickets = await Client.GetFromJsonAsync<TicketOutput[]>("sample-data/tickets.json");
         PageHistoryState.AddPageToHistory($"/klubb/{clubId}");
 
         shouldRender = true;

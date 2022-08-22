@@ -76,7 +76,7 @@
 @code {
     [Parameter] public string ticketId { get; set; }
     public int choosenValue { get; set; }
-    public CreateTicketOutput Ticket { get; set; } //Detta ska sen bytas till en lista med tickets
+    public TicketOutput Ticket { get; set; } //Detta ska sen bytas till en lista med tickets
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     public LoggedInUser LoggedInUser { get; set; }
     public string userFirstName { get; set; }
