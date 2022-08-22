@@ -10,6 +10,7 @@ public class AppUser
     public List<Sale> Sales { get; set; }
     public List<Bid> Bids { get; set; }
     public List<Ticket> FavouriteTickets { get; set; }
+    public List<Club> FavouriteClubs { get; set; }
     public string Id { get; set; }
     [Key][ForeignKey("Id")] public DatabaseUser DatabaseUser { get; set; }
 }

@@ -1,0 +1,96 @@
+﻿@page "/MySlippTicket"
+@inject HttpClient Client
+@inject ILocalStorageService _localStorageService;
+
+@attribute [Authorize]
+
+<PageHeader HeaderTitle="Slipp Biljett"></PageHeader>
+
+<MudPaper Elevation="0" Style="background-color: transparent; padding-bottom: 100px;">
+
+    <MudPaper Class="slipp-ticket flex-center" Elevation="0" Style=" background-color: transparent; ">
+
+        <MudPaper Elevation="0" Class="flex-center" Style="background-color: transparent;">
+
+            <MudPaper Class="flex-center"  Style="background-color: transparent; padding-top: 25px;" Elevation="0">
+
+                <MudText Typo="Typo.h2">@tickets[3].ClubName.ToUpper()</MudText>
+                <MudDivider Style="height: 1px; background-color: #f2c080; width: 105%;" DividerType="DividerType.Middle"></MudDivider>
+                @*<MudIconButton OnClick="showMap" Color="Color.Primary" Size="Size.Medium" Icon="@Icons.Filled.LocationOn"></MudIconButton>*@
+                <MudText Style="margin: 25px 0;" Color="Color.Primary" Typo="Typo.body1">@userFirstName</MudText> 
+            </MudPaper>
+
+            <MudPaper Style="background-color: transparent;" Elevation="0">
+                <MudGrid>
+                    <MudItem xs="4">
+                        <MudText Typo="Typo.body2">DATUM: </MudText>
+                        <MudText Typo="Typo.body2">GILTIG: </MudText>
+                        <MudText Typo="Typo.body2">ANTAL: </MudText>
+                    </MudItem>
+                    <MudItem xs="8">
+                        <MudText Typo="Typo.body2">@tickets[0].StartValidTime.ToShortDateString() | @tickets[0].StartValidTime.ToShortTimeString()</MudText>
+                        <MudText Typo="Typo.body2">@tickets[0].EndValidTime.ToShortDateString() | @tickets[0].EndValidTime.ToShortTimeString()</MudText>
+                        <MudText Typo="Typo.body2">3 biljetter</MudText>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+
+        </MudPaper>
+
+    </MudPaper>
+
+      
+    <MudPaper Class="flex-center" Style="background-color: transparent;" Elevation="0">
+
+        <MudIcon Style="Width: 350px; height: 350px;" ViewBox="0 0 24 24" Color="Color.Primary" Icon="@Icons.Filled.QrCode2"></MudIcon>
+        <MudText Color="Color.Primary" Typo="Typo.body2">Biljettnummer: 44452021451212321</MudText> @*TODO - hard data no good*@
+
+    </MudPaper>
+
+</MudPaper>
+    
+   
+     
+
+
+
+
+<style>
+    .slipp-ticket {
+        background-color: transparent;
+        
+        margin: 8%;
+        display: flex; 
+        justify-content:center;
+        align-items: center;
+        flex-direction: column;
+        width: 84%;
+    }
+
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+</style>
+
+
+@code {
+
+    public string userFirstName { get; set; }
+
+    private CreateTicketOutput[] tickets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        tickets = await Client.GetFromJsonAsync<CreateTicketOutput[]>("sample-data/tickets.json");
+
+        //Set username
+        var LoggedInUser = await _localStorageService.GetItem<LoggedInUser>("user");
+        userFirstName = LoggedInUser.Email; /*TODO Byt till FirstName*/
+    }
+
+
+}

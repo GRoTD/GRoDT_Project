@@ -18,6 +18,7 @@ builder.Services
     .AddScoped<ITicketAPIService, TicketAPIService>()
     .AddScoped<ILocalStorageService, LocalStorageService>();
 
+
 builder.Services.AddMudServices();
 
 var host = builder.Build();

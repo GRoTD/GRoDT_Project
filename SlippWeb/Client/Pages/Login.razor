@@ -8,49 +8,51 @@
     <EditForm Model="@_loginInput" OnValidSubmit="HandleValidSubmit">
         <MudGrid Justify="Justify.Center">
             <MudItem Style="Margin-top: 30px;" xs="12" sm="7">
+
                 <MudTextField
-                        T="string"
-                        Variant="Variant.Outlined"
-                        @bind-Value="@_loginInput.Email"
-                        Label="Email"
-                        Required="true"
-                        For="(() => _loginInput.Email)"
-                        RequiredError="Email is required!"/>
+                    T="string"
+                    Variant="Variant.Outlined"
+                    @bind-Value="@_loginInput.Email"
+                    Label="Email"
+                    Required="true"
+                    For="(() => _loginInput.Email)"
+                    RequiredError="Email is required!"/>
 
-                    <MudTextField
-                        T="string"
-                        Variant="Variant.Outlined"
-                        @bind-Value="@_loginInput.Password"
-                        Label="Password"
-                        InputType="InputType.Password"
-                        Required="true"
-                              For="(() => _loginInput.Password)"
-                        RequiredError="Password is required!"/>
+                <MudTextField
+                    T="string"
+                    Variant="Variant.Outlined"
+                    @bind-Value="@_loginInput.Password"
+                    Label="Password"
+                    InputType="InputType.Password"
+                    Required="true"
+                    For="(() => _loginInput.Password)"
+                    RequiredError="Password is required!"/>
 
-                    <div class=" float-end mt-6">
-                        <MudButton 
-                            ButtonType="ButtonType.Submit"
-                            Variant="Variant.Filled"
-                            Size="Size.Large"
-                            Color="Color.Primary"
-                            Class="ml-auto">
-                            @if (loading)
-                            {
-                                <span class="spinner-border spinner-border-sm mr-1"></span>
-                            }
-                            Logga in
-                        </MudButton>
+                <div class=" d-flex mt-6 gap-5">
+                    <MudButton
+                        ButtonType="ButtonType.Submit"
+                        Variant="Variant.Filled"
+                        Size="Size.Large"
+                        Color="Color.Primary"
+                        Class="login-btn">
+                        @if (loading)
+                        {
+                            <span class="spinner-border spinner-border-sm mr-1"></span>
+                        }
+                        Logga in
+                    </MudButton>
 
-                        <MudButton
-                            ButtonType="ButtonType.Button"
-                            Variant="Variant.Filled"
-                            Size="Size.Large"
-                            Color="Color.Primary"
-                            OnClick="@(() => NavigationManager.NavigateTo("/register"))">
-                            Register
-                        </MudButton>
+                    <MudButton
+                        ButtonType="ButtonType.Button"
+                        Variant="Variant.Filled"
+                        Size="Size.Large"
+                        Color="Color.Primary"
+                        OnClick="@(() => NavigationManager.NavigateTo("/register"))"
+                        Class="create-btn">
+                        Skapa konto
+                    </MudButton>
 
-                    </div>
+                </div>
             </MudItem>
         </MudGrid>
 
@@ -61,6 +63,17 @@
     .mud-input-label-outlined {
         background-color: #121821;
     }
+
+    .login-btn {
+        color: #121821
+    }
+
+    .create-btn {
+        color: #F2C080 !important;
+        background-color: #27272f !important;
+    }
+
+
 </style>
 
 
@@ -89,9 +102,11 @@
         loading = true;
         try
         {
-            await AuthenticationService.Login(_loginInput);
+            await AuthenticationService.Login(_loginInput); /*TODO - Show loader on while waiting*/
             var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
             NavigationManager.NavigateTo(returnUrl);
+            StateHasChanged();
+            /*TODO - Logga in byter inte till konto direkt*/
         }
         catch (Exception ex)
         {

@@ -14,4 +14,5 @@ public class Club
     public List<Image> Images { get; set; }
     public List<Ticket>? Tickets { get; set; }
     public List<Auction>? Auctions { get; set; }
+    public List<AppUser> SavedByUsers { get; set; }
 }
