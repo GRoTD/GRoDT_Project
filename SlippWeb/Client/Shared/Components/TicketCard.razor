@@ -42,13 +42,14 @@
 
                     <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="OnHeartClicked"/>
 
-                    <MudMessageBox @ref="mbox" >
+                    <MudMessageBox @ref="mbox"Class="pt-0 my-message-box">
                         
                         <MessageContent>
                             <div class="message-box-icon">
                             <MudIconButton Class="align-center" Icon="@Icons.Filled.HeartBroken" Color="Color.Primary"></MudIconButton>
                             </div>
                             <MudText Align="Align.Center" Typo="Typo.body2">Vill du ta bort biljetten <br> från dina favoriter?</MudText>
+
 
                         </MessageContent>
                         <YesButton>
@@ -145,5 +146,11 @@
     }
     ::deep .mud-dialog-actions{
         justify-content: center !important;
+    }
+    .mud-dialog .mud-dialog-title{
+    padding: 0 !important;
+    }
+    .mud-dialog .mud-dialog-actions {
+    justify-content:center;
     }
 </style>
