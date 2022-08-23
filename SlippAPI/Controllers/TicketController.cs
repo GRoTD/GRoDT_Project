@@ -73,7 +73,7 @@ public class TicketController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{email}")]
+    [Route("/user/{email}")]
     [Authorize(Roles = StaticConfig.AppUserRole)]
     public async Task<ActionResult> GetUserTickets(string email)
     {
@@ -119,7 +119,7 @@ public class TicketController : ControllerBase
 
     private TicketOutput CreateOneTicketOutput(Ticket ticket)
     {
-        return TicketOutput.Create(Url.Action("Get", "Club", new { id = ticket.Club.Id }, "https"), ticket);
+        return TicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket);
     }
 
     #endregion

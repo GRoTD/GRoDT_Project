@@ -22,6 +22,21 @@ namespace SlippAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AppUserClub", b =>
+                {
+                    b.Property<Guid>("FavouriteClubsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SavedByUsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("FavouriteClubsId", "SavedByUsersId");
+
+                    b.HasIndex("SavedByUsersId");
+
+                    b.ToTable("AppUserClub");
+                });
+
             modelBuilder.Entity("AppUserTicket", b =>
                 {
                     b.Property<Guid>("FavouriteTicketsId")
@@ -203,7 +218,7 @@ namespace SlippAPI.Migrations
                     b.Property<DateTime>("IssueDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EventDescription")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -444,6 +459,10 @@ namespace SlippAPI.Migrations
                     b.Property<DateTime>("EndValidTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EventDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
@@ -452,10 +471,6 @@ namespace SlippAPI.Migrations
 
                     b.Property<DateTime>("StartValidTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("EventDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -466,6 +481,21 @@ namespace SlippAPI.Migrations
                     b.HasIndex("SaleId");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("AppUserClub", b =>
+                {
+                    b.HasOne("Slipp.Services.Models.Club", null)
+                        .WithMany()
+                        .HasForeignKey("FavouriteClubsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Slipp.Services.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("SavedByUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AppUserTicket", b =>

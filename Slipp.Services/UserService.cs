@@ -64,17 +64,16 @@ public class UserService
 
     public async Task ToggleFavouriteTicket(Guid ticketId, string userId)
     {
-
         var user = await _ctx.AppUsers
             .Include(u => u.FavouriteTickets)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
-        var ticket = new Ticket() {Id = ticketId};
+        var ticket = await _ctx.Tickets
+            .FirstOrDefaultAsync(t => t.Id == ticketId);
 
         if (user.FavouriteTickets.Contains(ticket))
         {
             user.FavouriteTickets.Remove(ticket);
-
         }
         else
         {

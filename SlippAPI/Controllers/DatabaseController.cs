@@ -16,7 +16,6 @@ public class DatabaseController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     [Route("reset-db")]
     public async Task<ActionResult> ResetDb()
     {

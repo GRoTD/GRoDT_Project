@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SlippAPI.Migrations
 {
-    public partial class dbupdatereset : Migration
+    public partial class Update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -244,6 +244,30 @@ namespace SlippAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppUserClub",
+                columns: table => new
+                {
+                    FavouriteClubsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SavedByUsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserClub", x => new { x.FavouriteClubsId, x.SavedByUsersId });
+                    table.ForeignKey(
+                        name: "FK_AppUserClub_AppUsers_SavedByUsersId",
+                        column: x => x.SavedByUsersId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppUserClub_Clubs_FavouriteClubsId",
+                        column: x => x.FavouriteClubsId,
+                        principalTable: "Clubs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bids",
                 columns: table => new
                 {
@@ -297,7 +321,7 @@ namespace SlippAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "money", nullable: false),
                     StartValidTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndValidTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -374,6 +398,11 @@ namespace SlippAPI.Migrations
                         principalTable: "Tickets",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUserClub_SavedByUsersId",
+                table: "AppUserClub",
+                column: "SavedByUsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUserTicket_SavedByUsersId",
@@ -482,6 +511,9 @@ namespace SlippAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AppUserClub");
+
             migrationBuilder.DropTable(
                 name: "AppUserTicket");
 
