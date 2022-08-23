@@ -9,7 +9,7 @@
 @using Microsoft.EntityFrameworkCore.Design.Internal
 @using Microsoft.VisualBasic.CompilerServices
 @using MudBlazor.Charts.SVG.Models
-@inject IAuthenticationService AuthenticationService
+@inject IAuthenticationAPIService AuthenticationApiService
 @implements IDisposable
 
 
@@ -46,7 +46,7 @@
             </MudLink>
         </MudItem>
 
-        @if (AuthenticationService.User != null)
+        @if (AuthenticationApiService.User != null)
         {
             <MudItem>
                 <MudLink Href="/Account" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
@@ -74,12 +74,12 @@
 @code {
     protected override void OnInitialized()
     {
-        AuthenticationService.OnChange += StateHasChanged;
+        AuthenticationApiService.OnChange += StateHasChanged;
     }
 
     public void Dispose() //Save the RAM!
     {
-        AuthenticationService.OnChange -= StateHasChanged;
+        AuthenticationApiService.OnChange -= StateHasChanged;
     }
 }
 

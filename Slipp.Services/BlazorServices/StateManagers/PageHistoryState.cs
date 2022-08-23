@@ -1,4 +1,4 @@
-﻿namespace Slipp.Services.BlazorServices
+﻿namespace Slipp.Services.BlazorServices.StateManagers
 {
     public class PageHistoryState
     {

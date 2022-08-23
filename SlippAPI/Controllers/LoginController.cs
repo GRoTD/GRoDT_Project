@@ -31,11 +31,11 @@ public class LoginController : ControllerBase
             .FirstOrDefaultAsync(u => u.Email == input.Email);
 
         if (user == null)
-            return BadRequest("Failed login attempt");
+            return BadRequest("Användarnamnet eller lösenordet är felaktigt");
 
         var loginResult = await _userManager.CheckPasswordAsync(user, input.Password);
         if (!loginResult)
-            return BadRequest("Failed login attempt");
+            return BadRequest("Användarnamnet eller lösenordet är felaktigt");
 
         var token = await _jwtService.GenerateJwtToken(user);
 

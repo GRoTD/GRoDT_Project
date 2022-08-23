@@ -1,5 +1,6 @@
 ﻿@page "/account"
-@inject IAuthenticationService AuthenticationService
+@using Slipp.Services.BlazorServices.StateManagers
+@inject IAuthenticationAPIService AuthenticationApiService
 @inject NavigationManager NavigationManager
 @inject PageHistoryState PageHistoryState
 
@@ -61,7 +62,7 @@
 
     private async void Logout()
     {
-        await AuthenticationService.Logout();
+        await AuthenticationApiService.Logout();
         NavigationManager.NavigateTo("/Login");
     }
 

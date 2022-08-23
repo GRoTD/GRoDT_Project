@@ -1,7 +1,8 @@
-﻿@inject HttpClient Client
+﻿@using Slipp.Services.BlazorServices.StateManagers
+@inject HttpClient Client
 @using Slipp.Services.DTO
 @using System.Net
-@inject IAuthenticationService AuthenticationService
+@inject IAuthenticationAPIService AuthenticationApiService
 @inject NavigationManager NavigationManager
 @inject ITicketAPIService TicketApiService
 @inject PageHistoryState PageHistoryState

@@ -1,6 +1,6 @@
 ﻿@page "/login"
 @using Microsoft.AspNetCore.Identity
-@inject IAuthenticationService AuthenticationService
+@inject IAuthenticationAPIService AuthenticationApiService
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
@@ -12,7 +12,6 @@
         Elevation="0">
         <MudProgressCircular Size="Size.Large" Color="Color.Primary" Indeterminate="true" />
     </MudPaper>
-
 }
 else{
     <MudContainer Style="padding: 50% 10% 10% 10%;">
@@ -66,6 +65,12 @@ else{
 
         </EditForm>
     </MudContainer>
+    //MessageBox
+    <MessageModal 
+        @ref="messageModal"
+        MessageLineOne="@error"
+        YesBtnText="Ok">
+    </MessageModal>
 }
 
 <style>
@@ -95,6 +100,7 @@ else{
 
 
 @code {
+    private MessageModal messageModal { get; set; }
     private readonly LoginInput _loginInput = new();
     [CascadingParameter] public NavMenu _Parent { get; set; }
     private bool loading;
@@ -108,16 +114,16 @@ else{
     protected override void OnInitialized()
     {
     // redirect to home if already logged in
-        if (AuthenticationService.User != null)
+        if (AuthenticationApiService.User != null)
         {
             NavigationManager.NavigateTo("/");
         }
-        AuthenticationService.OnChange += StateHasChanged;
+        AuthenticationApiService.OnChange += StateHasChanged;
     }
 
     public void Dispose() //Save the RAM
     {
-        AuthenticationService.OnChange -= StateHasChanged;
+        AuthenticationApiService.OnChange -= StateHasChanged;
     }
 
     private async void HandleValidSubmit()
@@ -125,7 +131,7 @@ else{
         loading = true;
         try
         {
-            await AuthenticationService.Login(_loginInput);
+            await AuthenticationApiService.Login(_loginInput);
             loading = false;
             NavigationManager.NavigateTo("/");
         }
@@ -133,6 +139,7 @@ else{
         {
             error = ex.Message;
             loading = false;
+            await messageModal.ShowMBox();
         }
     }
 
