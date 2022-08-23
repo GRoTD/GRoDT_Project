@@ -18,6 +18,8 @@ public class TicketOutput
     [JsonPropertyName("clubUrl")] public string ClubUrl { get; set; }
     [JsonPropertyName("images")] public List<Image> Images { get; set; }
 
+ 
+
     public static TicketOutput Create(string clubUrl, Ticket ticket)
     {
         var outputTicket = new TicketOutput

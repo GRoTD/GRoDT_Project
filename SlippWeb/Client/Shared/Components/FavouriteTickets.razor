@@ -29,7 +29,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        favouriteTickets = await TicketApiService.GetFavouriteTickets(null, null);
+        favouriteTickets = await TicketApiService.GetFavouriteTickets();
         shouldRender = true;
     }
 

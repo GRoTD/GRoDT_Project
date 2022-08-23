@@ -3,15 +3,12 @@
 @using System.Net
 @using Slipp.Services.Constants
 @inject NavigationManager NavigationManager
+@inject AuthenticationService AuthenticationService
 
 <div class="component-content">
     <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');" onclick="@ShowPaymentPage">
             
         <div class="my-card-content">
-            @*<MudImage Fluid="true" Src="images/ticket.svg" Class="ticketFrame"/>*@
-            
-            @*TODO Flytta avataren till höger och fixa padding  (ovanför Entré köföreträde)*@
-
 
             <div class="ticket-circles">
                 <p id="tl"></p>
@@ -40,7 +37,6 @@
                 <MudText Typo="Typo.h5">@Math.Round(Ticket.Price) SEK</MudText>
                 @if (IsFavourite)
                 {
-
                     <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="OnHeartClicked"/>
 
                     <MudMessageBox @ref="mbox"Class="pt-0 my-message-box">
@@ -51,7 +47,6 @@
                             </div>
                             <MudText Align="Align.Center" Typo="Typo.body2">Vill du ta bort biljetten <br> från dina favoriter?</MudText>
 
-
                         </MessageContent>
                         <YesButton>
                             <MudButton Color="Color.Error">Ja!</MudButton>
@@ -60,7 +55,6 @@
                             <MudButton Color="Color.Primary">Nej!</MudButton>
                         </CancelButton>
                     </MudMessageBox>
-                    
                 }
                 else
                 {
@@ -79,21 +73,14 @@
 @code {
     [Parameter] public TicketOutput Ticket { get; set; }
     public string pageToGoToUrl { get; set; }
-    //public string returnUrl { get; set; }
-    //public string apiRequestForThisTicket { get; set; }
     MudMessageBox mbox { get; set; }
     string state = "Message box hasn't been opened yet";
 
-
-
-    //TODO Kolla om den är favorit genom att kolla i FavouriteTicket i AppUser
-    public bool IsFavourite = false;
+    [Parameter] public bool IsFavourite { get; set; }
 
 
     private async void OnHeartClicked()
     {
-        
-
         if (IsFavourite)
         {
             bool? result = await mbox.Show();
@@ -101,38 +88,36 @@
             
             if (result==true)
             {
+                
                 StateHasChanged();
-                MakeFavourite();
+                ToggleFavourite();
+                
             }
-           
         }
         else
         {
-            MakeFavourite();
+            ToggleFavourite();
         }
-        
-        
     }
 
-    public void MakeFavourite()
+    private async void ToggleFavourite()
     {
         if (IsFavourite)
         {
             IsFavourite = false;
-    @*ToDO Ta bort ur favoriter-listan*@
+            await AuthenticationService.ToggleFavouriteTicket(Ticket.Id);
+
         }
         else
         {
             IsFavourite = true;
-    @*TODO Lägg till i favoriter-listan*@
+            await AuthenticationService.ToggleFavouriteTicket(Ticket.Id);
         }
     }
 
-    public void ShowPaymentPage()
+    private void ShowPaymentPage()
     {
-        pageToGoToUrl =  "pay/"+Ticket.Id; //TicketId ska sen bytas mot query
-    /*returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);*/
-
+        pageToGoToUrl =  "pay/"+Ticket.Id; //TODO TicketId ska sen bytas mot query
         NavigationManager.NavigateTo($"{pageToGoToUrl}");
     }
        

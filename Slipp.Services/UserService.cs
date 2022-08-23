@@ -53,10 +53,34 @@ public class UserService
     /// <returns></returns>
     public async Task<DatabaseUser> GetAppUser(string email)
     {
-        var user = await _ctx.Users.Include(u => u.AppUser).FirstOrDefaultAsync(u => u.Email == email);
+        var user = await _ctx.Users
+            .Include(u => u.AppUser)
+            .FirstOrDefaultAsync(u => u.Email == email);
 
         if (user is null) return null;
 
         return user;
+    }
+
+    public async Task ToggleFavouriteTicket(Guid ticketId, string userId)
+    {
+
+        var user = await _ctx.AppUsers
+            .Include(u => u.FavouriteTickets)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
+        var ticket = new Ticket() {Id = ticketId};
+
+        if (user.FavouriteTickets.Contains(ticket))
+        {
+            user.FavouriteTickets.Remove(ticket);
+
+        }
+        else
+        {
+            user.FavouriteTickets.Add(ticket);
+        }
+
+        var result = await _ctx.SaveChangesAsync();
     }
 }

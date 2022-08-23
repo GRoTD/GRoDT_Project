@@ -63,6 +63,13 @@ public class AuthenticationService : IAuthenticationService
         _navigationManager.NavigateTo("/login");
     }
 
+    public async Task ToggleFavouriteTicket(Guid ticketId)
+    {
+        var path = ApiPaths.APPUSERCONTROLLER + "/" + "favourites" + "/" + ticketId;
+        await _apiService.Put<bool>(path);
+    }
+
+
     private void NotifyStateChanged() => OnChange?.Invoke();
 
 }

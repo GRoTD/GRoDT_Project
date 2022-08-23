@@ -13,6 +13,8 @@ public interface IApiService
 {
     Task<T> Get<T>(string uri);
     Task<T> Post<T>(string uri, object value);
+
+    Task<T> Put<T>(string uri);
 }
 
 public class ApiService : IApiService
@@ -47,6 +49,13 @@ public class ApiService : IApiService
         request.Content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
         return await sendRequest<T>(request);
     }
+
+    public async Task<T> Put<T>(string uri)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Put, uri);
+        return await sendRequest<T>(request);
+    }
+
 
     // helper methods
 

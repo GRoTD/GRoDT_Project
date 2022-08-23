@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Slipp.Services.Constants;
 
 namespace SlippAPI.Controllers;
@@ -51,5 +53,17 @@ public class AppUserController : ControllerBase
         };
 
         return CreatedAtAction(nameof(GetAppUser), new { email = returnUser.Email }, returnUser);
+    }
+
+    [HttpPut]
+    [Authorize(Roles = StaticConfig.AppUserRole)]
+    [Route("/favourites/{ticketId}")]
+    public async Task<ActionResult<bool>> ToggleFavouriteTicket(Guid ticketId)
+    {
+        var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        await _userService.ToggleFavouriteTicket(ticketId, userId);
+        
+        return Ok(true);
+
     }
 }

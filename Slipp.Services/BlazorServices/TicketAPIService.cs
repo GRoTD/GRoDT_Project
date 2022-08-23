@@ -11,7 +11,7 @@ public interface ITicketAPIService
     Task<IEnumerable<TicketOutput>> GetUserTickets(string email);
     Task<TicketOutput> GetTicket(Guid? id);
     Task DeleteTicket(Guid? id);
-    Task<IEnumerable<TicketOutput>> GetFavouriteTickets(object? o, object? o1);
+    Task<IEnumerable<TicketOutput>> GetFavouriteTickets();
 }
 
 public class TicketAPIService : ITicketAPIService
@@ -48,9 +48,10 @@ public class TicketAPIService : ITicketAPIService
         return tickets;
     }
 
-    public Task<IEnumerable<TicketOutput>> GetFavouriteTickets(object? o, object? o1)
+    public async Task<IEnumerable<TicketOutput>> GetFavouriteTickets()
     {
-        var tickets = _apiService.Get<IEnumerable<TicketOutput>>(ApiPaths.TICKETCONTROLLER);
+        var path = ApiPaths.TICKETCONTROLLER + "/" + User.Email + "/" + "favourites";
+        var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(path);
         return tickets;
     }
 
@@ -61,6 +62,8 @@ public class TicketAPIService : ITicketAPIService
 
         return ticket;
     }
+
+
 
     public async Task DeleteTicket(Guid? id)
     {

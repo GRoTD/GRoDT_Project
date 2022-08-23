@@ -105,6 +105,42 @@ public class TicketService
 
         return true;
     }
+
+    public async Task<List<Ticket>> GetUserTickets(string email)
+    {
+
+        var query = _slippDbCtx.Tickets
+            .Include(t => t.Club)
+            .Include(t => t.Sale)
+            .Include(t => t.Images)
+            .AsQueryable();
+
+        var tickets = await query.Where(t => t.Sale.Buyer.DatabaseUser.Email == email).ToListAsync();
+
+        return tickets;
+    }
+
+    public async Task<List<Ticket>> GetUserFavouriteTickets(string email)
+    {
+
+        var query = _slippDbCtx.AppUsers
+            .Include(u => u.FavouriteTickets)
+                .ThenInclude(t => t.Club)
+            .Include(u => u.FavouriteTickets)
+                .ThenInclude(t => t.Sale)
+            .Include(u => u.FavouriteTickets)
+                .ThenInclude(t => t.Images)
+            .AsQueryable();
+
+
+        var user = await query.FirstOrDefaultAsync(u => u.DatabaseUser.Email == email);
+
+
+        if (user == null) return null; //TODO Change to handleException
+        var tickets = user.FavouriteTickets;
+         
+        return tickets;
+    }
 }
 
 public class TicketNotFoundException : Exception

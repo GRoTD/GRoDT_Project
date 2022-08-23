@@ -72,6 +72,30 @@ public class TicketController : ControllerBase
         return Ok(returnTicket);
     }
 
+    [HttpGet]
+    [Route("{email}")]
+    [Authorize(Roles = StaticConfig.AppUserRole)]
+    public async Task<ActionResult> GetUserTickets(string email)
+    {
+        List<Ticket> userTickets = await _ticketService.GetUserTickets(email);
+
+        var returnTickets = CreateTicketOutputList(userTickets);
+
+        return Ok(returnTickets);
+    }
+
+    [HttpGet]
+    [Route("{email}/favourites")]
+    [Authorize(Roles = StaticConfig.AppUserRole)]
+    public async Task<ActionResult> GetUserFavouriteTickets(string email)
+    {
+        List<Ticket> userTickets = await _ticketService.GetUserFavouriteTickets(email);
+
+        var returnTickets = CreateTicketOutputList(userTickets);
+
+        return Ok(returnTickets);
+    }
+
     [HttpDelete]
     [Route("{id}")]
     [Authorize(Roles = $"{StaticConfig.ClubRole}, {StaticConfig.AdminRole}")]
@@ -84,4 +108,19 @@ public class TicketController : ControllerBase
 
         return BadRequest();
     }
+
+    #region HelperMethods
+
+    private List<TicketOutput> CreateTicketOutputList(List<Ticket> tickets)
+    {
+        return tickets.Select(ticket => CreateOneTicketOutput(ticket))
+            .ToList();
+    }
+
+    private TicketOutput CreateOneTicketOutput(Ticket ticket)
+    {
+        return TicketOutput.Create(Url.Action("Get", "Club", new { id = ticket.Club.Id }, "https"), ticket);
+    }
+
+    #endregion
 }
