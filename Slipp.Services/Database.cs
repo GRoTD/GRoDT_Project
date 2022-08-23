@@ -67,7 +67,7 @@ public class Database
                 "Välkomna in till Locatelli! En social, atmosfärisk cocktailbar med livlig musik, frestande meny och ett spetsat fokus på stämning.",
             Name = "Locatelli",
             Website = "www.elite.se",
-            Images = new List<Image>() { images[0] }
+            Images = new List<Image>() {images[0]}
         };
 
         var club2 = new Club
@@ -80,7 +80,7 @@ public class Database
                 "Välkommen till den djärva storsatsningen som förändrat Göteborgs nattliv i grunden och äntligen tillfört staden en högklassig nattklubb av internationellt snitt. Push erbjuder en intim och diskret festupplevelse med högsta standard och personlig service utan motstycke.",
             Name = "Push",
             Website = "www.push.se",
-            Images = new List<Image>() { images[1] }
+            Images = new List<Image>() {images[1]}
         };
 
         var club3 = new Club
@@ -93,7 +93,7 @@ public class Database
                 "Nattklubb i flera våningar med populär takterrass. En av Avenyns mest etablerade nattklubbar. På flera våningar finns allt som behövs för en lyckad utekväll som barer, dansgolv, roulette och en populär takterass.",
             Name = "Lounge",
             Website = "www.lounge.se",
-            Images = new List<Image>() { images[2] }
+            Images = new List<Image>() {images[2]}
         };
 
         var club4 = new Club
@@ -106,7 +106,7 @@ public class Database
                 "Varje sommar öppnar Port Du Soleil upp en sommarlounge och internationell nattklubb. På den stora solterassen kan du uppleva en känsla av Rivieran mitt i Göteborg med dj:s, spännande mat och ändlösa sommarnätter.",
             Name = "Port du Soleil",
             Website = "www.portdusoleil.se",
-            Images = new List<Image>() { images[3] }
+            Images = new List<Image>() {images[3]}
         };
 
         var club5 = new Club
@@ -119,7 +119,7 @@ public class Database
                 "Excet är en av Göteborgs största och populäraste nattklubbar, mitt på Avenyn. Med fyra dansgolv, nio barer och en stor takterrass får du massa olika upplevelser under samma tak. Go party!",
             Name = "Excet",
             Website = "www.facebook.com/excetgbg",
-            Images = new List<Image>() { images[4] }
+            Images = new List<Image>() {images[4]}
         };
 
 
@@ -133,7 +133,7 @@ public class Database
                 "Puta Madre är en spansk svordom som ungefär betyder *”€%!!+##*§§. Förutom detta kan det även betyda att något är jävligt bra. I Göteborg står Puta Madre för jävligt bra mexikansk mat i en härlig miljö. Och om du, likt många andra, förknippar tequila med äckliga shotrace och citronslabb utmanar vi dig att göra ett nytt försök hos oss. Du kommer inte att bli besviken.",
             Name = "Puta Madre",
             Website = "https://www.putamadre.se/",
-            Images = new List<Image>() { images[5] }
+            Images = new List<Image>() {images[5]}
         };
 
         var club7 = new Club
@@ -146,27 +146,26 @@ public class Database
                 "Via en hemlig ingång till en källare under Tranquilo ligger cocktailbaren Stranger. Här kan du beställa några av Göteborgs bästa drinkar i en stämningsfull miljö. Med musik och ljussättning skapas känslan av att Stranger är en hemlig bar under den amerikanska förbudstiden.",
             Name = "Stranger",
             Website = "https://www.strangergbg.com/",
-            Images = new List<Image>() { images[6] }
+            Images = new List<Image>() {images[6]}
         };
 
-        _slippDbCtx.AddRange(new Club[] { club, club2, club3, club4, club5, club6, club7 });
+        _slippDbCtx.AddRange(new Club[] {club, club2, club3, club4, club5, club6, club7});
         await _slippDbCtx.SaveChangesAsync();
 
         var clubUser = new DatabaseUser
+        {
+            Club = club,
+            UserName = "clubUser@club.se",
+            Email = "clubUser@club.se"
+        };
+
+        var AppUser = new DatabaseUser
         {
             AppUser = new AppUser
             {
                 FirstName = "Ellen",
                 LastName = "Lundell"
             },
-            Club = club,
-            UserName = "clubUser@club.se",
-            Email = "clubUser@club.se"
-
-        };
-
-        var AppUser = new DatabaseUser
-        {
             UserName = "appUser@club.se",
             Email = "appUser@club.se"
         };
@@ -318,7 +317,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
                 Price = 150,
-                EventDescription = "Locatelli",
+                EventDescription = "Ticket 1",
                 Images = new List<Image>() {images[0]}
             },
             new()
@@ -328,7 +327,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club2,
                 Price = 150,
-                EventDescription = "Push",
+                EventDescription = "Ticket 2",
                 Images = new List<Image>() {images[1]}
             },
             new()
@@ -338,7 +337,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club3,
                 Price = 150,
-                EventDescription = "Lounge",
+                EventDescription = "Ticket 3",
                 Images = new List<Image>() {images[2]}
             },
             new()
@@ -348,7 +347,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club4,
                 Price = 150,
-                EventDescription = "Port du Soleil",
+                EventDescription = "Ticket 4",
                 Images = new List<Image>() {images[3]}
             },
             new()
@@ -358,7 +357,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club5,
                 Price = 150,
-                EventDescription = "Puta Madre",
+                EventDescription = "Ticket 5",
                 Images = new List<Image>() {images[5]}
             },
             new()
@@ -368,7 +367,7 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club7,
                 Price = 150,
-                EventDescription = "Stranger",
+                EventDescription = "Ticket 6",
                 Images = new List<Image>() {images[6]}
             }
         };
