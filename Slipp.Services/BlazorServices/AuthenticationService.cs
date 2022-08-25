@@ -12,6 +12,7 @@ public interface IAuthenticationService
     Task Login(LoginInput input);
     Task Logout();
     Task Register(CreateAppUserInput newUser);
+    Task ToggleFavouriteTicket(Guid ticketId);
 }
 
 public class AuthenticationService : IAuthenticationService

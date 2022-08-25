@@ -17,7 +17,8 @@
     {
         @foreach (var ticket in tickets)
         {
-            if (favouriteTickets.Contains(ticket)){
+            if (favouriteTicketIds.Contains(ticket.Id))
+            {
                 <TicketCard Ticket=ticket IsFavourite=true/>
             }
             else
@@ -33,16 +34,17 @@
 
 @code {
     private IEnumerable<TicketOutput> tickets;
-    private IEnumerable<TicketOutput> favouriteTickets;
-    private bool shouldRender;
-
-    protected override bool ShouldRender() => shouldRender;
+    private List<Guid> favouriteTicketIds;
 
     protected override async Task OnInitializedAsync()
     {
+        favouriteTicketIds = new();
         tickets = await TicketApiService.GetTickets(null, null);
-        favouriteTickets = await TicketApiService.GetFavouriteTickets();
-        shouldRender = true;
+        var favouriteTickets = await TicketApiService.GetFavouriteTickets();
+        foreach (var favouriteTicket in favouriteTickets)
+        {
+            favouriteTicketIds.Add(favouriteTicket.Id);
+        }
     }
 
 

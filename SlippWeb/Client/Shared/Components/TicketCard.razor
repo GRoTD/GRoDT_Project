@@ -3,7 +3,7 @@
 @using System.Net
 @using Slipp.Services.Constants
 @inject NavigationManager NavigationManager
-@inject AuthenticationService AuthenticationService
+@inject IAuthenticationService AuthenticationService
 
 <div class="component-content">
     <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');" onclick="@ShowPaymentPage">
@@ -39,8 +39,7 @@
                 {
                     <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary" OnClick="OnHeartClicked"/>
 
-                    <MudMessageBox @ref="mbox"Class="pt-0 my-message-box">
-                        
+                    <MudMessageBox @ref="mbox" Class="pt-0 my-message-box">
                         <MessageContent>
                             <div class="message-box-icon">
                             <MudIconButton Class="align-center" Icon="@Icons.Filled.HeartBroken" Color="Color.Primary"></MudIconButton>
@@ -73,7 +72,7 @@
 @code {
     [Parameter] public TicketOutput Ticket { get; set; }
     public string pageToGoToUrl { get; set; }
-    MudMessageBox mbox { get; set; }
+    MudMessageBox? mbox { get; set; }
     string state = "Message box hasn't been opened yet";
 
     [Parameter] public bool IsFavourite { get; set; }
