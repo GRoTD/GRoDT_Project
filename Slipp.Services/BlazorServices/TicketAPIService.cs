@@ -50,7 +50,7 @@ public class TicketAPIService : ITicketAPIService
 
     public async Task<IEnumerable<TicketOutput>> GetFavouriteTickets()
     {
-        var path = ApiPaths.TICKETCONTROLLER + "/" + User.Email + "/" + "favourites";
+        var path = ApiPaths.TICKETCONTROLLER + "/" + User.Email + "/" + "favourites"; //api/ticket/appuser@club.se/favourites
         var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(path);
         return tickets;
     }

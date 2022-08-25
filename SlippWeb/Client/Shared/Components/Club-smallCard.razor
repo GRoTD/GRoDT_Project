@@ -62,9 +62,12 @@
  
 @code {
     [Parameter] public ClubOutput Club { get; set; }
+
+    [Parameter] public bool IsFavourite { get; set;}
+
     public string pageToGoToUrl { get; set; }
     public string returnUrl { get; set; }
-    public bool IsFavourite = false;
+    
     MudMessageBox mbox { get; set; }
     string state = "Message box hasn't been opened yet";
 
@@ -111,7 +114,7 @@
 
     public void NavigateToClub()
     {
-        pageToGoToUrl =  "klubb/" + Club.Id;
+        pageToGoToUrl =  "klubb/" + Club.Id; //TODO KOlla om klubben är favorit i så fall ska hjärtat fyllas i på nästa sida - typ skicka in parameter isFavourite = true
         returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
 
         NavigationManager.NavigateTo($"{pageToGoToUrl}?returnUrl={returnUrl}");

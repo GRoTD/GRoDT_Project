@@ -5,7 +5,7 @@
     @foreach (var ticket in favouriteTickets)
         {
             
-            <TicketCard Ticket=ticket></TicketCard>
+            <TicketCard Ticket=ticket IsFavourite=true></TicketCard>
         }
 </div>
 
@@ -23,14 +23,11 @@
 @code {
 
     private IEnumerable<TicketOutput> favouriteTickets;
-    private bool shouldRender;  
 
-    protected override bool ShouldRender() => shouldRender;
 
     protected override async Task OnInitializedAsync()
     {
         favouriteTickets = await TicketApiService.GetFavouriteTickets();
-        shouldRender = true;
     }
 
 
