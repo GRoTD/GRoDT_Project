@@ -34,11 +34,15 @@
 @code {
     private IEnumerable<TicketOutput> tickets;
     private IEnumerable<TicketOutput> favouriteTickets;
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
 
     protected override async Task OnInitializedAsync()
     {
         tickets = await TicketApiService.GetTickets(null, null);
         favouriteTickets = await TicketApiService.GetFavouriteTickets();
+        shouldRender = true;
     }
 
 
@@ -52,3 +56,5 @@
         padding-top: 20px;
     }
 </style>
+
+

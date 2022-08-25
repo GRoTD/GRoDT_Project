@@ -12,7 +12,6 @@ public interface IAuthenticationService
     Task Login(LoginInput input);
     Task Logout();
     Task Register(CreateAppUserInput newUser);
-
 }
 
 public class AuthenticationService : IAuthenticationService
@@ -59,17 +58,16 @@ public class AuthenticationService : IAuthenticationService
     public async Task Register(CreateAppUserInput newUser)
     {
         await _apiService.Post<CreatedAppUserReturn>(
-              ApiPaths.APPUSERCONTROLLER, newUser);
+            ApiPaths.APPUSERCONTROLLER, newUser);
         _navigationManager.NavigateTo("/login");
     }
 
     public async Task ToggleFavouriteTicket(Guid ticketId)
     {
-        var path = ApiPaths.APPUSERCONTROLLER + "/" + "favourites" + "/" + ticketId;
+        var path = "/favourites/" + ticketId; //TODO: Ändra till den nya Pathen när den är skapad.
         await _apiService.Put<bool>(path);
     }
 
 
     private void NotifyStateChanged() => OnChange?.Invoke();
-
 }

@@ -14,7 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SlippDbCtx>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SlippDbs"), b => b.MigrationsAssembly("SlippAPI")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Slipp_API_db"),
+        b => b.MigrationsAssembly("SlippAPI")));
 
 builder.Services.AddIdentityCore<DatabaseUser>(options => { options.Password.RequiredLength = 8; })
     .AddRoles<IdentityRole>()

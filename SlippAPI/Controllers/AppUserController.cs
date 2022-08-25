@@ -52,18 +52,17 @@ public class AppUserController : ControllerBase
             Id = createdUser.Id
         };
 
-        return CreatedAtAction(nameof(GetAppUser), new { email = returnUser.Email }, returnUser);
+        return CreatedAtAction(nameof(GetAppUser), new {email = returnUser.Email}, returnUser);
     }
 
     [HttpPut]
     [Authorize(Roles = StaticConfig.AppUserRole)]
-    [Route("/favourites/{ticketId}")]
+    [Route("/favourites/{ticketId}")] //TODO: Byt när vi publishar igen. "favourites/{ticketId}" såhär.!
     public async Task<ActionResult<bool>> ToggleFavouriteTicket(Guid ticketId)
     {
         var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
         await _userService.ToggleFavouriteTicket(ticketId, userId);
-        
-        return Ok(true);
 
+        return Ok(true);
     }
 }
