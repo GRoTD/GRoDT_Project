@@ -1,6 +1,6 @@
 ﻿@page "/register"
 
-@inject IAuthenticationService AuthenticationService
+@inject IAuthenticationAPIService AuthenticationApiService
 
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
@@ -131,7 +131,7 @@
     {
         try
         {
-            await AuthenticationService.Register(createAppUser); /*TODO - Show loader on while waiting*/
+            await AuthenticationApiService.Register(createAppUser); /*TODO - Show loader on while waiting*/
         }
         catch (Exception ex)
         {

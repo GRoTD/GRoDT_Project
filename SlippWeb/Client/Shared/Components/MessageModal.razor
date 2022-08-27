@@ -1,0 +1,55 @@
+﻿<MudMessageBox @ref="mbox" Class="pt-0 my-message-box">
+                        
+    <MessageContent>
+        <MudText Align="Align.Center" Typo="Typo.body2">@MessageLineOne</MudText>
+        <MudText Align="Align.Center" Typo="Typo.body2">@MessageLineTwo</MudText>
+
+
+    </MessageContent>
+    <YesButton>
+        <MudButton Color="Color.Error">Ja!</MudButton>
+    </YesButton>
+    <CancelButton>
+        <MudButton Color="Color.Primary">Nej!</MudButton>
+    </CancelButton>
+</MudMessageBox>
+
+@code {
+    MudMessageBox mbox { get; set; }
+    string State = "Message box hasn't been opened yet";
+    
+    [Parameter] public string? MessageLineOne { get; set; }
+    [Parameter] public string? MessageLineTwo { get; set; }
+    [Parameter] public string? YesBtnText { get; set; }
+    [Parameter] public string? CancelBtnText { get; set; }
+
+
+    public async Task ShowMBox()
+    {
+        bool? result = await mbox.Show();
+        State= result==null ? "Cancelled" : "Deleted!";
+            
+        if (result==true)
+        {
+            StateHasChanged();
+            
+        }
+    }
+
+}
+
+<style>
+    .message-box-icon {
+        display: flex;
+        justify-content: center;
+    }
+    ::deep .mud-dialog-actions{
+        justify-content: center !important;
+    }
+    .mud-dialog .mud-dialog-title{
+        padding: 0 !important;
+    }
+    .mud-dialog .mud-dialog-actions {
+        justify-content:center;
+    }
+</style>

@@ -4,7 +4,7 @@ using Slipp.Services.DTO;
 
 namespace Slipp.Services.BlazorServices;
 
-public interface IAuthenticationService
+public interface IAuthenticationAPIService
 {
     LoggedInUser User { get; }
     public event Action? OnChange;
@@ -15,7 +15,7 @@ public interface IAuthenticationService
     Task ToggleFavouriteTicket(Guid ticketId);
 }
 
-public class AuthenticationService : IAuthenticationService
+public class AuthenticationApiService : IAuthenticationAPIService
 {
     private IApiService _apiService;
     private NavigationManager _navigationManager;
@@ -24,7 +24,7 @@ public class AuthenticationService : IAuthenticationService
     public LoggedInUser User { get; private set; }
     public event Action? OnChange;
 
-    public AuthenticationService(
+    public AuthenticationApiService(
         IApiService apiService,
         NavigationManager navigationManager,
         ILocalStorageService localStorageService

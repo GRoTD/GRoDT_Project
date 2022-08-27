@@ -9,6 +9,7 @@
 @using System.Net.Http.Headers
 
 @page "/pay/{ticketId}" 
+@using Slipp.Services.BlazorServices.StateManagers
 @*Här ska vi sen byta till den aktuella apiQueryn*@
 
 
@@ -29,7 +30,7 @@
 
             </div>
 
-            @*<div class="numericSpinnerContainer">
+            @*<div class="numericSpinnerYesBtnTexttainer">
                 <div class="numericSpinner">
                     <MudNumericField IconSize="Size.Large" Immediate="@true" @bind-Value="@choosenValue" Label="Antal biljetter:" Variant="@Variant.Text" Min="1" Max="10"/>
             </div>*@
@@ -127,7 +128,7 @@
         
         
     }
-    /*.numericSpinnerContainer {
+    /*.numericSpinnerYesBtnTexttainer {
         width: 90vh;
         display: flex;
         justify-content: center;
