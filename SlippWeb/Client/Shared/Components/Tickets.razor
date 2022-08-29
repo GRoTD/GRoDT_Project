@@ -41,14 +41,16 @@
         favouriteTicketIds = new List<Guid>();
         tickets = await TicketApiService.GetTickets(null, null);
 
-        if(TicketApiService.User != null){
+        if (TicketApiService.User == null) return;
         
-            var favouriteTickets = await TicketApiService.GetFavouriteTickets();
-            foreach (var favouriteTicket in favouriteTickets)
-            {
-                favouriteTicketIds.Add(favouriteTicket.Id);
-            }
+        var favouriteTickets = await TicketApiService.GetFavouriteTickets();
+        if (favouriteTickets == null) return;
+
+        foreach (var favouriteTicket in favouriteTickets)
+        {
+            favouriteTicketIds.Add(favouriteTicket.Id);
         }
+        
     }
 
 
