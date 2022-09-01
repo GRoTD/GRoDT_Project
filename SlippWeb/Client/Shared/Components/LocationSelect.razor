@@ -10,11 +10,11 @@
             Style="Width: 200px; font-size: 18px;"
             T="string"
             Variant="Variant.Text"
-            Placeholder="Välj plats"
+            Placeholder=@Title
             Margin="Margin.Normal"
             AnchorOrigin="Origin.BottomCenter"
             DisableUnderLine="true"
-            @bind-Value="location" 
+            @bind-Value="choice"
             SearchFunc="@Search"
             Clearable="true"/>
 
@@ -30,17 +30,35 @@
 
 @code {
 
-    private string location;
+   // private string location;
+    //private string club;
+    private string choice;
     private string selectedValue = "";
-    
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string SearchFor { get; set; }
+
+    // SearchLoaction
     private async Task<IEnumerable<string>> Search(string value)
     {
-        await Task.Delay(5);
+        if (SearchFor == "location")
+        {
+            await Task.Delay(5);
 
-        if (string.IsNullOrEmpty(value))
-            return locations;
-        return locations.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+            if (string.IsNullOrEmpty(value))
+                return locations;
+            return locations.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        }
+        else if (SearchFor == "club")
+        {
+            await Task.Delay(5);
+
+            if (string.IsNullOrEmpty(value))
+                return clubs;
+            return clubs.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        }
+        return null;
     }
+
 
     //Test data, Remove
     string[] locations = new string[] 
@@ -51,5 +69,13 @@
         "Falun",
         "Mora",
         "Malmö"
+    };
+
+    string[] clubs = new string[]
+    {
+        "Locateli",
+        "Deep",
+        "Lounge",
+        "Dimond dogs",
     };
 }

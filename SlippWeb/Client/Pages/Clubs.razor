@@ -1,10 +1,7 @@
 ﻿@page "/clubs"
 @inject PageHistoryState PageHistoryState
-
-<MudPaper Square="true" Height="80px" Width="100%" Elevation="5" Style="background-color: transparent" Class="d-flex justify-center align-center">
-    <MudText Typo="Typo.h2" Color="Color.Primary">Nattklubbar</MudText>
-</MudPaper>
-<LocationSelect></LocationSelect>
+<PageHeader HeaderTitle="Nattklubbar"></PageHeader>
+<LocationSelect Title="Sök klubb" SearchFor="club"></LocationSelect>
 <ClubsOverview></ClubsOverview>
 
 @code
