@@ -1,40 +1,5 @@
 ﻿@page "/clubs"
-@inject PageHistoryState PageHistoryState
-<PageHeader HeaderTitle="Nattklubbar"></PageHeader>
-<LocationSelect Title="Sök klubb" SearchFor="club"></LocationSelect>
+<PageHeader HeaderTitle="Klubbar"></PageHeader>
+<SearchSelector Title="Sök klubb" SearchFor="club"></SearchSelector>
 <ClubsOverview></ClubsOverview>
 
-@code
-{
-    protected override void OnInitialized()
-    {
-        PageHistoryState.AddPageToHistory("/");
-        base.OnInitialized();
-    }
-}
-
-
-
-@*
-<div class="header">
-    <h3>Nattklubbar</h3>
-    <div class="location-info">
-        <h3>Plats <span id="dropdown-arrow">&#129171;</span></h3>
-        <p>Adress XX, Göteborg</p>
-    </div>
-</div>
-
-
-<div class="card" style="width: 18rem;">
-    <img class="card-img" src="Img/P-LANE-CARD.jpg" alt="Card image cap">
-    <div class="card-img-overlay">
-        <h5 class="card-title">Park Lane</h5>
-        <a href="#" class="btn btn-info">Mer om klubben</a>
-        <a href="#" class="btn btn-info">Tillgänliga biljetter</a>
-    </div>
-</div>
-
-@code {
-
-}
-*@

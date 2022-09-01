@@ -19,7 +19,7 @@
             <ConfirmedPurchase PurchasedTicket="@Ticket" NumberOfTicketsPurchased="@choosenValue" userName="@userFirstName"></ConfirmedPurchase>
             break;
         default:
-            <PageHeader HeaderTitle="Betalning"/>
+            <PageHeader HeaderTitle="Betalning" IncludeBackButton="true"/>
             <TicketBackside Ticket="@Ticket"></TicketBackside>
 
             <div class="numberOfTicketsSpinner">
