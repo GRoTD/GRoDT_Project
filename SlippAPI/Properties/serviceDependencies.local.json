@@ -2,10 +2,9 @@
   "dependencies": {
     "mssql1": {
       "secretStore": null,
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/slippapidbserver/databases/SlippAPI_db",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/slippapidbserverpoya/databases/SlippAPI_db",
       "type": "mssql.azure",
-      "connectionId": "ConnectionStrings:Slipp_API_db",
-      "dynamicId": null
+      "connectionId": "ConnectionStrings:Slipp_API_db_poya"
     }
   }
 }

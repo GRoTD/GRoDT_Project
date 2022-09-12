@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SlippDbCtx>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Slipp_API_db"),
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Slipp_API_db_poya"),
         b => b.MigrationsAssembly("SlippAPI")));
 
 builder.Services.AddIdentityCore<DatabaseUser>(options => { options.Password.RequiredLength = 8; })
@@ -79,7 +79,7 @@ if (app.Environment.IsDevelopment())
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<Database>();
     await db.RecreateAndSeed();
-    */ /*await db.Seed();*/ /*
+    // await db.Seed();
 }*/
 
 app.UseDeveloperExceptionPage();
