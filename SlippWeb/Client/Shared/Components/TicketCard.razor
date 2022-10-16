@@ -25,7 +25,7 @@
                 <MudContainer>
                     <hr class="hr-divider"/>
                     <MudText Typo="Typo.body2">Tillgängliga biljetter:</MudText>
-                    <MudText Typo="Typo.h3">8</MudText>
+                    <MudText Typo="Typo.h3">@TicketGroup.Count()</MudText>
                     <MudText Typo="Typo.body2">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
                 </MudContainer>
             </div>
@@ -70,13 +70,20 @@
 
 
 @code {
-    [Parameter] public TicketOutput Ticket { get; set; }
+    
+    [Parameter] public IGrouping<DateTime,TicketOutput> TicketGroup { get; set; }
+    public TicketOutput Ticket { get; set; }
     public string pageToGoToUrl { get; set; }
     MudMessageBox? mbox { get; set; }
     string state = "Message box hasn't been opened yet";
 
     [Parameter] public bool IsFavourite { get; set; }
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        Ticket = TicketGroup.First();
+    }
 
     private async void OnHeartClicked()
     {
@@ -112,18 +119,26 @@
         if (IsFavourite)
         {
             IsFavourite = false;
-            await AuthenticationService.ToggleFavouriteTicket(Ticket.Id);
-
+            foreach (var ticket in TicketGroup)
+            {
+                await AuthenticationService.ToggleFavouriteTicket(ticket.Id);
+            }
         }
         else
         {
             IsFavourite = true;
-            await AuthenticationService.ToggleFavouriteTicket(Ticket.Id);
+            foreach (var ticket in TicketGroup)
+            {
+                await AuthenticationService.ToggleFavouriteTicket(ticket.Id);
+            }
         }
     }
 
     private void ShowPaymentPage()
     {
+        //Ticket.id ska ersättas av ticketsIds för alla i gruppen, foreachloop?
+
+        // ex: "pay/?ids=id1,id2,id3,id4,id5,id6,id7,id8 osv)
         pageToGoToUrl =  "pay/"+Ticket.Id; //TODO TicketId ska sen bytas mot query
         NavigationManager.NavigateTo($"{pageToGoToUrl}");
     }

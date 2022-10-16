@@ -15,15 +15,17 @@
 
     else
     {
-        @foreach (var ticket in tickets)
+        @foreach (var ticketGroup in tickets)
         {
-          if (favouriteTicketIds.Contains(ticket.Id))
+
+
+            if (favouriteTicketIds.Contains(ticketGroup.First().Id)) //OBS: endast första ticketen i ticketGroup är nu favorit
             {
-                <TicketCard Ticket=ticket IsFavourite=true/>
+                <TicketCard TicketGroup=ticketGroup.First() IsFavourite=true/>
             }
             else
-            {                
-                <TicketCard Ticket=ticket IsFavourite=false/>
+            {
+                <TicketCard TicketGroup=ticketGroup.First() IsFavourite=false />
             } 
         }
     }
@@ -33,13 +35,14 @@
 
 
 @code {
-    private IEnumerable<TicketOutput> tickets;
+    private IEnumerable<IGrouping<DateTime, TicketOutput>> tickets;
     private List<Guid> favouriteTicketIds;
 
     protected override async Task OnInitializedAsync()
     {
         favouriteTicketIds = new List<Guid>();
         tickets = await TicketApiService.GetTickets(null, null);
+
 
         if (TicketApiService.User == null) return;
         

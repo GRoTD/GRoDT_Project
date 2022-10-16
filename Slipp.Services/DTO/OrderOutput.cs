@@ -14,11 +14,11 @@ namespace Slipp.Services.DTO
         [JsonPropertyName("issuedDateTime")] public DateTime IssuedDateTime { get; set; }
         [JsonPropertyName("tickets")] public List<TicketOutput> Tickets { get; set; }
 
-        public static OrderOutput Create()
+        public static OrderOutput Create(List<Tickets> tickets)
         {
             var outputOrder = new OrderOutput { 
                 IssuedDateTime = DateTime.Now,
-                Tickets    
+                Tickets= tickets;
             }
         }
 

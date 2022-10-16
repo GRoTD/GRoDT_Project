@@ -7,7 +7,7 @@ public interface ITicketAPIService
 {
     LoggedInUser User { get; }
     Task Initialize();
-    Task<IEnumerable<TicketOutput>> GetTickets(Guid? clubId, string? city);
+    Task<IEnumerable<IGrouping<DateTime,TicketOutput>>> GetTickets(Guid? clubId, string? city);
     Task<IEnumerable<TicketOutput>> GetUserTickets(string email);
     Task<TicketOutput> GetTicket(Guid? id);
     Task DeleteTicket(Guid? id);
@@ -35,9 +35,9 @@ public class TicketAPIService : ITicketAPIService
         User = await _localStorageService.GetItem<LoggedInUser>("user");
     }
 
-    public async Task<IEnumerable<TicketOutput>> GetTickets(Guid? clubId, string? city)
+    public async Task<IEnumerable<IGrouping<DateTime, TicketOutput>>> GetTickets(Guid? clubId, string? city)
     {
-        var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(ApiPaths.TICKETCONTROLLER);
+        var tickets = await _apiService.Get<IEnumerable<IGrouping<DateTime,TicketOutput>>>(ApiPaths.TICKETCONTROLLER);
         return tickets;
     }
 
