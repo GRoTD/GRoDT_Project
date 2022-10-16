@@ -69,10 +69,11 @@ public class ApiService : IApiService
 
         using var response = await _httpClient.SendAsync(request);
 
-        // auto logout on 401 response
+        // auto nav to home on 401 response
+        //TODO: Länka till en logout så småningom.
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
-            _navigationManager.NavigateTo("logout");
+            _navigationManager.NavigateTo("/");
             return default;
         }
 
