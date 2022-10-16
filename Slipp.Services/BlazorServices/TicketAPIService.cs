@@ -55,6 +55,7 @@ public class TicketAPIService : ITicketAPIService
         return tickets;
     }
 
+
     public async Task<TicketOutput> GetTicket(Guid? id)
     {
         var path = ApiPaths.TICKETCONTROLLER + $"/{id}";

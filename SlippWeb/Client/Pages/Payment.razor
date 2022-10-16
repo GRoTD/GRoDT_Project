@@ -1,8 +1,10 @@
 ﻿@attribute [Authorize]
 @inject PageHistoryState PageHistoryState
 @inject NavigationManager NavigationManager
-@inject ILocalStorageService _localStorageService;
+@inject ILocalStorageService LocalStorageService;
 @inject ITicketAPIService ApiService
+@inject OrderAPIService OrderApiService
+
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.AspNetCore.Identity
@@ -13,7 +15,7 @@
 
 
 <div class="main-container">
-    @switch (purchaseIsConfirmed)
+    @switch (OrderIsConfirmed)
     {
         case true:
             <ConfirmedPurchase PurchasedTicket="@Ticket" NumberOfTicketsPurchased="@choosenValue" userName="@userFirstName"></ConfirmedPurchase>
@@ -48,7 +50,7 @@
             Target="_blank"*@
 
             <div class="swish-btn">
-                <MudButton OnClick="ConfirmPurchase"
+                <MudButton OnClick="PlaceOrder"
                            Variant="@Variant.Filled"
                            Color="@Color.Primary">
                     <div>
@@ -79,26 +81,50 @@
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     public LoggedInUser LoggedInUser { get; set; }
     public string userFirstName { get; set; }
-    public bool purchaseIsConfirmed { get; set; }
-    
+    public bool OrderIsConfirmed { get; set; }
+
+    private readonly OrderInput orderInput = new();
+
+    /* 
+    * usern klickar
+    * bekräfta klick
+    * skapar order (model) -> client side kallar på vår api som kallar på databasen för att spara en order
+    * kallar på swishs api -> om OK
+    * skapar en sale som är kopplad till tidigare order -> om OK
+    * apin säger OK sale är skapad -> (felhantering superviktigt)
+    * bekräfta usern (ui finns)
+
+    */
 
     protected override async Task OnInitializedAsync()
     {
-       
+
         choosenValue = 1;
         Ticket = await ApiService.GetTicket(new Guid(ticketId));
-        purchaseIsConfirmed = false;
-        //Är detta rätt sätt att göra det på??
-        LoggedInUser = await _localStorageService.GetItem<LoggedInUser>("user");
+        OrderIsConfirmed = false;
+        LoggedInUser = await LocalStorageService.GetItem<LoggedInUser>("user");
         userFirstName = LoggedInUser.FirstName + " " + LoggedInUser.LastName;
 
         PageHistoryState.AddPageToHistory($"/pay/{ticketId}");
         await base.OnInitializedAsync();
     }
 
-    public void ConfirmPurchase()
+    public async void PlaceOrder()
     {
-        purchaseIsConfirmed = true;
+        /*
+        * hantering för att kolla hur många tickes som finns tillgänliga. Just nu kan man köpa "antalet som står på spinner"
+        */
+        List<TicketOutput> chosenTickets = new();
+        for(int i = 0; i<=choosenValue; i++)
+        {
+            chosenTickets.Add(Ticket);
+        }
+
+        orderInput.Tickets = chosenTickets;
+        orderInput.IssuedDateTime = DateTime.Now;
+        
+        OrderIsConfirmed = await OrderApiService.CreateOrder(chosenTickets);
+
     }
 
     public void AddTicket()
