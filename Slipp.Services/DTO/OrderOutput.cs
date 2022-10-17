@@ -10,35 +10,21 @@ namespace Slipp.Services.DTO
 {
     public class OrderOutput
     {
- 
+
         [JsonPropertyName("issuedDateTime")] public DateTime IssuedDateTime { get; set; }
-        [JsonPropertyName("tickets")] public List<TicketOutput> Tickets { get; set; }
+        //Det borde nog vara public List<TicketOutput> här, men hur? 
+        [JsonPropertyName("tickets")] public List<Ticket> Tickets { get; set; }
 
-        public static OrderOutput Create(List<Tickets> tickets)
+        public static OrderOutput CreateOrderOutput(Order order)
         {
-            var outputOrder = new OrderOutput { 
-                IssuedDateTime = DateTime.Now,
-                Tickets= tickets;
-            }
-        }
-
-
-
-        public static TicketOutput Create(string clubUrl, Ticket ticket)
-        {
-            var outputTicket = new TicketOutput
+            var outputOrder = new OrderOutput
             {
-                EndValidTime = ticket.EndValidTime,
-                EventDescription = ticket.EventDescription,
-                Price = ticket.Price,
-                Id = ticket.Id,
-                StartValidTime = ticket.StartValidTime,
-                ClubName = ticket.Club.Name,
-                ClubUrl = clubUrl, //TODO: Fix to use IUrlHelper.Action()
-                Images = ticket.Images
+                IssuedDateTime = order.IssuedDateTime,
+                Tickets = order.Tickets
             };
-
-            return outputTicket;
+        
+        return outputOrder;
+    
         }
     }
 }

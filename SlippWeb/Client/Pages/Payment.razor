@@ -122,8 +122,11 @@
 
         orderInput.Tickets = chosenTickets;
         orderInput.IssuedDateTime = DateTime.Now;
-        
-        OrderIsConfirmed = await OrderApiService.CreateOrder(chosenTickets);
+
+        //fan
+        await OrderApiService.CreateOrder(chosenTickets);
+
+        OrderIsConfirmed = true;
 
     }
 

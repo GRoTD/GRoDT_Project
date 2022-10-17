@@ -11,7 +11,10 @@ namespace Slipp.Services.Models
         public Guid Id { get; set; }
         
         public DateTime IssuedDateTime { get; set; }
-        public AppUser Buyer { get; set; }
+
+        public bool IsSaved { get; set; }
+
+        public AppUser AppUser { get; set; }
 
         public Sale? Sale { get; set; }
 

@@ -30,6 +30,7 @@ namespace Slipp.Services.BlazorServices
 
         public async Task<OrderOutput> CreateOrder (List<TicketOutput> chosenTickets)
         {
+    
             var path = ApiPaths.ORDERCONTROLLER;
             return await _apiService.Post<OrderOutput>(path, chosenTickets);
         }
