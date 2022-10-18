@@ -35,7 +35,7 @@
 
 
 @code {
-    private IEnumerable<IGrouping<DateTime, TicketOutput>> tickets;
+    private IEnumerable<IEnumerable<TicketOutput>> tickets;
     private List<Guid> favouriteTicketIds;
 
     protected override async Task OnInitializedAsync()

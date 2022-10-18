@@ -71,7 +71,7 @@
 
 @code {
 
-    [Parameter] public IGrouping<DateTime,TicketOutput> TicketGroup { get; set; }
+    [Parameter] public IEnumerable<TicketOutput> TicketGroup { get; set; }
 
     public List<TicketOutput> TickesToSendToOrder { get; set; }
 

@@ -7,7 +7,7 @@ public interface ITicketAPIService
 {
     LoggedInUser User { get; }
     Task Initialize();
-    Task<IEnumerable<IGrouping<DateTime,TicketOutput>>> GetTickets(Guid? clubId, string? city);
+    Task<IEnumerable<IEnumerable<TicketOutput>>> GetTickets(Guid? clubId, string? city);
     Task<IEnumerable<TicketOutput>> GetUserTickets(string email);
     Task<TicketOutput> GetTicket(Guid? id);
     Task DeleteTicket(Guid? id);
@@ -35,9 +35,9 @@ public class TicketAPIService : ITicketAPIService
         User = await _localStorageService.GetItem<LoggedInUser>("user");
     }
 
-    public async Task<IEnumerable<IGrouping<DateTime, TicketOutput>>> GetTickets(Guid? clubId, string? city)
+    public async Task<IEnumerable<IEnumerable<TicketOutput>>> GetTickets(Guid? clubId, string? city)
     {
-        var tickets = await _apiService.Get<IEnumerable<IGrouping<DateTime,TicketOutput>>>(ApiPaths.TICKETCONTROLLER);
+        var tickets = await _apiService.Get<IEnumerable<IEnumerable<TicketOutput>>>(ApiPaths.TICKETCONTROLLER);
         return tickets;
     }
 
@@ -50,7 +50,8 @@ public class TicketAPIService : ITicketAPIService
 
     public async Task<IEnumerable<TicketOutput>> GetFavouriteTickets()
     {
-        var path = ApiPaths.TICKETCONTROLLER + "/" + User.Email + "/" + "favourites"; //api/ticket/appuser@club.se/favourites
+        var path = ApiPaths.TICKETCONTROLLER + "/" + User.Email + "/" +
+                   "favourites"; //api/ticket/appuser@club.se/favourites
         var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(path);
         return tickets;
     }
@@ -65,9 +66,19 @@ public class TicketAPIService : ITicketAPIService
     }
 
 
-
     public async Task DeleteTicket(Guid? id)
     {
         throw new NotImplementedException();
     }
+}
+
+public class Grouping<TKey, TElement> : List<TElement>, IGrouping<TKey, TElement>
+{
+    public Grouping(TKey key) : base() => Key = key;
+    public Grouping(TKey key, int capacity) : base(capacity) => Key = key;
+
+    public Grouping(TKey key, IEnumerable<TElement> collection)
+        : base(collection) => Key = key;
+
+    public TKey Key { get; }
 }

@@ -83,6 +83,8 @@ public class ApiService : IApiService
             throw new Exception(error["message"]);
         }
 
+        var cont = await response.Content.ReadAsStringAsync();
+
         return await response.Content.ReadFromJsonAsync<T>();
     }
 }

@@ -30,7 +30,7 @@ public class AuctionService
     {
         var query = _slippDbCtx.Auctions
             .Include(a => a.Club)
-            .Include(a => a.Tickets).ThenInclude(t => t.Sale)
+            .Include(a => a.Tickets).ThenInclude(t => t.Order).ThenInclude(o => o.Sale)
             .Include(a => a.Bids).ThenInclude(b => b.AppUser)
             .AsQueryable();
 
