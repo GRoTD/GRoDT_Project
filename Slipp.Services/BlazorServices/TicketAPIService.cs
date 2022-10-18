@@ -7,7 +7,7 @@ public interface ITicketAPIService
 {
     LoggedInUser User { get; }
     Task Initialize();
-    Task<IEnumerable<TicketOutput>> GetTickets(Guid? clubId, string? city);
+    Task<IEnumerable<IEnumerable<TicketOutput>>> GetTickets(Guid? clubId, string? city);
     Task<IEnumerable<TicketOutput>> GetUserTickets(string email);
     Task<TicketOutput> GetTicket(Guid? id);
     Task DeleteTicket(Guid? id);
@@ -35,9 +35,9 @@ public class TicketAPIService : ITicketAPIService
         User = await _localStorageService.GetItem<LoggedInUser>("user");
     }
 
-    public async Task<IEnumerable<TicketOutput>> GetTickets(Guid? clubId, string? city)
+    public async Task<IEnumerable<IEnumerable<TicketOutput>>> GetTickets(Guid? clubId, string? city)
     {
-        var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(ApiPaths.TICKETCONTROLLER);
+        var tickets = await _apiService.Get<IEnumerable<IEnumerable<TicketOutput>>>(ApiPaths.TICKETCONTROLLER);
         return tickets;
     }
 
@@ -50,10 +50,12 @@ public class TicketAPIService : ITicketAPIService
 
     public async Task<IEnumerable<TicketOutput>> GetFavouriteTickets()
     {
-        var path = ApiPaths.TICKETCONTROLLER + "/" + User.Email + "/" + "favourites"; //api/ticket/appuser@club.se/favourites
+        var path = ApiPaths.TICKETCONTROLLER + "/" + User.Email + "/" +
+                   "favourites"; //api/ticket/appuser@club.se/favourites
         var tickets = await _apiService.Get<IEnumerable<TicketOutput>>(path);
         return tickets;
     }
+
 
     public async Task<TicketOutput> GetTicket(Guid? id)
     {
@@ -62,7 +64,6 @@ public class TicketAPIService : ITicketAPIService
 
         return ticket;
     }
-
 
 
     public async Task DeleteTicket(Guid? id)

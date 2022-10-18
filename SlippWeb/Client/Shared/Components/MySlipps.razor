@@ -5,6 +5,7 @@
 @inject NavigationManager NavigationManager
 @inject ITicketAPIService TicketApiService
 @inject PageHistoryState PageHistoryState
+@inject ILocalStorageService LocalStorage
 
 
 @foreach (var ticket in tickets)
@@ -12,22 +13,22 @@
     <MudPaper Class="d-flex align-center slipp-ticket ma-4">
         <MudGrid>
             <MudItem xs="8" Class="d-block pl-4">
-            
+
                 <MudButton OnClick="() => OpenClub(ticket.ClubUrl)" Style="background-color: transparent; padding: 10px 0 0 0;" Class="ClubName" Elevation="0">
                     <MudText Typo="Typo.h3">@ticket.ClubName.ToUpper()</MudText>
                     @*<MudIconButton OnClick="showMap" Color="Color.Primary" Size="Size.Medium" Icon="@Icons.Filled.LocationOn"></MudIconButton>*@
                 </MudButton>
-            
+
                 <MudPaper Style="background-color: transparent; margin-top: 20px;" Elevation="0">
                     <MudText Style="font-size: 14px;" Typo="Typo.body2">Inträde: @ticket.StartValidTime.ToShortDateString() | @ticket.StartValidTime.ToShortTimeString()</MudText>
                     <MudText Style="font-size: 14px;" Typo="Typo.body2">Giltig: @ticket.EndValidTime.ToShortDateString() | @ticket.EndValidTime.ToShortTimeString()</MudText>
                     <MudText Style="font-size: 14px;" Typo="Typo.body2">Antal: 3 biljetter</MudText>
                 </MudPaper>
 
-            </MudItem >
-            
-            <MudItem xs="4" Class="d-flex justify-center align-center" >
-            
+            </MudItem>
+
+            <MudItem xs="4" Class="d-flex justify-center align-center">
+
                 <MudButton OnClick="ShowTicket" Color="Color.Transparent" Style="padding: 0;">
                     <MudPaper Class=" d-flex flex-column justify-center align-center" Style="background-color: transparent;" Elevation="0">
                         <MudIcon Style="Width: 100px; height: 100px;" ViewBox="0 0 24 24" Color="Color.Primary" Icon="@Icons.Filled.QrCode2"></MudIcon>
@@ -36,7 +37,7 @@
                 </MudButton>
 
             </MudItem>
-           
+
         </MudGrid>
     </MudPaper>
 }
@@ -55,7 +56,6 @@
         justify-content: start;
         align-items: center;
     }
-    
 </style>
 
 @code
@@ -65,8 +65,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-       
-        tickets = await TicketApiService.GetTickets(null, null); //TODO - Change to GetUserTickets later.
+        var user = await LocalStorage.GetItem<LoggedInUser>("user");
+
+        tickets = await TicketApiService.GetUserTickets(user.Email); //TODO - Change to GetUserTickets later.
 
         //var UserTickets = await TicketApiService.GetUserTickets(AuthenticationService.User.Email);
 

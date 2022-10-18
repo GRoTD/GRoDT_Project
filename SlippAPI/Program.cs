@@ -13,15 +13,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+var constr = builder.Configuration.GetConnectionString(Path.Combine("SLipp_API_File_DB_Part1"));
+constr += Directory.GetCurrentDirectory();
+constr += builder.Configuration.GetConnectionString(Path.Combine("SLipp_API_File_DB_Part2"));
+
 builder.Services.AddDbContext<SlippDbCtx>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Slipp_API_db_poya"),
+    options.UseSqlite(
+        constr,
         b => b.MigrationsAssembly("SlippAPI")));
+
+//Using SQLite as of now. 
 
 builder.Services.AddIdentityCore<DatabaseUser>(options => { options.Password.RequiredLength = 8; })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SlippDbCtx>();
 
 builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<Database>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<JwtService>();

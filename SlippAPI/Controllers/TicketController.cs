@@ -39,7 +39,7 @@ public class TicketController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<TicketOutput>>> GetTickets([FromQuery] Guid? clubId,
+    public async Task<ActionResult<List<IGrouping<DateTime, TicketOutput>>>> GetTickets([FromQuery] Guid? clubId,
         [FromQuery] string? city)
     {
         //TODO: Catch errors
@@ -56,7 +56,17 @@ public class TicketController : ControllerBase
                     TicketOutput.Create(Url.Action("Get", "Club", new {id = ticket.Club.Id}, "https"), ticket))
                 .ToList();
 
-        return Ok(returnTickets);
+        var listToReturn = new List<IGrouping<DateTime, TicketOutput>>();
+
+        var ticketsGroupedByClub = returnTickets.GroupBy(t => t.ClubName).ToList();
+        foreach (var list in ticketsGroupedByClub)
+        {
+            var ticketsGroupedByDate = list.GroupBy(t => t.StartValidTime).ToList();
+
+            listToReturn.AddRange(ticketsGroupedByDate);
+        }
+
+        return Ok(listToReturn);
     }
 
     [HttpGet]

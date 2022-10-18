@@ -45,7 +45,7 @@ public class TicketService
     {
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
-            .Include(t => t.Sale)
+            .Include(t => t.Order).ThenInclude(o => o.Sale)
             .Include(t => t.Auction)
             .Include(t => t.Images);
 
@@ -60,10 +60,10 @@ public class TicketService
     {
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
-            .Include(t => t.Sale)
+            .Include(t => t.Order).ThenInclude(o => o.Sale)
             .Include(t => t.Images)
             .Where(t => t.Auction == null)
-            .Where(t => t.Sale == null)
+            .Where(t => t.Order.Sale == null)
             .AsQueryable();
 
         //TODO: Can add filtering here. Ex clubId below. 
@@ -83,10 +83,10 @@ public class TicketService
     {
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
-            .Include(t => t.Sale)
+            .Include(t => t.Order).ThenInclude(o => o.Sale)
             .Include(t => t.Images)
             .Where(t => t.Auction == null)
-            .Where(t => t.Sale == null)
+            .Where(t => t.Order.Sale == null)
             .Where(t => t.Club.City.ToUpper() == city.ToUpper())
             .AsQueryable();
 
@@ -108,28 +108,26 @@ public class TicketService
 
     public async Task<List<Ticket>> GetUserTickets(string email)
     {
-
         var query = _slippDbCtx.Tickets
             .Include(t => t.Club)
-            .Include(t => t.Sale)
+            .Include(t => t.Order).ThenInclude(o => o.Sale)
             .Include(t => t.Images)
             .AsQueryable();
 
-        var tickets = await query.Where(t => t.Sale.Buyer.DatabaseUser.Email == email).ToListAsync();
+        var tickets = await query.Where(t => t.Order.AppUser.DatabaseUser.Email == email).ToListAsync();
 
         return tickets;
     }
 
     public async Task<List<Ticket>> GetUserFavouriteTickets(string email)
     {
-
         var query = _slippDbCtx.AppUsers
             .Include(u => u.FavouriteTickets)
-                .ThenInclude(t => t.Club)
+            .ThenInclude(t => t.Club)
             .Include(u => u.FavouriteTickets)
-                .ThenInclude(t => t.Sale)
+            .ThenInclude(t => t.Order).ThenInclude(o => o.Sale)
             .Include(u => u.FavouriteTickets)
-                .ThenInclude(t => t.Images)
+            .ThenInclude(t => t.Images)
             .AsQueryable();
 
 
@@ -138,7 +136,7 @@ public class TicketService
 
         if (user == null) return null; //TODO Change to handleException
         var tickets = user.FavouriteTickets;
-         
+
         return tickets;
     }
 }
