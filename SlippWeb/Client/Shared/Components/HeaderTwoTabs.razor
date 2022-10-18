@@ -1,0 +1,104 @@
+﻿@using System.Text.Encodings.Web
+@using System.ComponentModel.Design
+<MudContainer Fixed="true" Style="padding: 0 0 200px 0;">
+    <MudPaper Width="100%" Square="true" Class="d-flex flex-column justify-center">
+        <MudSwipeArea OnSwipe="@OnSwipe" Style="width: 100%; height: 60px;">
+
+            <MudTabs
+                Rounded="false" 
+                Centered="true" 
+                TabPanelHeaderPosition="TabHeaderPosition.Before" 
+                ApplyEffectsToContainer="true"
+                DisableRipple="false"
+                TabPanelClass="pa-0 tab-width"
+                ActivePanelIndex="@ActiveTabPanel">
+                @*TAB 1*@
+                <MudTabPanel Text="@FirstTabValue">
+                    @switch (FirstTabValue)
+                    {
+                        case "Biljetter":
+                            <FavouriteTickets></FavouriteTickets>
+                            break;
+                    
+                    }
+                </MudTabPanel>
+                @*TAB 2*@
+                <MudTabPanel Text="@SecondTabValue">
+                    @switch (SecondTabValue)
+                    {
+                        case "Klubbar":
+                            <FavouriteClubs></FavouriteClubs>
+                            break;
+                    }
+                </MudTabPanel>
+
+            </MudTabs>
+
+        </MudSwipeArea>
+
+        </MudPaper>
+    </MudContainer>
+    
+    
+<style>
+    .tab-width {
+        min-width: 120px;
+    }
+    .mud-tabs-panels {
+        padding: 20px 0 100px 0;
+    }
+
+    .mud-input>input.mud-input-root {
+        font-size: xx-large;
+    }
+
+</style>
+
+
+@code {
+
+    [Parameter]
+    public string FirstTabValue { get; set; }
+    [Parameter]
+    public string SecondTabValue { get; set; }
+ 
+    
+   
+
+
+    private int ActiveTabPanel;
+
+    public void OnSwipe(SwipeDirection d)
+    {
+
+        if (d == SwipeDirection.LeftToRight)
+        {
+            if (ActiveTabPanel == 0)
+            {
+               return;
+            }
+
+            ActiveTabPanel--;
+            StateHasChanged();
+
+        }
+        else if (d == SwipeDirection.RightToLeft)
+        {
+            if (ActiveTabPanel == 1)
+            {
+                return;
+            }
+            ActiveTabPanel++;
+            StateHasChanged();
+        }
+
+
+    }
+    
+
+  
+
+
+}
+
+    

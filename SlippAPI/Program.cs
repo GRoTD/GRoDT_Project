@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SlippAPI.Services;
+using SlippAPI.Services.Swagger;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,32 +13,99 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+var constr = builder.Configuration.GetConnectionString(Path.Combine("SLipp_API_File_DB_Part1"));
+constr += Directory.GetCurrentDirectory();
+constr += builder.Configuration.GetConnectionString(Path.Combine("SLipp_API_File_DB_Part2"));
+
 builder.Services.AddDbContext<SlippDbCtx>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SlippDb")));
-builder.Services.AddIdentity<DatabaseUser, IdentityRole>()
+    options.UseSqlite(
+        constr,
+        b => b.MigrationsAssembly("SlippAPI")));
+
+//Using SQLite as of now. 
+
+builder.Services.AddIdentityCore<DatabaseUser>(options => { options.Password.RequiredLength = 8; })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SlippDbCtx>();
+
 builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<Database>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<JwtService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("JwtAuth", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        In = ParameterLocation.Header,
+        Description = "Bearer Authorization header with JWT."
+    });
+
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
+
+builder.Services.AddCors();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var key = Encoding.ASCII.GetBytes(builder.Configuration["JwtConfig:Secret"]);
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            RequireExpirationTime = false,
+            ValidateLifetime = true,
+        };
+    });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
-    var ctx = services.GetRequiredService<SlippDbCtx>();
+    var db = services.GetRequiredService<Database>();
 
-    await ctx.Database.EnsureCreatedAsync();
+    await db.RecreateAndSeed();
 }
+/*else // Only for seeding the DB manually on deployment
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var db = services.GetRequiredService<Database>();
+    await db.RecreateAndSeed();
+    // await db.Seed();
+}*/
+
+app.UseDeveloperExceptionPage();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseDeveloperExceptionPage();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+/*app.UseStaticFiles();*/
 
+
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

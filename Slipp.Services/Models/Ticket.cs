@@ -4,12 +4,16 @@ namespace Slipp.Services.Models;
 
 public class Ticket
 {
-    public int Id { get; set; }
-    public string Title { get; set; }
+    public Guid Id { get; set; }
+    public string EventDescription { get; set; }
+
     [Column(TypeName = "money")] public decimal Price { get; set; }
-    public DateTime StartValidTime { get; set; }
-    public DateTime EndValidTime { get; set; }
+    public DateTime StartValidTime { get; set; } //Avser när klubben öppnar
+    public DateTime EndValidTime { get; set; } //Avser när klubben stänger
     public Club Club { get; set; }
-    public Sale? Sale { get; set; }
+    public Order? Order { get; set; }
     public Auction? Auction { get; set; }
+    public List<Image> Images { get; set; }
+
+    public List<AppUser> SavedByUsers { get; set; }
 }

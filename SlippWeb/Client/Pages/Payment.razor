@@ -1,0 +1,197 @@
+﻿@attribute [Authorize]
+@inject PageHistoryState PageHistoryState
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService LocalStorageService;
+@inject ITicketAPIService ApiService
+@inject OrderAPIService OrderApiService
+
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Identity
+@using System.Net.Http.Headers
+
+@page "/pay/{ticketId}" 
+@*Här ska vi sen byta till den aktuella apiQueryn*@
+
+
+<div class="main-container">
+    @switch (OrderIsConfirmed)
+    {
+        case true:
+            <ConfirmedPurchase PurchasedTicket="@Ticket" NumberOfTicketsPurchased="@choosenValue" userName="@userFirstName"></ConfirmedPurchase>
+            break;
+        default:
+            <PageHeader HeaderTitle="Betalning" IncludeBackButton="true"/>
+            <TicketBackside Ticket="@Ticket"></TicketBackside>
+
+            <div class="numberOfTicketsSpinner">
+                <MudIconButton Class="MySpinnerButton" Icon="@Icons.Filled.RemoveCircle" Color="Color.Primary" OnClick="WithdrawTicket"/> 
+                <MudText Class="choosenValue" Typo="Typo.h2">@choosenValue</MudText>
+                <MudIconButton Class="MySpinnerButton" Icon="@Icons.Filled.AddCircle" Color="Color.Primary" OnClick="AddTicket"/>
+
+            </div>
+
+            @*<div class="numericSpinnerContainer">
+                <div class="numericSpinner">
+                    <MudNumericField IconSize="Size.Large" Immediate="@true" @bind-Value="@choosenValue" Label="Antal biljetter:" Variant="@Variant.Text" Min="1" Max="10"/>
+            </div>*@
+
+            
+            <div class="payment-overview">
+                <MudText Align="@Align.Center" Class="mb-4 mt-6 border-b" Typo="@Typo.h2">Översikt</MudText>
+                <MudText Align="@Align.Center" Color="Color.Primary" Typo="@Typo.body1"  >@userFirstName</MudText> 
+                <MudText Align="@Align.Center" Typo="@Typo.body1">Antal biljetter: @choosenValue</MudText>
+                <MudText Align="@Align.Center" Typo="@Typo.body1">Pris per biljett: @Math.Round(Ticket.Price) kr</MudText>
+                <MudText Align="@Align.Center" Typo="@Typo.body1">Totalt belopp: @Math.Round((Ticket.Price) * (@choosenValue)) kr</MudText> 
+
+            </div>
+
+           @* TODO: Länka till swish-betalning: Href=""
+            Target="_blank"*@
+
+            <div class="swish-btn">
+                <MudButton OnClick="PlaceOrder"
+                           Variant="@Variant.Filled"
+                           Color="@Color.Primary">
+                    <div>
+                        <MudText Class="pr-2">Betala med Swish</MudText>
+                    </div>
+                    <div>
+                        <MudImage Src="images/swish.png" Fluid="@true" Width="20"/>
+                    </div>
+                </MudButton>
+                <MudText Class="pt-4" Typo="@Typo.body1">Totalt belopp: @Math.Round((Ticket.Price) * (@choosenValue)) kr</MudText> @*TODO Byt till @userName*@
+
+            </div>
+
+
+
+            <div class="payment-conditions">
+                <MudLink Href="/Home">Avtalsvillkor</MudLink> @*TODO Lägg in rätt länk*@
+                <MudLink Href="/Home">Slutkundsvillkor</MudLink> @*TODO Lägg in rätt länk*@
+            </div>
+            break;
+    }
+</div>
+    
+@code {
+    [Parameter] public string ticketId { get; set; }
+    public int choosenValue { get; set; }
+    public TicketOutput Ticket { get; set; } 
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    public LoggedInUser LoggedInUser { get; set; }
+    public string userFirstName { get; set; }
+    public bool OrderIsConfirmed { get; set; }
+
+    private readonly OrderInput orderInput = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        choosenValue = 1;
+        Ticket = await ApiService.GetTicket(new Guid(ticketId));
+        OrderIsConfirmed = false;
+        LoggedInUser = await LocalStorageService.GetItem<LoggedInUser>("user");
+        userFirstName = LoggedInUser.FirstName + " " + LoggedInUser.LastName;
+
+        PageHistoryState.AddPageToHistory($"/pay/{ticketId}");
+        await base.OnInitializedAsync();
+    }
+
+    public async void PlaceOrder()
+    {
+        /*
+        * hantering för att kolla hur många tickes som finns tillgänliga. Just nu kan man köpa "antalet som står på spinner"
+        */
+        List<string> chosenTickets = new();
+        for(int i = 0; i<=choosenValue; i++)
+        {
+            chosenTickets.Add(Ticket.Id.ToString());
+        }
+
+        orderInput.TicketIds = chosenTickets;
+        orderInput.IssuedDateTime = DateTime.Now;
+
+        await OrderApiService.CreateOrder(orderInput);
+
+        OrderIsConfirmed = true;
+
+    }
+
+    public void AddTicket()
+    {
+        if (choosenValue != 8) /*TODO: Byt till NumberOfTickets*/
+        {
+            choosenValue += 1;
+        }
+
+    }
+    public void WithdrawTicket()
+    {
+        if (choosenValue != 1)
+        {
+            choosenValue -= 1;
+        }
+    }
+}
+
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        
+    }
+    /*.numericSpinnerContainer {
+        width: 90vh;
+        display: flex;
+        justify-content: center;
+    }
+    .numericSpinner {
+        max-width: 100px;
+  
+    }*/
+    .payment-overview {
+        width: 60vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+    }
+    .payment-conditions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px;
+        gap: 50px;
+        
+    }
+   
+    .swish-btn {
+        display: flex;
+        margin: 20px 0;
+        flex-direction: column;
+        align-items: center;
+    }
+    .swish-btn .mud-button {
+        width: 60vw;
+        padding: 10px 20px;
+        
+    }
+    .numberOfTicketsSpinner {
+        display: flex;
+        flex-direction: row;
+        align-items: center
+    }
+    .choosenValue {
+        border: 1.5px dotted #F2C080;
+        width: 50px;
+        margin: 0 5px;
+        text-align: center;
+        
+    }
+    .MySpinnerButton .mud-icon-root{
+        font-size: 50px;
+    }
+</style>

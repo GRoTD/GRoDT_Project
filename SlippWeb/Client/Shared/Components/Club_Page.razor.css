@@ -1,0 +1,39 @@
+﻿.component-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.club-page-header {
+    width: 100%;
+    text-align: center;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+::deep .club-page-header::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.8);
+}
+
+::deep .club-page-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-height: 250px;
+    position: relative;
+    padding-bottom: 15px;
+    
+}
+.club-page-top-icons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    
+}

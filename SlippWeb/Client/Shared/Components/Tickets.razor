@@ -1,0 +1,70 @@
+﻿@using System.Text.Json
+@using System.Text.Json.Serialization;
+@using Slipp.Services.DTO
+@using Slipp.Services.Models
+@using System.Net
+@inject ITicketAPIService TicketApiService
+
+
+
+<div class="main-container">
+    @if (tickets == null)
+    {
+        <MudProgressCircular Size="Size.Large" Color="Color.Primary" Indeterminate="true" />
+    }
+
+    else
+    {
+        @foreach (var ticketGroup in tickets)
+        {
+
+
+            if (favouriteTicketIds.Contains(ticketGroup.First().Id)) //OBS: endast första ticketen i ticketGroup är nu favorit
+            {
+                <TicketCard TicketGroup="ticketGroup" IsFavourite=true/>
+            }
+            else
+            {
+                <TicketCard TicketGroup="ticketGroup" IsFavourite=false />
+            } 
+        }
+    }
+</div>
+
+
+
+
+@code {
+    private IEnumerable<IEnumerable<TicketOutput>> tickets;
+    private List<Guid> favouriteTicketIds;
+
+    protected override async Task OnInitializedAsync()
+    {
+        favouriteTicketIds = new List<Guid>();
+        tickets = await TicketApiService.GetTickets(null, null);
+
+
+        if (TicketApiService.User == null) return;
+        
+        var favouriteTickets = await TicketApiService.GetFavouriteTickets();
+        if (favouriteTickets == null) return;
+
+        foreach (var favouriteTicket in favouriteTickets)
+        {
+            favouriteTicketIds.Add(favouriteTicket.Id);
+        }
+        
+    }
+
+
+}
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+    }
+</style>
+

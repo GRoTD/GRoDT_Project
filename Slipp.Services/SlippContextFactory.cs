@@ -9,7 +9,8 @@ public class SlippContextFactory : IDesignTimeDbContextFactory<SlippDbCtx>
     {
         var optionsBuilder = new DbContextOptionsBuilder<SlippDbCtx>();
         optionsBuilder.UseSqlServer(
-            "Server=(localdb)\\mssqllocaldb;Database=SlippDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+            "Server=(localdb)\\mssqllocaldb;Database=SlippDb;Trusted_Connection=True;MultipleActiveResultSets=true",
+            b => b.MigrationsAssembly("SlippAPI"));
 
         return new SlippDbCtx(optionsBuilder.Options);
     }

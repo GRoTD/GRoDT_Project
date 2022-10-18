@@ -1,0 +1,22 @@
+﻿@page "/MySlipp"
+@inject PageHistoryState PageHistoryState
+@attribute [Authorize]
+
+<PageHeader HeaderTitle="Mina Slipp"></PageHeader>
+
+<HeaderTabs
+    FirstTabValue="Aktuella"
+    SecondTabValue="Pågående"
+    ThirdTabValue="Historik">
+
+</HeaderTabs>
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/MySlipp");
+        base.OnInitialized();
+    }
+
+}

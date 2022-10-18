@@ -1,0 +1,28 @@
+﻿
+
+.header {
+    position: relative;
+    min-height: 200px;
+    background-color: #27272f; /*Byt till rätt färg*/
+    margin: 0;
+}
+
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+
+.header-menu > * {
+    color: white;
+}
+
+.active-line {
+    position: absolute;
+    width: 135px;
+    height: 4px;
+    right: 10px;
+    bottom: 3px;
+    background: #FFFFFF;
+    border-radius: 10px;
+}

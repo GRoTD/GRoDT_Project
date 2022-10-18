@@ -1,0 +1,27 @@
+﻿
+@inject HttpClient Client
+
+
+<div class="main-container">
+  
+        @foreach (var club in favouriteClubs)
+        {
+            <Club_smallCard Club=club IsFavourite=true></Club_smallCard>
+        }
+</div>
+
+
+
+
+
+@code {
+    private ClubOutput[] favouriteClubs;
+    private bool getAuctionsError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        favouriteClubs = await Client.GetFromJsonAsync<ClubOutput[]>("sample-data/clubs.json");
+    }
+
+
+}

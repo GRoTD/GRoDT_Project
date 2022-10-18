@@ -1,0 +1,139 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Identity
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+@*TODO - lägg till visa/göm lösenord*@
+@if (loading == true)
+{
+    <MudPaper
+        Class="loading-bar"
+        Elevation="0">
+        <MudProgressCircular Size="Size.Large" Color="Color.Primary" Indeterminate="true" />
+    </MudPaper>
+
+}
+else{
+    <MudContainer Style="padding: 50% 10% 10% 10%;">
+        <MudText Color="Color.Primary" Align="Align.Center" Typo="Typo.h1">Logga in</MudText>
+        <EditForm Model="@_loginInput" OnValidSubmit="HandleValidSubmit">
+            <MudGrid Justify="Justify.Center">
+                <MudItem Style="Margin-top: 30px;" xs="12" sm="7">
+
+                    <MudTextField
+                        T="string"
+                        Variant="Variant.Outlined"
+                        @bind-Value="@_loginInput.Email"
+                        Label="Email"
+                        Required="true"
+                        For="(() => _loginInput.Email)"
+                        RequiredError="Email is required!"/>
+
+                    <MudTextField
+                        T="string"
+                        Variant="Variant.Outlined"
+                        @bind-Value="@_loginInput.Password"
+                        Label="Password"
+                        InputType="InputType.Password"
+                        Required="true"
+                        For="(() => _loginInput.Password)"
+                        RequiredError="Password is required!"/>
+
+                    <div class=" d-flex mt-6 gap-5">
+                        <MudButton
+                            ButtonType="ButtonType.Submit"
+                            Variant="Variant.Filled"
+                            Size="Size.Large"
+                            Color="Color.Primary"
+                            Class="login-btn">
+                            Logga in
+                        </MudButton>
+
+                        <MudButton
+                            ButtonType="ButtonType.Button"
+                            Variant="Variant.Filled"
+                            Size="Size.Large"
+                            Color="Color.Primary"
+                            OnClick="@(() => NavigationManager.NavigateTo("/register"))"
+                            Class="create-btn">
+                            Skapa konto
+                        </MudButton>
+
+                    </div>
+                </MudItem>
+            </MudGrid>
+
+        </EditForm>
+    </MudContainer>
+}
+
+<style>
+    .mud-input-label-outlined {
+        background-color: #121821;
+    }
+
+    .login-btn {
+        color: #121821
+    }
+
+    .create-btn {
+        color: #F2C080 !important;
+        background-color: #27272f !important;
+    }
+
+    .loading-bar {
+        width: 100vw;
+        height: 90vh;
+        Display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+    }
+
+</style>
+
+
+@code {
+    private readonly LoginInput _loginInput = new();
+    [CascadingParameter] public NavMenu _Parent { get; set; }
+    private bool loading;
+    //private string error; 
+
+    bool success;
+    string error = "";
+    MudForm form;
+
+
+    protected override void OnInitialized()
+    {
+    // redirect to home if already logged in
+        if (AuthenticationService.User != null)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        AuthenticationService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose() //Save the RAM
+    {
+        AuthenticationService.OnChange -= StateHasChanged;
+    }
+
+    private async void HandleValidSubmit()
+    {
+        loading = true;
+        try
+        {
+            await AuthenticationService.Login(_loginInput);
+            loading = false;
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            loading = false;
+        }
+    }
+
+}

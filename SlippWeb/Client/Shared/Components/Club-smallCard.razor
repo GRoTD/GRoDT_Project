@@ -1,0 +1,142 @@
+﻿@using Slipp.Services.DTO
+@using Slipp.Services.Models
+@using System.Net
+@inject NavigationManager NavigationManager
+
+<div>
+    <MudButton OnClick="NavigateToClub">
+
+        <div class="component-content" >
+            <div class="my-club-card" style="background-image: url('@Club.Images[0].Url');">
+                <div class="my-clubCard-content">
+
+                    <MudCardHeader>
+                        <CardHeaderContent>
+                            <div class="club-info club-info-header">
+                                <MudText Typo="Typo.h2">@Club.Name</MudText>
+                                @if(IsFavourite)
+                                {
+                                    <MudIconButton Icon="@Icons.Filled.Favorite" Color="Color.Primary"  OnClick="OnHeartClicked"/> 
+
+                                     <MudMessageBox @ref="mbox"Class="pt-0 my-message-box">
+                        
+                        <MessageContent>
+                            <div class="message-box-icon">
+                            <MudIconButton Class="align-center" Icon="@Icons.Filled.HeartBroken" Color="Color.Primary"></MudIconButton>
+                            </div>
+                            <MudText Align="Align.Center" Typo="Typo.body2">Vill du ta bort klubben? <br> från dina favoriter?</MudText>
+
+
+                        </MessageContent>
+                        <YesButton>
+                            <MudButton Color="Color.Error">Ja!</MudButton>
+                        </YesButton>
+                        <CancelButton>
+                            <MudButton Color="Color.Primary">Nej!</MudButton>
+                        </CancelButton>
+                    </MudMessageBox>
+                                }
+                                else
+                                {
+                                    <MudIconButton Icon="@Icons.Filled.FavoriteBorder" Color="Color.Primary"  OnClick="OnHeartClicked"/> 
+                                }
+                            </div>
+                        </CardHeaderContent>
+
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <div class="club-info">
+                            <MudIconButton Icon="@Icons.Filled.LocationOn" Color="Color.Default"/>
+                            <MudText Typo="Typo.body2">@Club.Address</MudText>
+                        </div>
+                        <div class="club-description">
+                            <MudText Typo="Typo.body2">@Club.Description.Substring(0, 100)... </MudText>
+                        </div>
+                    </MudCardContent>
+
+                </div>
+            </div>
+        </div>
+    </MudButton>
+</div>
+ 
+@code {
+    [Parameter] public ClubOutput Club { get; set; }
+
+    [Parameter] public bool IsFavourite { get; set;}
+
+    public string pageToGoToUrl { get; set; }
+    public string returnUrl { get; set; }
+    
+    MudMessageBox mbox { get; set; }
+    string state = "Message box hasn't been opened yet";
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+ 
+    }
+    private async void OnHeartClicked()
+    {
+        
+        if (IsFavourite)
+        {
+            bool? result = await mbox.Show();
+            state= result==null ? "Cancelled" : "Deleted!";
+            
+            if (result==true)
+            {
+                StateHasChanged();
+                MakeFavourite();
+            }
+        }
+        else
+        {
+            MakeFavourite();
+        }
+        
+        
+    }
+    public void MakeFavourite()
+    {
+        if (IsFavourite)
+        {
+            IsFavourite = false;
+            @*ToDO Ta bort ur favoriter-listan*@
+        }
+        else
+        {
+            IsFavourite = true;
+            @*TODO Lägg till i favoriter-listan*@
+        }
+    }
+
+    public void NavigateToClub()
+    {
+        pageToGoToUrl =  "klubb/" + Club.Id; //TODO KOlla om klubben är favorit i så fall ska hjärtat fyllas i på nästa sida - typ skicka in parameter isFavourite = true
+        returnUrl = WebUtility.UrlEncode(new Uri(NavigationManager.Uri).PathAndQuery);
+
+        NavigationManager.NavigateTo($"{pageToGoToUrl}?returnUrl={returnUrl}");
+        
+    }
+  
+    
+
+}
+
+<style>
+    .message-box-icon {
+        display: flex;
+        justify-content: center;
+    }
+    ::deep .mud-dialog-actions{
+        justify-content: center !important;
+    }
+    .mud-dialog .mud-dialog-title{
+    padding: 0 !important;
+    }
+    .mud-dialog .mud-dialog-actions {
+    justify-content:center;
+    }
+</style>

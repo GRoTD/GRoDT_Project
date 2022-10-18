@@ -1,0 +1,145 @@
+﻿@page "/register"
+
+@inject IAuthenticationService AuthenticationService
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using Slipp.Services.DTO
+
+
+<MudContainer Style="padding: 10%;">
+    <MudText Color="Color.Primary" Align="Align.Center" Typo="Typo.h4">Skapa konto</MudText>
+    <EditForm Model="@createAppUser" OnValidSubmit="HandleValidSubmit">
+        <MudGrid Justify="Justify.Center">
+            <MudItem Style="Margin-top: 30px;" xs="12" sm="7">
+
+                <MudTextField 
+                        T="string" 
+                        Variant="Variant.Outlined" 
+                        @bind-Value="@createAppUser.FirstName" 
+                        Label="Förnamn" 
+                        Required="true" 
+                        RequiredError="Du måste ange förnamn!"
+                        For="(() => createAppUser.FirstName)"/>
+
+                    <MudTextField 
+                        T="string" 
+                        Variant="Variant.Outlined" 
+                        @bind-Value="@createAppUser.LastName" 
+                        Label="Efternamn" 
+                        Required="true" 
+                        RequiredError="Du måste ange efternamn!" 
+                        For="(() => createAppUser.LastName)"/>
+
+                    <MudTextField 
+                        T="string" 
+                        Variant="Variant.Outlined" 
+                        @bind-Value="@createAppUser.Email" 
+                        Label="E-post" 
+                        Required="true" 
+                        RequiredError="Du måste ange en e-postadress!"
+                        Validation="@(new EmailAddressAttribute() {ErrorMessage = "E-postadressen är inte giltig"})"
+                        For="(() => createAppUser.Email)"/>
+                        
+
+                <MudTextField 
+                        T="string" 
+                        Variant="Variant.Outlined" 
+                        Label="Lösenord" 
+                        HelperText="Använd minst åtta tecken och en kombination av bokstäver, siffror och symboler" 
+                        @ref="pwField1"
+                        InputType="InputType.Password"
+                        Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" 
+                        Required="true"
+                        RequiredError="Du måste ange ett lösenord!" 
+                        For="(() => createAppUser.Password)"/>
+
+                    <MudTextField 
+                        T="string" 
+                        Variant="Variant.Outlined" 
+                        @bind-Value="@createAppUser.Password"
+                        Label="Lösenord" 
+                        HelperText="Upprepa lösenord" 
+                        InputType="InputType.Password"
+                        Validation="@(new Func<string, string>(PasswordMatch))"/>
+
+                    <div class="d-flex align-center justify-content-start gap-1 mt-2">
+                        <MudCheckBox T="bool" Color="Color.Primary" Required="true" RequiredError="Du måste acceptera våra vilkor" Class="ml-n2" Label="Acceptera våra"/>
+                        <MudLink Href="#" Underline="Underline.Always">vilkor</MudLink>
+                        @*TODO - LÄnka/Modal till en "terms and conditions"*@
+                    </div>
+                    <div class="d-flex align-center justify-content-start">
+                    <MudCheckBox Color="Color.Primary" T="bool" Required="true" RequiredError="Du måste acceptera" Class="ml-n2" Label="Är 18 år eller äldre"/>
+                    </div>
+                <div class=" float-end mt-6">
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Size="Size.Large" Color="Color.Primary" Class="ml-auto">Registrera</MudButton>
+                </div>
+                @*TODO Submit och accept terms är ingen regel på för registrering.*@
+
+                        
+              
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+</MudContainer>
+
+<style>
+    .mud-input-label-outlined {
+        background-color: #121821;
+    }
+
+</style>
+
+@code {
+
+    private readonly CreateAppUserInput createAppUser = new();
+
+    bool success;
+    string[] errors = { };
+    MudTextField<string> pwField1;
+
+    private IEnumerable<string> PasswordStrength(string pw)
+    {
+
+        if (string.IsNullOrWhiteSpace(pw))
+        {
+            yield return "Du måste ange ett lösenord!";
+            yield break;
+        }
+        if (pw.Length < 8)
+            yield return "Lösenordet måste innehålla minst 8 tecken";
+        if (!Regex.IsMatch(pw, @"[A-Z]"))
+            yield return "Lösenordet måste innehålla minst en stor bokstav";
+        if (!Regex.IsMatch(pw, @"[a-z]"))
+            yield return "Lösenordet måste innehålla minst en liten bokstav";
+        if (!Regex.IsMatch(pw, @"[0-9]"))
+            yield return "Lösenordet måste innehålla minst en siffra";
+        if (!Regex.IsMatch(pw, @"[^a-zA-Z0-9\\s:]"))
+            yield return "Lösenordet måste innehålla minst en symbol";
+
+    }
+
+    private string PasswordMatch(string arg)
+    {
+        if (pwField1.Value != arg)
+            return "Lösenorden matchar inte";
+        return null;
+    }
+
+
+    private async void HandleValidSubmit()
+    {
+        try
+        {
+            await AuthenticationService.Register(createAppUser); /*TODO - Show loader on while waiting*/
+        }
+        catch (Exception ex)
+        {
+            //errors = ex.Message;
+            StateHasChanged();
+        }
+    }
+}
+
+
+

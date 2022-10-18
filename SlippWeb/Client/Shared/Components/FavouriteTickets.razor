@@ -1,0 +1,34 @@
+﻿@inject ITicketAPIService TicketApiService
+
+
+<div class="main-container">
+    @foreach (var ticket in favouriteTickets)
+    {
+
+        <TicketCard Ticket=ticket IsFavourite=true></TicketCard>
+    }
+</div>
+
+
+<style>
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+    }
+</style>
+
+
+@code {
+
+    private IEnumerable<TicketOutput> favouriteTickets;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        favouriteTickets = await TicketApiService.GetFavouriteTickets();
+    }
+
+
+}

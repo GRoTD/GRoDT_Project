@@ -1,34 +1,85 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">SlippWeb</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using MudBlazor.Utilities
+@using System.Dynamic
+@using System.Formats.Asn1
+@using System.Linq.Expressions
+@using System.Net.Mime
+@using System.Security.Cryptography.X509Certificates
+@using Microsoft.EntityFrameworkCore.Design.Internal
+@using Microsoft.VisualBasic.CompilerServices
+@using MudBlazor.Charts.SVG.Models
+@inject IAuthenticationService AuthenticationService
+@implements IDisposable
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-    </nav>
-</div>
 
+@*TODO - Hide appbar if soft/OnScreen keyboard is showing*@
+@*TODO - Filled and outlined icons while on page*@
+
+<MudAppBar Class="py-1" DisableGutters="false" Fixed="true" Bottom="true">
+    <MudGrid Justify="Justify.SpaceAround">
+        <MudItem>
+            <MudLink Href="/" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Home" Title="HOME" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Typo="Typo.h6" Color="Color.Primary">HEM</MudText>
+            </MudLink>
+        </MudItem>
+        
+        <MudItem>
+            <MudLink Href="/Clubs" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Search" Title="CLUBS" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Typo="Typo.h6" Color="Color.Primary">KLUBBAR</MudText>
+            </MudLink>
+        </MudItem>
+
+        <MudItem>
+            <MudLink Href="/Favourites" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Favorite" Title="LIKES" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Typo="Typo.h6" Color="Color.Primary">FAVORITER</MudText>
+            </MudLink>
+        </MudItem>
+
+        <MudItem>
+            <MudLink Href="/MySlipp" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudImage Style="width: 35px; padding: 6px 0;" Src="../icons/SlippTicket5.svg"></MudImage>
+                <MudText Typo="Typo.h6" Color="Color.Primary">MINA SLIPP</MudText>
+            </MudLink>
+        </MudItem>
+
+        @if (AuthenticationService.User != null)
+        {
+            <MudItem>
+                <MudLink Href="/Account" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                    <MudIcon Icon="@Icons.Filled.Person" Title="USER" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                    <MudText Typo="Typo.h6" Color="Color.Primary">KONTO</MudText>
+                </MudLink>
+            </MudItem>
+
+        }
+        else
+        {
+            <MudItem>
+            <MudLink Href="/Login" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
+                <MudIcon Icon="@Icons.Filled.Login" Title="LOGIN" Color="Color.Primary" Size="Size.Large"></MudIcon>
+                <MudText Typo="Typo.h6" Color="Color.Primary">LOGGA IN</MudText>
+            </MudLink>
+        </MudItem>
+        
+        }
+
+    </MudGrid>
+</MudAppBar>
+
+              
 @code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    protected override void OnInitialized()
     {
-        collapseNavMenu = !collapseNavMenu;
+        AuthenticationService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose() //Save the RAM!
+    {
+        AuthenticationService.OnChange -= StateHasChanged;
     }
 }
+

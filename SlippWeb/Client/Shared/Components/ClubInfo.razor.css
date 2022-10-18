@@ -1,0 +1,42 @@
+﻿.club-page-info {
+    padding: 0px 20px;
+    
+    min-height: 60vh;
+}
+
+.club-page-info .club-info {
+    margin-top: 15px;
+}
+
+.carouselItem {
+    height: 100%;
+    width: 100vw;
+}
+
+
+::deep .club-info .mud-icon-button {
+    padding: 6px 6px 6px 0;
+}
+
+::deep .club-info .mud-avatar {
+    margin-right: 10px;
+}
+.openingsHours {
+    margin-top: 15px;
+    border: 1.5px dotted #F2C080;
+    border-radius: 2px;
+    padding: 10px;
+    font-style: italic;
+}
+.clubMap {
+    width: 100vw;
+}
+.clubMapImage {
+    width: 100%;
+}
+.clubContactInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}

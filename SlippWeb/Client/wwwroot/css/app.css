@@ -1,4 +1,13 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+﻿
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../Fonts/Montserrat/Montserrat-Regular.ttf)
+}
+
+@font-face {
+    font-family: 'Josefin Sans';
+    src: url(../Fonts/JosefinSans/JosefinSans-Regular.ttf)
+}
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -31,7 +40,8 @@ a, .btn-link {
 }
 
 .validation-message {
-    color: red;
+    color: white;
+    margin: 5px;
 }
 
 #blazor-error-ui {

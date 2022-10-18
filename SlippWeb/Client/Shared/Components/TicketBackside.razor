@@ -1,0 +1,70 @@
+<div class="component-content">
+    <div class="ticketFrame" >
+        <MudImage Fluid="true" Src="images/ticket2.png" Class="ticketFrame"/>
+        
+        <div class="my-ticketBackside-content">
+                
+            <div id="content-left">
+                <MudText Color="Color.Dark" Typo="Typo.h2">@Ticket.ClubName</MudText>
+                <MudText Color="Color.Dark" Typo="Typo.body2">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
+                <MudText Color="Color.Dark" Typo="Typo.body1">Tillgängliga biljetter:</MudText>
+                    <MudText Color="Color.Dark" Typo="Typo.h3">8</MudText> @*TODO Här ska vi byta till list.count*@
+            </div>
+            <div id="content-right">
+                <MudText Color="Color.Dark" Typo="Typo.h5">&#x2022; 1 x Entré</MudText>
+                <MudText Color="Color.Dark" Typo="Typo.h5">&#x2022; 1 x Köföreträde</MudText>
+                <MudText Color="Color.Dark" Typo="Typo.h5">&#x2022; 1 x Drinkbiljett</MudText>
+                
+                <MudText Class="mt-4" Color="Color.Dark" Typo="Typo.h3">@Math.Round(Ticket.Price) SEK</MudText>
+                <MudText Color="Color.Dark" Typo="Typo.h5">per person</MudText>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+@code {
+    [Parameter] public TicketOutput Ticket { get; set; }
+}
+
+<style>
+    ::deep .component-content {
+       
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      
+        
+    }
+    .ticketFrame {
+        width: 90vw;
+        margin: 20px 0 10px 0;
+        text-align: center;
+        position: relative;
+    }
+   
+    
+    .my-ticketBackside-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: white;
+    }
+    #content-left {
+        flex: 1 1 65%;
+        
+    
+    }
+
+    #content-right {
+        flex: 1 1 35%;
+        text-align: left;
+        padding-left: 3%;
+    }
+</style>

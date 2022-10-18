@@ -1,0 +1,17 @@
+﻿@page "/"
+@inject PageHistoryState PageHistoryState
+<SearchSelector Title="Sök plats" SearchFor="location"> </SearchSelector>
+<HeaderTabs
+    FirstTabValue="Sista minuten"
+    SecondTabValue="Förköp"
+    ThirdTabValue="Auktioner">
+</HeaderTabs>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/");
+        base.OnInitialized();
+    }
+}
