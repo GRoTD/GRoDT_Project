@@ -5,6 +5,7 @@
 @inject NavigationManager NavigationManager
 @inject ITicketAPIService TicketApiService
 @inject PageHistoryState PageHistoryState
+@inject ILocalStorageService LocalStorage
 
 
 @foreach (var ticket in tickets)
@@ -65,8 +66,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-       
-        tickets = await TicketApiService.GetTickets(null, null); //TODO - Change to GetUserTickets later.
+        var user = await LocalStorage.GetItem<LoggedInUser>("user");
+
+        tickets = await TicketApiService.GetUserTickets(user.Email); //TODO - Change to GetUserTickets later.
 
         //var UserTickets = await TicketApiService.GetUserTickets(AuthenticationService.User.Email);
 

@@ -21,11 +21,11 @@
 
             if (favouriteTicketIds.Contains(ticketGroup.First().Id)) //OBS: endast första ticketen i ticketGroup är nu favorit
             {
-                <TicketCard TicketGroup=ticketGroup.First() IsFavourite=true/>
+                <TicketCard TicketGroup="ticketGroup" IsFavourite=true/>
             }
             else
             {
-                <TicketCard TicketGroup=ticketGroup.First() IsFavourite=false />
+                <TicketCard TicketGroup="ticketGroup" IsFavourite=false />
             } 
         }
     }
