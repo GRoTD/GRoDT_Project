@@ -77,24 +77,13 @@
 @code {
     [Parameter] public string ticketId { get; set; }
     public int choosenValue { get; set; }
-    public TicketOutput Ticket { get; set; } //Detta ska sen bytas till en lista med tickets
+    public TicketOutput Ticket { get; set; } 
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     public LoggedInUser LoggedInUser { get; set; }
     public string userFirstName { get; set; }
     public bool OrderIsConfirmed { get; set; }
 
     private readonly OrderInput orderInput = new();
-
-    /* 
-    * usern klickar
-    * bekräfta klick
-    * skapar order (model) -> client side kallar på vår api som kallar på databasen för att spara en order
-    * kallar på swishs api -> om OK
-    * skapar en sale som är kopplad till tidigare order -> om OK
-    * apin säger OK sale är skapad -> (felhantering superviktigt)
-    * bekräfta usern (ui finns)
-
-    */
 
     protected override async Task OnInitializedAsync()
     {
@@ -114,17 +103,16 @@
         /*
         * hantering för att kolla hur många tickes som finns tillgänliga. Just nu kan man köpa "antalet som står på spinner"
         */
-        List<TicketOutput> chosenTickets = new();
+        List<string> chosenTickets = new();
         for(int i = 0; i<=choosenValue; i++)
         {
-            chosenTickets.Add(Ticket);
+            chosenTickets.Add(Ticket.Id.ToString());
         }
 
-        orderInput.Tickets = chosenTickets;
+        orderInput.TicketIds = chosenTickets;
         orderInput.IssuedDateTime = DateTime.Now;
 
-        //fan
-        await OrderApiService.CreateOrder(chosenTickets);
+        await OrderApiService.CreateOrder(orderInput);
 
         OrderIsConfirmed = true;
 

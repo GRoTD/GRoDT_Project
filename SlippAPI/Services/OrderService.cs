@@ -18,7 +18,15 @@ namespace SlippAPI.Services
             //TODO: Instead Throw exception to show what actually went wrong.
             if (appUser is null) return null;
 
-            var newOrder = orderInput.CreateOrder(appUser);
+            var tickets = new List<Ticket>();
+
+            foreach(var ticketId in orderInput.TicketIds)
+            {
+                var ticket = await _slippDbCtx.Tickets.FindAsync(ticketId);
+                tickets.Add(ticket);
+            }
+
+            var newOrder = orderInput.CreateOrder(appUser, tickets);
 
             await _slippDbCtx.AddAsync(newOrder);
             _slippDbCtx.SaveChanges(); //behövs denna?

@@ -70,8 +70,11 @@
 
 
 @code {
-    
+
     [Parameter] public IGrouping<DateTime,TicketOutput> TicketGroup { get; set; }
+
+    public List<TicketOutput> TickesToSendToOrder { get; set; }
+
     public TicketOutput Ticket { get; set; }
     public string pageToGoToUrl { get; set; }
     MudMessageBox? mbox { get; set; }
@@ -139,6 +142,12 @@
         //Ticket.id ska ersättas av ticketsIds för alla i gruppen, foreachloop?
 
         // ex: "pay/?ids=id1,id2,id3,id4,id5,id6,id7,id8 osv)
+
+        //google hur man gör om en lista till en queryParameter
+       
+
+        //här vill jag bara skicka med en lista på ticketsId till payment sidan.
+
         pageToGoToUrl =  "pay/"+Ticket.Id; //TODO TicketId ska sen bytas mot query
         NavigationManager.NavigateTo($"{pageToGoToUrl}");
     }

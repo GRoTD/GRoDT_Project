@@ -28,11 +28,11 @@ namespace Slipp.Services.BlazorServices
             User = await _localStorageService.GetItem<LoggedInUser>("user");
         }
 
-        public async Task<OrderOutput> CreateOrder (List<TicketOutput> chosenTickets)
+        public async Task<OrderOutput> CreateOrder (OrderInput orderInput)
         {
     
             var path = ApiPaths.ORDERCONTROLLER;
-            return await _apiService.Post<OrderOutput>(path, chosenTickets);
+            return await _apiService.Post<OrderOutput>(path, orderInput);
         }
     }
 }

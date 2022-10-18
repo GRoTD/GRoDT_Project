@@ -12,15 +12,15 @@ namespace Slipp.Services.DTO
         public DateTime IssuedDateTime { get; set; }
 
         //borde den här ta in TicketOutput istället?
-        public List<Ticket> Tickets { get; set; }
+        public List<string> TicketIds { get; set; }
 
-        public Order CreateOrder(AppUser appUser)
+        public Order CreateOrder(AppUser appUser, List<Ticket> tickets)
         {
             Order order = new Order
             {
                 AppUser = appUser,
                 IssuedDateTime = IssuedDateTime,
-                Tickets = Tickets
+                Tickets = tickets
                 
             };
             return order;
