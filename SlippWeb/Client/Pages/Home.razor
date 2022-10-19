@@ -1,11 +1,10 @@
 ﻿@page "/"
 @inject PageHistoryState PageHistoryState
-
-<LocationSelect></LocationSelect>
+<SearchSelector Title="Sök plats" SearchFor="location"> </SearchSelector>
 <HeaderTabs
-    FirstTabValue="Biljetter"
-    SecondTabValue="Auktioner"
-    ThirdTabValue="Nattklubbar">
+    FirstTabValue="Sista minuten"
+    SecondTabValue="Förköp"
+    ThirdTabValue="Auktioner">
 </HeaderTabs>
 
 @code

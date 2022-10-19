@@ -4,10 +4,16 @@
 <div class="page-header">
     
     
+    @if(IncludeBackButton){
         <div class="header-top-icons">
             <MudIconButton Size="Size.Medium" Icon="@Icons.Filled.ArrowCircleLeft" Color="Color.Primary" OnClick="GoBack"/>
         </div>
-
+        }
+    else
+    {
+        <div class="header-top-icons-space">
+        </div>
+    }
     <div >
         <MudText Color="Color.Primary" Typo="Typo.h2">@HeaderTitle</MudText>
     </div>
@@ -22,6 +28,7 @@
 
 @code {
     [Parameter] public string HeaderTitle { get; set; }
+    [Parameter] public bool IncludeBackButton { get; set; }
     
     public void GoBack()
     {
@@ -45,5 +52,9 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+    }
+
+    .header-top-icons-space {
+        margin-top: 48px;
     }
 </style>

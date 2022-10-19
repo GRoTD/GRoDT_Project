@@ -64,6 +64,7 @@ public class TicketService
             .Include(t => t.Images)
             .Where(t => t.Auction == null)
             .Where(t => t.Order.Sale == null)
+            .OrderBy(t => t.StartValidTime)
             .AsQueryable();
 
         //TODO: Can add filtering here. Ex clubId below. 

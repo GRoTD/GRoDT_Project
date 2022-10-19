@@ -32,6 +32,9 @@ namespace SlippAPI.Services
             _slippDbCtx.SaveChanges(); //behövs denna?
 
             return newOrder;
+
         }
+
+
     }
 }

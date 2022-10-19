@@ -21,8 +21,10 @@ namespace Slipp.Services.DTO
                 AppUser = appUser,
                 IssuedDateTime = IssuedDateTime,
                 Tickets = tickets
+                
             };
             return order;
         }
+
     }
 }

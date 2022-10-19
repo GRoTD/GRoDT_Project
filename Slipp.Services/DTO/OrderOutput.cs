@@ -10,6 +10,7 @@ namespace Slipp.Services.DTO
 {
     public class OrderOutput
     {
+
         [JsonPropertyName("issuedDateTime")] public DateTime IssuedDateTime { get; set; }
 
         //Det borde nog vara public List<TicketOutput> här, men hur? 
@@ -22,8 +23,9 @@ namespace Slipp.Services.DTO
                 IssuedDateTime = order.IssuedDateTime,
                 Tickets = order.Tickets
             };
-
-            return outputOrder;
+        
+        return outputOrder;
+    
         }
     }
 }
