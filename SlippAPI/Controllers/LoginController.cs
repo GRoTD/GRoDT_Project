@@ -28,7 +28,7 @@ public class LoginController : ControllerBase
             .Include(u => u.AppUser)
             .Include(u => u.Club)
             .Include(u => u.Company)
-            .FirstOrDefaultAsync(u => u.Email == input.Email);
+            .FirstOrDefaultAsync(u => u.NormalizedEmail == input.Email.ToUpper());
 
         if (user == null)
             return BadRequest("Failed login attempt");

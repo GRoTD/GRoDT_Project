@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Slipp.Services.BlazorServices;
+using SlippWeb.Client.BlazorServices;
 
-namespace Slipp.Services.Helpers;
+namespace SlippWeb.Client.Helpers;
 
 public class AppRouteView : RouteView
 {

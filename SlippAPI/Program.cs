@@ -79,7 +79,7 @@ if (app.Environment.IsDevelopment())
     var services = scope.ServiceProvider;
     var db = services.GetRequiredService<Database>();
 
-    await db.RecreateAndSeed();
+    await db.SeedIfPrductionAndDbIsNotCreated();
 }
 /*else // Only for seeding the DB manually on deployment
 {

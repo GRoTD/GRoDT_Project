@@ -2,7 +2,7 @@
 using System.Web;
 using Microsoft.AspNetCore.Components;
 
-namespace Slipp.Services.Helpers;
+namespace SlippWeb.Client.Helpers;
 
 public static class ExtensionMethods
 {
