@@ -5,7 +5,7 @@
 @using SlippWeb.Client.BlazorServices.State
 @inject NavigationManager NavigationManager
 @inject IAuthenticationService AuthenticationService
-@inject WalletStateContainer ShoppingCartStateContainer
+@inject WalletStateContainer WalletState
 
 @implements IDisposable
 
@@ -91,12 +91,12 @@
     protected override async Task OnInitializedAsync()
     {
         Ticket = TicketGroup.First();
-        ShoppingCartStateContainer.OnChange += StateHasChanged;
+        WalletState.OnChange += StateHasChanged;
     }
 
     public void Dispose()
     {
-        ShoppingCartStateContainer.OnChange -= StateHasChanged;
+        WalletState.OnChange -= StateHasChanged;
     }
 
     private async void OnHeartClicked()
@@ -159,7 +159,7 @@
 
         //här vill jag bara skicka med en lista på ticketsId till payment sidan.
 
-        ShoppingCartStateContainer.CurrentTickets = TicketGroup
+        WalletState.CurrentTickets = TicketGroup
 
         //pageToGoToUrl = "pay/" + Ticket.Id; //TODO TicketId ska sen bytas mot query
         NavigationManager.NavigateTo("/pay")

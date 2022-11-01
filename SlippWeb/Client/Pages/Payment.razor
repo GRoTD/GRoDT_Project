@@ -4,7 +4,7 @@
 @inject ILocalStorageService LocalStorageService;
 @inject ITicketAPIService ApiService
 @inject OrderAPIService OrderApiService
-@inject WalletStateContainer ShoppingCartStateContainer
+@inject WalletStateContainer WalletState
 
 @implements IDisposable
 
@@ -14,7 +14,7 @@
 @using System.Net.Http.Headers
 @using SlippWeb.Client.BlazorServices.State
 
-@page "/pay/{ticketId}" 
+@page "/pay" 
 @*Här ska vi sen byta till den aktuella apiQueryn*@
 @*//TODO: Ändra alla ställen som har Ticket till att ha IEnumerable<TicketOutput>*@
 @*//TODO: Denna sidan borde ses över namnet på. Borde typ vara något i stil med CreateOrder*@
@@ -92,7 +92,7 @@
     protected override async Task OnInitializedAsync()
     {
 
-        ShoppingCartStateContainer.OnChange += StateHasChanged;
+        WalletState.OnChange += StateHasChanged;
         choosenValue = 1;
         OrderIsConfirmed = false;
         LoggedInUser = await LocalStorageService.GetItem<LoggedInUser>("user");
@@ -105,7 +105,7 @@
 
     public void Dispose()
     {
-        ShoppingCartStateContainer.OnChange -= StateHasChanged;
+        WalletState.OnChange -= StateHasChanged;
     }
 
     public async void PlaceOrder()
@@ -130,7 +130,7 @@
 
     public void AddTicket()
     {
-        if (choosenValue != ShoppingCartStateContainer.CurrentTickets.Count)
+        if (choosenValue != WalletState.CurrentTickets.Count)
         {
             choosenValue += 1;
         }

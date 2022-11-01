@@ -2,7 +2,7 @@
 
 namespace SlippWeb.Client.BlazorServices.State;
 
-public class ShoppingCartStateContainer
+public class WalletStateContainer
 {
     private List<TicketOutput> _currentTickets;
 
