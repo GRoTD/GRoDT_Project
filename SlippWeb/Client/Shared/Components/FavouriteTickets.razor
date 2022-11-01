@@ -2,10 +2,9 @@
 
 
 <div class="main-container">
-    @foreach (var ticket in favouriteTickets)
+    @if(favouriteTickets is not null)
     {
-
-        <TicketCard Ticket=ticket IsFavourite=true></TicketCard>
+        <TicketCard TicketGroup=@favouriteTickets IsFavourite=true></TicketCard>
     }
 </div>
 
