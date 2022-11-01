@@ -115,7 +115,8 @@ public class TicketService
             .Include(t => t.Images)
             .AsQueryable();
 
-        var tickets = await query.Where(t => t.Order.AppUser.DatabaseUser.Email == email).ToListAsync();
+        var tickets = await query.Where(t => t.Order.AppUser.DatabaseUser.NormalizedEmail == email.ToUpper())
+            .ToListAsync();
 
         return tickets;
     }
@@ -132,7 +133,7 @@ public class TicketService
             .AsQueryable();
 
 
-        var user = await query.FirstOrDefaultAsync(u => u.DatabaseUser.Email == email);
+        var user = await query.FirstOrDefaultAsync(u => u.DatabaseUser.NormalizedEmail == email.ToUpper());
 
 
         if (user == null) return null; //TODO Change to handleException

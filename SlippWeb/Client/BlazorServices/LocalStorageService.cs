@@ -1,7 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using System.Text.Json;
 
-namespace Slipp.Services.BlazorServices;
+namespace SlippWeb.Client.BlazorServices;
 
 public interface ILocalStorageService
 {

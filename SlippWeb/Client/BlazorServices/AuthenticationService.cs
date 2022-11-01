@@ -2,7 +2,7 @@
 using Slipp.Services.Constants;
 using Slipp.Services.DTO;
 
-namespace Slipp.Services.BlazorServices;
+namespace SlippWeb.Client.BlazorServices;
 
 public interface IAuthenticationService
 {

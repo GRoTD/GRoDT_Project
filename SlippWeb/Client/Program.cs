@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
-using Slipp.Services.BlazorServices;
+using SlippWeb.Client.BlazorServices;
 using SlippWeb.Client;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -17,6 +17,7 @@ builder.Services
     .AddSingleton<IAuthenticationService, AuthenticationService>()
     .AddSingleton<ITicketAPIService, TicketAPIService>()
     .AddSingleton<ILocalStorageService, LocalStorageService>()
+    .AddSingleton<OrderAPIService>()
     .AddSingleton<PageHistoryState>();
 
 
@@ -26,7 +27,6 @@ var host = builder.Build();
 
 var authenticationService = host.Services.GetRequiredService<IAuthenticationService>();
 await authenticationService.Initialize();
-var ticketService = host.Services.GetRequiredService<ITicketAPIService>();
-await ticketService.Initialize();
+
 
 await host.RunAsync();

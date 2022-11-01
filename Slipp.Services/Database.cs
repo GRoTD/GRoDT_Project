@@ -20,7 +20,7 @@ public class Database
     {
         var created = await _slippDbCtx.Database.EnsureCreatedAsync();
 
-        if (!created) await Seed();
+        if (created) await Seed();
     }
 
     public async Task RecreateAndSeed()
@@ -154,6 +154,7 @@ public class Database
 
         var clubUser = new DatabaseUser
         {
+            Id = "ace63942-b146-4843-bfac-b9ee0acda417",
             Club = club,
             UserName = "clubUser@club.se",
             Email = "clubUser@club.se"
@@ -161,17 +162,19 @@ public class Database
 
         var AppUser = new DatabaseUser
         {
+            Id = "ba171f79-bf12-4862-8c8b-5556ee13e123",
             AppUser = new AppUser
             {
                 FirstName = "Ellen",
                 LastName = "Lundell"
-            },
+        },
             UserName = "appUser@club.se",
             Email = "appUser@club.se"
         };
 
         var CompanyUser = new DatabaseUser
         {
+            Id = "5963d781-6e33-4072-a585-6c6d6e7f891f",
             Company = company,
             UserName = "companyUser@club.se",
             Email = "companyUser@club.se"
