@@ -1,3 +1,6 @@
+@using SlippWeb.Client.BlazorServices.State
+@inject WalletStateContainer WalletState
+
 <div class="component-content">
     <div class="ticketFrame" >
         <MudImage Fluid="true" Src="images/ticket2.png" Class="ticketFrame"/>
@@ -8,7 +11,7 @@
                 <MudText Color="Color.Dark" Typo="Typo.h2">@Ticket.ClubName</MudText>
                 <MudText Color="Color.Dark" Typo="Typo.body2">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
                 <MudText Color="Color.Dark" Typo="Typo.body1">Tillgängliga biljetter:</MudText>
-                    <MudText Color="Color.Dark" Typo="Typo.h3">@TicketGroup.Count</MudText> @*TODO Här ska vi byta till list.count*@
+                    <MudText Color="Color.Dark" Typo="Typo.h3">@TicketGroup.Count()</MudText>
             </div>
             <div id="content-right">
                 <MudText Color="Color.Dark" Typo="Typo.h5">&#x2022; 1 x Entré</MudText>
@@ -25,6 +28,18 @@
     
 
 @code {
+
+     //TODO varför behövde jag[Parameter] igen? 
+    [Parameter] public IEnumerable<TicketOutput> TicketGroup { get; set; }
+    public TicketOutput Ticket { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        TicketGroup = WalletState.CurrentTickets;
+        Ticket = TicketGroup.First();
+    }
+
+    /*
     public TicketOutput Ticket { get; set; }
 
     [Parameter] public IEnumerable<TicketOutput> TicketGroup { get; set; }
@@ -33,6 +48,7 @@
     {
         Ticket = TicketGroup.First();
     }
+    */
 }
 
 <style>
