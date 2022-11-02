@@ -159,10 +159,10 @@
 
         //här vill jag bara skicka med en lista på ticketsId till payment sidan.
 
-        WalletState.CurrentTickets = TicketGroup
+        WalletState.CurrentTickets = TicketGroup.ToList();
 
         //pageToGoToUrl = "pay/" + Ticket.Id; //TODO TicketId ska sen bytas mot query
-        NavigationManager.NavigateTo("/pay")
+        NavigationManager.NavigateTo("/pay");
     }
 
 
