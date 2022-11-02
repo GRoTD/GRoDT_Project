@@ -11,7 +11,7 @@
                 <MudText Color="Color.Dark" Typo="Typo.h2">@Ticket.ClubName</MudText>
                 <MudText Color="Color.Dark" Typo="Typo.body2">@Ticket.StartValidTime.ToShortDateString() | @Ticket.StartValidTime.ToShortTimeString()</MudText>
                 <MudText Color="Color.Dark" Typo="Typo.body1">Tillgängliga biljetter:</MudText>
-                    <MudText Color="Color.Dark" Typo="Typo.h3">@TicketGroup.Count()</MudText>
+                <MudText Color="Color.Dark" Typo="Typo.h3">@WalletState.CurrentTickets.Count()</MudText>
             </div>
             <div id="content-right">
                 <MudText Color="Color.Dark" Typo="Typo.h5">&#x2022; 1 x Entré</MudText>
@@ -29,26 +29,13 @@
 
 @code {
 
-     //TODO varför behövde jag[Parameter] igen? 
-    [Parameter] public IEnumerable<TicketOutput> TicketGroup { get; set; }
     public TicketOutput Ticket { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        TicketGroup = WalletState.CurrentTickets;
-        Ticket = TicketGroup.First();
+        Ticket = WalletState.CurrentTickets.First();
     }
 
-    /*
-    public TicketOutput Ticket { get; set; }
-
-    [Parameter] public IEnumerable<TicketOutput> TicketGroup { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        Ticket = TicketGroup.First();
-    }
-    */
 }
 
 <style>
