@@ -53,10 +53,10 @@ public class Database
             new() {Url = "images/putamadre.jpg"},
             new() {Url = "images/stranger.jpg"},
         };
-
         _slippDbCtx.AddRange(images);
         await _slippDbCtx.SaveChangesAsync();
 
+        #region clubs
         var club = new Club
         {
             Id = new Guid("462a6830-9471-42fb-b0c3-a5dc6a2d8e50"),
@@ -122,7 +122,6 @@ public class Database
             Images = new List<Image>() {images[4]}
         };
 
-
         var club6 = new Club
         {
             Id = new Guid("1e59fd90-b60e-4cd5-92ac-eebc07bfa5f5"),
@@ -148,10 +147,11 @@ public class Database
             Website = "https://www.strangergbg.com/",
             Images = new List<Image>() {images[6]}
         };
-
+        #endregion
         _slippDbCtx.AddRange(new Club[] {club, club2, club3, club4, club5, club6, club7});
         await _slippDbCtx.SaveChangesAsync();
 
+        #region users
         var clubUser = new DatabaseUser
         {
             Id = "ace63942-b146-4843-bfac-b9ee0acda417",
@@ -179,8 +179,7 @@ public class Database
             UserName = "companyUser@club.se",
             Email = "companyUser@club.se"
         };
-
-
+        #endregion
         await _userManager.CreateAsync(AppUser, "Passw0rd!");
         await _userManager.CreateAsync(clubUser, "Passw0rd!");
         await _userManager.CreateAsync(CompanyUser, "Passw0rd!");
@@ -189,7 +188,7 @@ public class Database
         await _userManager.AddToRoleAsync(clubUser, StaticConfig.ClubRole);
         await _userManager.AddToRoleAsync(CompanyUser, StaticConfig.CompanyRole);
 
-
+        #region Tickets with Auctions
         List<Ticket> ticketsAuction1 = new List<Ticket>
         {
             new()
@@ -260,7 +259,6 @@ public class Database
                 EventDescription = "Ticket 4 - Auction 2"
             },
         };
-
         List<Ticket> ticketsAuction3 = new List<Ticket>
         {
             new()
@@ -309,40 +307,101 @@ public class Database
             },
         };
 
+        #endregion
         #region Tickets without Auctions
 
+       
         List<Ticket> ticketsWithoutAuction = new List<Ticket>
         {
+             //TODO Bugg with some blub tickets not displaying still exist. first() images[0] ends up as null on some
+             //tickets. Database problem... Since we probalby wont use images on tickets later I wont fix it now. 
+            #region club1 Locatelli
             new()
             {
                 Id = new Guid("12355e99-cceb-499e-e90c-08da4e4ca855"),
                 StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
-                Price = 150,
-                EventDescription = "Ticket 1",
-                Images = new List<Image>() {images[0]}
+                Price = 100,
+                EventDescription = "EventDescription for " + club.Name + " event",
+                Images = club.Images,
             },
             new()
             {
-                Id = new Guid("114cbbbf-72a1-456c-89ac-007ddeee9c10"),
+                Id = new Guid("12355e99-cceb-499e-e90c-08da4e4ca856"),
+                StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club,
+                Price = 100,
+                EventDescription = "EventDescription for " + club.Name + " event",
+                Images = club.Images,
+            },
+            new()
+            {
+                Id = new Guid("8bf6983f-3203-4c71-96d7-4f7d30e8c858"),
+                StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club,
+                Price = 100,
+                EventDescription = "EventDescription for " + club.Name + " event",
+                Images = club.Images,
+            },
+             new()
+            {
+                Id = new Guid("8bf6983f-3203-4c71-96d7-4f7d30e8c859"),
+                StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club,
+                Price = 100,
+                EventDescription = "EventDescription for " + club.Name + " event",
+                Images = club.Images,
+            },
+            #endregion
+            #region club2 push
+            new()
+            {
+                Id = new Guid("96caf1bd-c3fd-4fd8-8663-1fc8e7dfe6cb"),
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club2,
                 Price = 150,
-                EventDescription = "Ticket 2",
-                Images = new List<Image>() {images[1]}
+                EventDescription = "EventDescription for " + club2.Name + " event",
+                Images = club2.Images,
             },
             new()
             {
+                Id = new Guid("039626ff-8f3d-479a-9aa7-505af6351d78"),
+                StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club2,
+                Price = 150,
+                EventDescription = "EventDescription for " + club2.Name + " event",
+                Images = club2.Images,
+            },
+            #endregion
+            #region club3 lounge
+            new()
+            {
                 Id = new Guid("534f335c-c9d6-457f-b79d-0e00bb1d046a"),
-                StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
-                EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club3,
                 Price = 150,
-                EventDescription = "Ticket 3",
-                Images = new List<Image>() {images[2]}
+                EventDescription = "EventDescription for " + club3.Name + " event",
+                Images = club3.Images,
             },
+            new()
+            {
+                Id = new Guid("f1297cca-3a73-4fd3-974e-c976fab49a03"),
+                StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club3,
+                Price = 150,
+                EventDescription = "EventDescription for " + club3.Name + " event",
+                Images = club3.Images,
+            },
+            #endregion
+            #region club4 Port du Soleil
             new()
             {
                 Id = new Guid("49634be5-50d7-4d26-a156-785f601ea08d"),
@@ -350,9 +409,21 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club4,
                 Price = 150,
-                EventDescription = "Ticket 4",
-                Images = new List<Image>() {images[3]}
+                EventDescription = "EventDescription for " + club4.Name + " event",
+                Images = club4.Images
             },
+            new()
+            {
+                Id = new Guid("a62233f8-ef33-4fe0-8739-e93441b275d0"),
+                StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club4,
+                Price = 150,
+                EventDescription = "EventDescription for " + club4.Name + " event",
+                Images = club4.Images
+            },
+            #endregion
+            #region club5 Excet
             new()
             {
                 Id = new Guid("3702073f-c2ed-4bc1-8a7e-0a31b6bccb49"),
@@ -360,21 +431,67 @@ public class Database
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club5,
                 Price = 150,
-                EventDescription = "Ticket 5",
-                Images = new List<Image>() {images[5]}
+                EventDescription = "EventDescription for " + club5.Name + " event",
+                Images = club5.Images
             },
+             new()
+            {
+                Id = new Guid("20ffca68-5846-4579-ba45-9918434a1390"),
+                StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club5,
+                Price = 150,
+                EventDescription = "EventDescription for " + club5.Name + " event",
+                Images = club5.Images
+            },
+            #endregion
+            #region club6 puta madre
             new()
             {
                 Id = new Guid("f2e418e7-df58-47d9-99b1-2a0162ce83c5"),
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club6,
+                Price = 150,
+                EventDescription = "EventDescription for " + club6.Name + " event",
+                Images = club6.Images
+            },
+            new()
+            {
+                Id = new Guid("b75ca21d-d528-4b8c-b064-07196d2ccc6b"),
+                StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club6,
+                Price = 150,
+                EventDescription = "EventDescription for " + club6.Name + " event",
+                Images = club6.Images
+            },
+            #endregion
+            #region club7 stranger
+            new()
+            {
+                Id = new Guid("ab716e08-4150-48cb-805e-5e2e3d3f5667"),
+                StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club7,
                 Price = 150,
-                EventDescription = "Ticket 6",
-                Images = new List<Image>() {images[6]}
+                EventDescription = "EventDescription for " + club7.Name + " event",
+                Images = club7.Images
+            },
+             new()
+            {
+                Id = new Guid("3f8a4710-bad4-4143-9ad1-bdb859b310f2"),
+                StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
+                EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
+                Club = club7,
+                Price = 150,
+                EventDescription = "EventDescription for " + club7.Name + " event",
+                Images = club7.Images
             }
+            #endregion
         };
-
+        
+        
         #endregion
 
         _slippDbCtx.AddRange(ticketsWithoutAuction);
