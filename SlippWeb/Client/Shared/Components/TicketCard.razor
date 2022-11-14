@@ -2,8 +2,12 @@
 @using Slipp.Services.Models
 @using System.Net
 @using Slipp.Services.Constants
+@using SlippWeb.Client.BlazorServices.State
 @inject NavigationManager NavigationManager
 @inject IAuthenticationService AuthenticationService
+@inject WalletStateContainer WalletState
+
+@implements IDisposable
 
 <div class="component-content">
     <div class="my-card" style="background-image: url('@Ticket.Images[0].Url');" onclick="@ShowPaymentPage">
@@ -73,7 +77,8 @@
 
     [Parameter] public IEnumerable<TicketOutput> TicketGroup { get; set; }
 
-    public List<TicketOutput> TickesToSendToOrder { get; set; }
+    //Denna borde ligga inne i nuvarance Payment.razor 
+    //public List<TicketOutput> TickesToSendToOrder { get; set; }
 
     public TicketOutput Ticket { get; set; }
     public string pageToGoToUrl { get; set; }
@@ -86,6 +91,12 @@
     protected override async Task OnInitializedAsync()
     {
         Ticket = TicketGroup.First();
+        WalletState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        WalletState.OnChange -= StateHasChanged;
     }
 
     private async void OnHeartClicked()
@@ -139,20 +150,9 @@
 
     private void ShowPaymentPage()
     {
-        //Ticket.id ska ersättas av ticketsIds för alla i gruppen, foreachloop?
-
-        // ex: "pay/?ids=id1,id2,id3,id4,id5,id6,id7,id8 osv)
-
-        //google hur man gör om en lista till en queryParameter
-
-
-        //här vill jag bara skicka med en lista på ticketsId till payment sidan.
-
-        pageToGoToUrl = "pay/" + Ticket.Id; //TODO TicketId ska sen bytas mot query
-        NavigationManager.NavigateTo($"{pageToGoToUrl}");
+        WalletState.CurrentTickets = TicketGroup.ToList();
+        NavigationManager.NavigateTo("/pay");
     }
-
-
 
 }
 

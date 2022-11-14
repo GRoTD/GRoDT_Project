@@ -4,25 +4,33 @@
 @inject ILocalStorageService LocalStorageService;
 @inject ITicketAPIService ApiService
 @inject OrderAPIService OrderApiService
+@inject WalletStateContainer WalletState
+
+@implements IDisposable
 
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.AspNetCore.Identity
 @using System.Net.Http.Headers
+@using SlippWeb.Client.BlazorServices.State
 
-@page "/pay/{ticketId}" 
+@page "/pay" 
 @*Här ska vi sen byta till den aktuella apiQueryn*@
-
+@*//TODO: Ändra alla ställen som har Ticket till att ha IEnumerable<TicketOutput>*@
+@*//TODO: Denna sidan borde ses över namnet på. Borde typ vara något i stil med CreateOrder*@
 
 <div class="main-container">
     @switch (OrderIsConfirmed)
     {
         case true:
-            <ConfirmedPurchase PurchasedTicket="@Ticket" NumberOfTicketsPurchased="@choosenValue" userName="@userFirstName"></ConfirmedPurchase>
+            @*<ConfirmedPurchase PurchasedTicket="@Ticket" NumberOfTicketsPurchased="@choosenValue" userName="@userFirstName"></ConfirmedPurchase>*@
             break;
         default:
             <PageHeader HeaderTitle="Betalning" IncludeBackButton="true"/>
-            <TicketBackside Ticket="@Ticket"></TicketBackside>
+            @if (WalletState.CurrentTickets is not null)
+            {
+                <TicketBackside></TicketBackside>
+            }
 
             <div class="numberOfTicketsSpinner">
                 <MudIconButton Class="MySpinnerButton" Icon="@Icons.Filled.RemoveCircle" Color="Color.Primary" OnClick="WithdrawTicket"/> 
@@ -75,9 +83,9 @@
 </div>
     
 @code {
-    [Parameter] public string ticketId { get; set; }
+    //[Parameter] public string ticketId { get; set; }
+    public TicketOutput Ticket { get; set; }
     public int choosenValue { get; set; }
-    public TicketOutput Ticket { get; set; } 
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     public LoggedInUser LoggedInUser { get; set; }
     public string userFirstName { get; set; }
@@ -87,15 +95,21 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        Ticket = WalletState.CurrentTickets.First();
+        WalletState.OnChange += StateHasChanged;
         choosenValue = 1;
-        Ticket = await ApiService.GetTicket(new Guid(ticketId));
         OrderIsConfirmed = false;
         LoggedInUser = await LocalStorageService.GetItem<LoggedInUser>("user");
         userFirstName = LoggedInUser.FirstName + " " + LoggedInUser.LastName;
 
-        PageHistoryState.AddPageToHistory($"/pay/{ticketId}");
+        PageHistoryState.AddPageToHistory($"/pay");
+
         await base.OnInitializedAsync();
+    }
+
+    public void Dispose()
+    {
+        WalletState.OnChange -= StateHasChanged;
     }
 
     public async void PlaceOrder()
@@ -120,7 +134,7 @@
 
     public void AddTicket()
     {
-        if (choosenValue != 8) /*TODO: Byt till NumberOfTickets*/
+        if (choosenValue != WalletState.CurrentTickets.Count)
         {
             choosenValue += 1;
         }
