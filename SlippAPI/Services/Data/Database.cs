@@ -43,6 +43,7 @@ public class Database
             CompanyName = "Första Test Företaget"
         };
 
+
         var images = new List<Image>()
         {
             new() {Url = "images/locatelli.jpg"},
@@ -54,6 +55,7 @@ public class Database
             new() {Url = "images/stranger.jpg"},
         };
         _slippDbCtx.AddRange(images);
+
         await _slippDbCtx.SaveChangesAsync();
 
         #region clubs
@@ -322,9 +324,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
-                Price = 100,
+                Price = 425,
                 EventDescription = "EventDescription for " + club.Name + " event",
-                Images = club.Images,
+             
             },
             new()
             {
@@ -332,9 +334,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
-                Price = 100,
+                Price = 425,
                 EventDescription = "EventDescription for " + club.Name + " event",
-                Images = club.Images,
+           
             },
             new()
             {
@@ -342,9 +344,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
-                Price = 100,
+                Price = 425,
                 EventDescription = "EventDescription for " + club.Name + " event",
-                Images = club.Images,
+                
             },
              new()
             {
@@ -352,9 +354,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club,
-                Price = 100,
+                Price = 425,
                 EventDescription = "EventDescription for " + club.Name + " event",
-                Images = club.Images,
+             
             },
             #endregion
             #region club2 push
@@ -364,9 +366,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club2,
-                Price = 150,
+                Price = 495,
                 EventDescription = "EventDescription for " + club2.Name + " event",
-                Images = club2.Images,
+                
             },
             new()
             {
@@ -374,9 +376,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club2,
-                Price = 150,
+                Price = 495,
                 EventDescription = "EventDescription for " + club2.Name + " event",
-                Images = club2.Images,
+               
             },
             #endregion
             #region club3 lounge
@@ -386,9 +388,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club3,
-                Price = 150,
+                Price = 495,
                 EventDescription = "EventDescription for " + club3.Name + " event",
-                Images = club3.Images,
+                
             },
             new()
             {
@@ -396,9 +398,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club3,
-                Price = 150,
+                Price = 495,
                 EventDescription = "EventDescription for " + club3.Name + " event",
-                Images = club3.Images,
+               
             },
             #endregion
             #region club4 Port du Soleil
@@ -408,9 +410,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club4,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club4.Name + " event",
-                Images = club4.Images
+                
             },
             new()
             {
@@ -418,9 +420,9 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club4,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club4.Name + " event",
-                Images = club4.Images
+                
             },
             #endregion
             #region club5 Excet
@@ -430,9 +432,8 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club5,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club5.Name + " event",
-                Images = club5.Images
             },
              new()
             {
@@ -440,9 +441,8 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club5,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club5.Name + " event",
-                Images = club5.Images
             },
             #endregion
             #region club6 puta madre
@@ -452,9 +452,8 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club6,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club6.Name + " event",
-                Images = club6.Images
             },
             new()
             {
@@ -462,9 +461,8 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club6,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club6.Name + " event",
-                Images = club6.Images
             },
             #endregion
             #region club7 stranger
@@ -474,9 +472,8 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club7,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club7.Name + " event",
-                Images = club7.Images
             },
              new()
             {
@@ -484,9 +481,8 @@ public class Database
                 StartValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21),
                 EndValidTime = DateTime.Today + TimeSpan.FromDays(1) + TimeSpan.FromHours(21) + TimeSpan.FromHours(3),
                 Club = club7,
-                Price = 150,
+                Price = 395,
                 EventDescription = "EventDescription for " + club7.Name + " event",
-                Images = club7.Images
             }
             #endregion
         };
