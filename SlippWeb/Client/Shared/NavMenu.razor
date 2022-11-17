@@ -16,33 +16,31 @@
 @*TODO - Hide appbar if soft/OnScreen keyboard is showing*@
 @*TODO - Filled and outlined icons while on page*@
 
-<MudAppBar Class="py-1" DisableGutters="false" Fixed="true" Bottom="true">
+<MudAppBar Class="pt-1 pb-4" DisableGutters="false" Fixed="true" Bottom="true" Style="background-color:#121821; border-top: #725C3D 1px solid">
     <MudGrid Justify="Justify.SpaceAround">
         <MudItem>
-            <MudNavLink Href="/" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
-                <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/home_filled.svg"></MudImage>                
-                <MudText Typo="Typo.h6" Color="Color.Primary">HEM</MudText>
-            </MudNavLink>
+            <MudNavLink Href="/" Class="d-flex flex-column align-center" Style="border-bottom: #725C3D solid 1px;" Match="NavLinkMatch.Prefix">                <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/home_filled.svg"></MudImage>                
+                <MudText Typo="Typo.h6" Style="font-family: Montserrat;" Color="Color.Primary">HEM</MudText>            </MudNavLink>
         </MudItem>
         
         <MudItem>
-            <MudNavLink Href="/Clubs" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
-                <MudIcon Icon="@Icons.Filled.Search" Title="CLUBS" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                <MudText Typo="Typo.h6" Color="Color.Primary">KLUBBAR</MudText>
+            <MudNavLink Href="/Clubs" Class="d-flex flex-column align-center" Style="border-bottom: #725C3D solid 1px;"  Match="NavLinkMatch.Prefix">
+                <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/clubs_filled.svg"></MudImage>
+                <MudText Typo="Typo.h6" Style="font-family: Montserrat;" Color="Color.Primary">KLUBBAR</MudText>
             </MudNavLink>
         </MudItem>
 
         <MudItem>
-            <MudNavLink Href="/Favourites" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
-                <MudIcon Icon="@Icons.Filled.Favorite" Title="LIKES" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                <MudText Typo="Typo.h6" Color="Color.Primary">FAVORITER</MudText>
+            <MudNavLink Href="/Favourites" Class="d-flex flex-column align-center" Style="border-bottom: #725C3D solid 1px;" Match="NavLinkMatch.Prefix">
+                <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/favourite.svg"></MudImage>
+                <MudText Typo="Typo.h6" Style="font-family: Montserrat;" Color="Color.Primary">FAVORITER</MudText>
             </MudNavLink>
         </MudItem>
 
         <MudItem>
-            <MudNavLink Href="/MySlipp" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
-                <MudImage Style="width: 35px; padding: 6px 0;" Src="../icons/SlippTicket5.svg"></MudImage>
-                <MudText Typo="Typo.h6" Color="Color.Primary">MINA SLIPP</MudText>
+            <MudNavLink Href="/MySlipp" Class="d-flex flex-column align-center" Style="border-bottom: #725C3D solid 1px;" Match="NavLinkMatch.Prefix">
+                <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/ticket.svg"></MudImage>
+                <MudText Typo="Typo.h6" Style="font-family: Montserrat;" Color="Color.Primary">MINA SLIPP</MudText>
             </MudNavLink>
         </MudItem>
 
@@ -59,9 +57,9 @@
         else
         {
             <MudItem>
-                <MudNavLink Href="/Login" Class="d-flex flex-column align-center" Match="NavLinkMatch.Prefix">
-                <MudIcon Icon="@Icons.Filled.Login" Title="LOGIN" Color="Color.Primary" Size="Size.Large"></MudIcon>
-                <MudText Typo="Typo.h6" Color="Color.Primary">LOGGA IN</MudText>
+                <MudNavLink Href="/Login" Class="d-flex flex-column align-center" Style="border-bottom: #725C3D solid 1px;" Match="NavLinkMatch.Prefix">
+                    <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/login.svg"></MudImage>
+                    <MudText Typo="Typo.h6" Color="Color.Primary">LOGGA IN</MudText>
             </MudNavLink>
         </MudItem>
         
