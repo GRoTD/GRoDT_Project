@@ -24,9 +24,22 @@
         </MudItem>
         
         <MudItem>
-            <MudNavLink Href="/Clubs" Class="d-flex flex-column align-center" Style="border-bottom: #725C3D solid 1px;"  Match="NavLinkMatch.Prefix">
-                <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/clubs_filled.svg"></MudImage>
+            <MudNavLink @ref="ClubsLink" Href="/Clubs" Class="d-flex flex-column align-center" Style="border-bottom: #725C3D solid 1px;"  Match="NavLinkMatch.Prefix">
+                @*          @if (@ClubsLink.Class.Contains("active"))
+                {
+                    <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/clubs_filled.svg"></MudImage>
+
+                }
+                else
+                {
+                    <MudImage Style="width: 35px; padding: 6px 0;" Src="../navbarIcons/clubs.svg"></MudImage>
+
+                }*@
+                <MudImage Style="width: 35px; padding: 6px 0;" Src="@isActive()"></MudImage>
+
+                
                 <MudText Typo="Typo.h6" Style="font-family: Montserrat;" Color="Color.Primary">KLUBBAR</MudText>
+
             </MudNavLink>
         </MudItem>
 
@@ -70,6 +83,8 @@
 
               
 @code {
+
+    MudNavLink ClubsLink { get; set; }
     protected override void OnInitialized()
     {
         AuthenticationService.OnChange += StateHasChanged;
@@ -79,5 +94,14 @@
     {
         AuthenticationService.OnChange -= StateHasChanged;
     }
-}
 
+    public string isActive()
+    {
+        var classes = ClubsLink.Class;
+        var isActive = ClubsLink.Class.Contains("active");
+        if(isActive) return "../navbarIcons/clubs_filled.svg";
+        return "../navbarIcons/clubs.svg";
+    }
+
+       
+}
