@@ -1,43 +1,33 @@
 ﻿::deep .component-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-::deep .my-card {
     width: 90vw;
-    /*min-width: 90%;
-    max-height: 250px;
-    max-width: 90%;*/
-    text-align: center;
+    aspect-ratio: 178/93;
+    max-height: 201px;
+    display: flex;
+    justify-content: center;
     margin: 10px 0;
-    background-position: center;
-    background-size: cover;
-    position: relative;
 }
 
-    ::deep .my-card::before {
-        content: "";
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
-        background-color: rgba(0,0,0,0.6);
-    }
+::deep .my-card {
+    display: flex;
+    width: 100%;
+    max-width: 380px;
+    max-height: 201px;
+    text-align: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
 
 ::deep .my-card-content {
     display: flex;
+    width: 100%;
     flex-direction: row;
     align-items: center;
-    width: 100%;
-    /*max-height: 250px;*/
-    position: relative;
-    color: white;
-}
-.hr-divider {
-    border: 1px solid #F2C080;
-    margin: 5px 0 10px 0;
+    color: black;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 34px;
+    letter-spacing: 0.029999999329447746px;
+    text-align: center;
 }
 
 .date-avatar {
@@ -48,58 +38,44 @@
 }
 
 #content-left {
-    flex: 1 1 70%;
-    border-right: 2px dotted #ffffff;
+    flex: 1 1 65%;
     padding: 5%;
-    
 }
 
 #content-right {
-    flex: 1 1 30%;
+    flex: 1 1 35%;
 }
 
-.ticket-circles p {
-    position: absolute;
-    background: #121821;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-}
-#tl {
-    top: -15px;
-    left: -15px;
+::deep .my-card-content h2 {
+    font-family: Montserrat;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 34px;
+    letter-spacing: 0.029999999329447746px;
+    text-align: center;
 }
 
-#bl {
-    bottom: -15px;
-    left: -15px;
+::deep .my-card-content h4 {
+    font-family: Montserrat;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0.029999999329447746px;
+    text-align: center;
 }
 
-#tr {
-    top: -15px;
-    right: -15px;
+::deep .my-card-content p {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.5px;
+    text-align: center;
 }
 
-#br {
-    bottom: -15px;
-    right: -15px;
+::deep .typo-small p {
+    font-family: Josefin Sans;
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 11px;
+    letter-spacing: 0px;
+    text-align: center;
 }
-
-#mu {
-    top: -15px;
-    right: 27.5%;
-    z-index: 1;
-    width: 20px;
-    height: 20px;
-}
-
-#ml {
-    bottom: -15px;
-    right: 27.5%;
-    z-index: 1;
-    width: 20px;
-    height: 20px;
-}
-
-
-
