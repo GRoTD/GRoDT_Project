@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Slipp.Services.DTO;
-using Slipp.Services.Models;
+﻿using Firebase.Database;
+using Firebase.Database.Query;
+using SlippAPI.Options;
 
 namespace Slipp.Services;
 
 public class UserService
 {
-    private readonly UserManager<DatabaseUser> _userManager;
-    private readonly SlippDbCtx _ctx;
+    private readonly FirebaseClient _firebaseClient;
+    private readonly RealtimeDbOptions _realtimeDbOptions;
 
-    public UserService(UserManager<DatabaseUser> userManager, SlippDbCtx ctx)
+    public UserService(RealtimeDbOptions realtimeDbOptions)
     {
-        _userManager = userManager;
-        _ctx = ctx;
+        _realtimeDbOptions = realtimeDbOptions;
+        _firebaseClient = new FirebaseClient(_realtimeDbOptions.DatabaseURL);
     }
 
     /// <summary>
@@ -21,7 +20,7 @@ public class UserService
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<DatabaseUser> CreateAppUser(CreateAppUserInput input)
+    public async Task<DatabaseUser> CreateAppUser(CreateAppUserInput input, string? userid)
     {
         AppUser appUser = new AppUser
         {
@@ -34,16 +33,16 @@ public class UserService
             AppUser = appUser
         };
 
-        var result = await _userManager.CreateAsync(dbUser, input.Password);
+       try
+        {
+            await _firebaseClient.Child("users").Child(userid).PutAsync(dbUser);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception("No claim id was found for user.", ex);
+        }
 
-        if (!result.Succeeded) return null; //TODO: Throw maybe?
-
-        var roleResult = await _userManager.AddToRoleAsync(dbUser, StaticConfig.AppUserRole);
-        var emailResult = await _userManager.SetEmailAsync(dbUser, input.Email);
-
-        if (!emailResult.Succeeded) return null; //TODO: Throw maybe?
-
-        return await _userManager.FindByEmailAsync(input.Email);
+        return dbUser;
     }
 
     /// <summary>
@@ -51,35 +50,66 @@ public class UserService
     /// </summary>
     /// <param name="email"></param>
     /// <returns></returns>
-    public async Task<DatabaseUser> GetAppUser(string email)
+    public async Task<DatabaseUser> GetAppUser(string? userid)
     {
-        var user = await _ctx.Users
-            .Include(u => u.AppUser)
-            .FirstOrDefaultAsync(u => u.Email == email);
 
-        if (user is null) return null;
+        var fireBaseUser = await _firebaseClient.Child("users").Child(userid).OnceAsync<DatabaseUser>();
 
-        return user;
+        var user = fireBaseUser?.FirstOrDefault()?.Object;
+
+        return user ?? throw new Exception();
     }
 
-    public async Task ToggleFavouriteTicket(Guid ticketId, string userId)
+    public async Task ToggleFavouriteTicket(Guid ticketId, string? userid)
     {
-        var user = await _ctx.AppUsers
-            .Include(u => u.FavouriteTickets)
-            .FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await GetAppUser(userid);
+        var favouriteTickets = user.AppUser?.FavouriteTicketIds;
 
-        var ticket = await _ctx.Tickets
-            .FirstOrDefaultAsync(t => t.Id == ticketId);
-
-        if (user.FavouriteTickets.Contains(ticket))
+        if (favouriteTickets == null && user.AppUser != null)
         {
-            user.FavouriteTickets.Remove(ticket);
+            user.AppUser.FavouriteTicketIds = new List<Guid>
+            {
+                ticketId
+            };
+
+            await _firebaseClient.Child("users").Child(userid).PutAsync(user);
+            return;
+        }
+
+        var ticketIsFavourite = favouriteTickets.Contains(ticketId);
+
+        if (ticketIsFavourite)
+        {
+            favouriteTickets.Remove(ticketId);
         }
         else
         {
-            user.FavouriteTickets.Add(ticket);
+            favouriteTickets.Add(ticketId);
         }
 
-        var result = await _ctx.SaveChangesAsync();
+        user.AppUser.FavouriteTicketIds = favouriteTickets;
+        await _firebaseClient.Child("users").Child(userid).PutAsync(user);
+        return;
+    }
+
+    public async Task ToggleFavouriteTicket1(Guid ticketId, string userId)
+    {
+        //var user = await _ctx.AppUsers
+        //    .Include(u => u.FavouriteTickets)
+        //    .FirstOrDefaultAsync(u => u.Id == userId);
+
+        //var ticket = await _ctx.Tickets
+        //    .FirstOrDefaultAsync(t => t.Id == ticketId);
+
+        //if (user.FavouriteTickets.Contains(ticket))
+        //{
+        //    user.FavouriteTickets.Remove(ticket);
+        //}
+        //else
+        //{
+        //    user.FavouriteTickets.Add(ticket);
+        //}
+
+        //var result = await _ctx.SaveChangesAsync();
     }
 }

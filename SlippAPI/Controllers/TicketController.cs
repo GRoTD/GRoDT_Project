@@ -39,7 +39,15 @@ public class TicketController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<IGrouping<DateTime, TicketOutput>>>> GetTickets([FromQuery] Guid? clubId,
+    public async Task<ActionResult<List<Ticket>>> GetTickets(DateTime? date, City? city)
+    {
+        var result = await _ticketService.GetAvailableTickets(date, city);
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<IGrouping<DateTime, TicketOutput>>>> GetTickets1([FromQuery] Guid? clubId,
         [FromQuery] string? city)
     {
         //TODO: Catch errors

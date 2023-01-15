@@ -18,9 +18,11 @@ public class AppUserController : ControllerBase
 
     [HttpGet]
     [Route("{email}")]
-    public async Task<ActionResult> GetAppUser(string email)
+    public async Task<ActionResult> GetAppUser()
     {
-        var user = await _userService.GetAppUser(email);
+        var userid = this.User.Claims.FirstOrDefault()?.Value;
+
+        var user = await _userService.GetAppUser(userid);
 
         if (user is null) return NotFound();
 
@@ -35,10 +37,12 @@ public class AppUserController : ControllerBase
         return Ok(returnUser);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult> PostAppUser(CreateAppUserInput input)
     {
-        var createdUser = await _userService.CreateAppUser(input);
+        var userid = this.User.Claims.FirstOrDefault()?.Value;
+        var createdUser = await _userService.CreateAppUser(input, userid);
 
         if (createdUser is null) return NotFound(); //TODO: Something else probably?
 
@@ -46,7 +50,7 @@ public class AppUserController : ControllerBase
 
         var returnUser = new CreatedAppUserReturn
         {
-            Email = createdUser.Email,
+            Email = createdUser.UserName,
             FirstName = createdUser.AppUser.FirstName,
             LastName = createdUser.AppUser.LastName,
             Id = createdUser.Id

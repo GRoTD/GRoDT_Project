@@ -1,14 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Firebase.Database;
+using Firebase.Database.Query;
+using Microsoft.EntityFrameworkCore;
+using Slipp.Services.Models;
+using SlippAPI.Options;
 
 namespace SlippAPI.Services;
 
 public class TicketService
 {
     private readonly SlippDbCtx _slippDbCtx;
+    private readonly FirebaseClient _firebaseClient;
+    private readonly RealtimeDbOptions _realtimeDbOptions;
 
-    public TicketService(SlippDbCtx slippDbCtx)
+    public TicketService(SlippDbCtx slippDbCtx, FirebaseClient firebaseClient, RealtimeDbOptions realtimeDbOptions)
     {
         _slippDbCtx = slippDbCtx;
+        _firebaseClient = firebaseClient;
+        _realtimeDbOptions = realtimeDbOptions;
     }
 
     /// <summary>
@@ -43,18 +51,48 @@ public class TicketService
 
     public async Task<Ticket> GetTicket(Guid id)
     {
-        var query = _slippDbCtx.Tickets
-            .Include(t => t.Club)
-            .Include(t => t.Order).ThenInclude(o => o.Sale)
-            .Include(t => t.Auction)
-            .Include(t => t.Images);
+        var ticket = await _firebaseClient.Child("tickets").Child(id.ToString()).OnceSingleAsync<Ticket>();
 
-        var ticket = await query.FirstOrDefaultAsync(t => t.Id == id);
-
-        if (ticket is null) throw new TicketNotFoundException();
-
+        if (ticket == null) throw new TicketNotFoundException();
         return ticket;
     }
+
+    public async Task<List<Ticket>> GetAvailableTickets(DateTime? date = null, City? city = null)
+    {
+        var firebaseCollection = await _firebaseClient.Child("tickets").OnceAsync<Ticket>();
+        var ticketsCollection = firebaseCollection.Select(x => x.Object).ToList();
+
+        if (date == null)
+        {
+            ticketsCollection = ticketsCollection.Where(x => x.StartValidTime > DateTime.Now && x.StartValidTime < DateTime.Now.AddDays(1)).ToList();
+        }
+        else
+        {
+            ticketsCollection = ticketsCollection.Where(x => x.StartValidTime > date && x.StartValidTime < date.Value.AddDays(1)).ToList();
+        }
+
+        if (city == null)
+        {
+            return ticketsCollection;
+        }
+
+        return ticketsCollection.Where(x => x.Club.City == city).ToList();
+    }
+
+    //public async Task<Ticket> GetTicket1(Guid id)
+    //{
+    //    var query = _slippDbCtx.Tickets
+    //        .Include(t => t.Club)
+    //        .Include(t => t.Order).ThenInclude(o => o.Sale)
+    //        .Include(t => t.Auction)
+    //        .Include(t => t.Images);
+
+    //    var ticket = await query.FirstOrDefaultAsync(t => t.Id == id);
+
+    //    if (ticket is null) throw new TicketNotFoundException();
+
+    //    return ticket;
+    //}
 
     public async Task<List<Ticket>> GetUnsoldTicketsWithoutAuctions(Guid? clubId)
     {
@@ -121,7 +159,8 @@ public class TicketService
         return tickets;
     }
 
-    public async Task<List<Ticket>> GetUserFavouriteTickets(string email)
+    public async Task<List<Ticket>> GetUser
+        (string email)
     {
         var query = _slippDbCtx.AppUsers
             .Include(u => u.FavouriteTickets)

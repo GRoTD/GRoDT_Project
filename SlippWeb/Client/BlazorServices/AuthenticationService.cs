@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Slipp.Services.Constants;
 using Slipp.Services.DTO;
+using Firebase.Auth;
 
 namespace SlippWeb.Client.BlazorServices;
 
@@ -20,6 +21,8 @@ public class AuthenticationService : IAuthenticationService
     private IApiService _apiService;
     private NavigationManager _navigationManager;
     private ILocalStorageService _localStorageService;
+    private readonly FirebaseAuthProvider _firebaseAuthProvider;
+    private readonly string FirebaseApiKey = "AIzaSyAnbLeRR-eiDrae-XdBeB0RQzAdM3mlgxg";
 
     public LoggedInUser User { get; private set; }
     public event Action? OnChange;
@@ -33,6 +36,7 @@ public class AuthenticationService : IAuthenticationService
         _apiService = apiService;
         _navigationManager = navigationManager;
         _localStorageService = localStorageService;
+        _firebaseAuthProvider = new FirebaseAuthProvider(new FirebaseConfig(FirebaseApiKey));
     }
 
     public async Task Initialize()
@@ -58,8 +62,10 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task Register(CreateAppUserInput newUser)
     {
+        FirebaseAuthLink firebaseAuthLink = await _firebaseAuthProvider.CreateUserWithEmailAndPasswordAsync(newUser.Email, newUser.Password);
+
         await _apiService.Post<CreatedAppUserReturn>(
-            ApiPaths.APPUSERCONTROLLER, newUser);
+            ApiPaths.APPUSERCONTROLLER, newUser, firebaseAuthLink.FirebaseToken);
         _navigationManager.NavigateTo("/login");
     }
 
